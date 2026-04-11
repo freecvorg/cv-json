@@ -1,0 +1,164 @@
+{
+  "$schema": "https://freecv.org/schema/cv/v1.json",
+
+  "basics": {
+    "name": "Ashley Chen",
+    "label": "Senior Product Manager",
+    "email": "ashley@example.com",
+    "phone": "+1-555-0123",
+    "location": "San Francisco, CA",
+    "url": "https://ashleychen.dev",
+    "summary": "10+ years leading cross-functional product teams at high-growth startups and Fortune 500 companies. Specialize in B2B SaaS, developer tools, and data-driven decision making.",
+    "image": "https://freecv.org/avatars/ashley.jpg",
+    "profiles": [
+      { "network": "LinkedIn", "url": "https://linkedin.com/in/ashleychen" },
+      { "network": "GitHub", "url": "https://github.com/ashleychen" },
+      { "network": "Twitter", "url": "https://twitter.com/ashleychen" }
+    ]
+  },
+
+  "work": [
+    {
+      "company": "Stripe",
+      "position": "Senior Product Manager",
+      "startDate": "2021-06",
+      "current": true,
+      "location": "San Francisco, CA",
+      "summary": "Lead product strategy for Stripe's developer experience team.",
+      "highlights": [
+        "Increased developer API adoption by 34% through improved onboarding flows",
+        "Launched Stripe Apps marketplace — 200+ integrations in first year",
+        "Managed a $12M annual budget across 3 cross-functional teams"
+      ]
+    },
+    {
+      "company": "Atlassian",
+      "position": "Product Manager",
+      "startDate": "2018-01",
+      "endDate": "2021-05",
+      "location": "Sydney, Australia",
+      "highlights": [
+        "Led Jira Cloud migration for 500+ enterprise accounts",
+        "Shipped real-time collaboration features used by 2M+ daily active users",
+        "Promoted from Associate PM to PM within 18 months"
+      ]
+    },
+    {
+      "company": "Deloitte Digital",
+      "position": "Strategy Consultant",
+      "startDate": "2015-09",
+      "endDate": "2017-12",
+      "location": "New York, NY",
+      "highlights": [
+        "Advised Fortune 100 clients on digital transformation strategy",
+        "Delivered 8 consulting engagements valued at $3M+ each"
+      ]
+    }
+  ],
+
+  "education": [
+    {
+      "institution": "Stanford University",
+      "degree": "MBA",
+      "field": "Technology Management",
+      "startDate": "2013",
+      "endDate": "2015",
+      "score": "3.8 GPA",
+      "highlights": ["Dean's List", "Stanford Venture Studio Fellow"]
+    },
+    {
+      "institution": "UC Berkeley",
+      "degree": "BSc",
+      "field": "Computer Science",
+      "startDate": "2009",
+      "endDate": "2013"
+    }
+  ],
+
+  "skills": [
+    "Product Strategy",
+    "Roadmap Planning",
+    "User Research",
+    "A/B Testing",
+    "SQL",
+    "Python",
+    "Figma",
+    "Jira",
+    "Data Analysis",
+    "Stakeholder Management",
+    "Agile / Scrum",
+    "OKRs"
+  ],
+
+  "languages": [
+    { "language": "English", "fluency": "Native" },
+    { "language": "Mandarin", "fluency": "Professional" },
+    { "language": "Spanish", "fluency": "Conversational" }
+  ],
+
+  "certificates": [
+    {
+      "name": "PMP",
+      "issuer": "Project Management Institute",
+      "date": "2020-03",
+      "url": "https://www.pmi.org/certifications/project-management-pmp"
+    },
+    {
+      "name": "Google Analytics Certified",
+      "issuer": "Google",
+      "date": "2022-01"
+    }
+  ],
+
+  "projects": [
+    {
+      "name": "DevMetrics",
+      "description": "Open-source developer productivity dashboard",
+      "url": "https://github.com/ashleychen/devmetrics",
+      "keywords": ["React", "Node.js", "PostgreSQL", "D3.js"]
+    }
+  ],
+
+  "volunteer": [
+    {
+      "organization": "Code.org",
+      "position": "Volunteer Instructor",
+      "startDate": "2019-01",
+      "summary": "Teach introductory CS workshops to underrepresented high school students"
+    }
+  ],
+
+  "availability": {
+    "status": "open",
+    "workType": ["remote", "hybrid"],
+    "roles": ["VP Product", "Head of Product", "Senior PM"],
+    "startDate": "2026-06-01",
+    "sponsorship": false
+  },
+
+  "ats": {
+    "keywords": [
+      "Product Strategy",
+      "B2B SaaS",
+      "Developer Tools",
+      "SQL",
+      "Agile",
+      "Cross-functional Leadership"
+    ],
+    "yearsOfExperience": 11,
+    "seniority": "senior",
+    "highestEducation": "MBA"
+  },
+
+  "verification": {
+    "email": true,
+    "platform": "freecv.org"
+  },
+
+  "meta": {
+    "version": "1.0",
+    "canonical": "https://freecv.org/p/ashley/cv.json",
+    "lastModified": "2026-04-11T10:00:00Z",
+    "generator": "FreeCV"
+  }
+}

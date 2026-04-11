@@ -1,0 +1,242 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://freecv.org/schema/cv/v1.json",
+  "title": "cv.json — Open CV Standard v1.0",
+  "description": "An open, machine-readable standard for career data. Created by FreeCV.org for the AI era.",
+  "type": "object",
+  "required": ["basics", "meta"],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Link to the cv.json schema version for validation",
+      "format": "uri"
+    },
+    "basics": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string", "description": "Full name of the person" },
+        "label": { "type": "string", "description": "Job title or professional headline, e.g. 'Senior Product Manager'" },
+        "email": { "type": "string", "format": "email", "description": "Email address (only included if user opted in)" },
+        "phone": { "type": "string", "description": "Phone number in any format" },
+        "image": { "type": "string", "format": "uri", "description": "URL to profile photo (JPEG or PNG)" },
+        "summary": { "type": "string", "description": "Professional summary or bio (2-4 sentences)" },
+        "location": { "type": "string", "description": "Location, e.g. 'San Francisco, CA' or 'London, UK'" },
+        "url": { "type": "string", "format": "uri", "description": "Personal website URL" },
+        "profiles": {
+          "type": "array",
+          "description": "Social and professional network profiles",
+          "items": {
+            "type": "object",
+            "required": ["network", "url"],
+            "properties": {
+              "network": { "type": "string", "description": "e.g. LinkedIn, GitHub, Twitter" },
+              "username": { "type": "string", "description": "Username on the network" },
+              "url": { "type": "string", "format": "uri", "description": "Full profile URL" }
+            }
+          }
+        }
+      }
+    },
+    "work": {
+      "type": "array",
+      "description": "Work experience entries, ordered most recent first",
+      "items": {
+        "type": "object",
+        "required": ["company", "position"],
+        "properties": {
+          "company": { "type": "string", "description": "Company or organization name" },
+          "position": { "type": "string", "description": "Job title at the company" },
+          "location": { "type": "string", "description": "Office location" },
+          "startDate": { "type": "string", "description": "Start date (YYYY-MM or YYYY-MM-DD)" },
+          "endDate": { "type": "string", "description": "End date (YYYY-MM or YYYY-MM-DD). Omitted if current." },
+          "current": { "type": "boolean", "description": "true if this is the current position" },
+          "summary": { "type": "string", "description": "Overview of responsibilities" },
+          "highlights": {
+            "type": "array",
+            "description": "Key accomplishments and achievements",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "education": {
+      "type": "array",
+      "description": "Education history",
+      "items": {
+        "type": "object",
+        "required": ["institution", "degree"],
+        "properties": {
+          "institution": { "type": "string", "description": "School or university name" },
+          "degree": { "type": "string", "description": "Type of degree, e.g. 'Bachelor of Science'" },
+          "field": { "type": "string", "description": "Field of study, e.g. 'Computer Science'" },
+          "startDate": { "type": "string" },
+          "endDate": { "type": "string" },
+          "score": { "type": "string", "description": "GPA or grade, e.g. '3.9/4.0'" },
+          "highlights": {
+            "type": "array",
+            "description": "Notable coursework, achievements, or honors",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "skills": {
+      "type": "array",
+      "description": "Professional skills as a flat list of names",
+      "items": { "type": "string" }
+    },
+    "languages": {
+      "type": "array",
+      "description": "Spoken languages and fluency levels",
+      "items": {
+        "type": "object",
+        "required": ["language"],
+        "properties": {
+          "language": { "type": "string", "description": "Language name, e.g. 'English'" },
+          "fluency": { "type": "string", "description": "Proficiency level: Native, Fluent, Advanced, Intermediate, Basic" }
+        }
+      }
+    },
+    "projects": {
+      "type": "array",
+      "description": "Notable projects",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "url": { "type": "string", "format": "uri" },
+          "keywords": {
+            "type": "array",
+            "description": "Technologies or tags",
+            "items": { "type": "string" }
+          },
+          "startDate": { "type": "string" },
+          "endDate": { "type": "string" }
+        }
+      }
+    },
+    "certificates": {
+      "type": "array",
+      "description": "Professional certifications",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string", "description": "Certificate name" },
+          "issuer": { "type": "string", "description": "Issuing organization" },
+          "date": { "type": "string", "description": "Date issued (YYYY-MM or YYYY-MM-DD)" },
+          "url": { "type": "string", "format": "uri", "description": "Verification URL" }
+        }
+      }
+    },
+    "volunteer": {
+      "type": "array",
+      "description": "Volunteer experience",
+      "items": {
+        "type": "object",
+        "required": ["organization"],
+        "properties": {
+          "organization": { "type": "string" },
+          "position": { "type": "string" },
+          "startDate": { "type": "string" },
+          "endDate": { "type": "string" },
+          "highlights": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "availability": {
+      "type": "object",
+      "description": "Job-seeking status — machine-readable 'Open to Work'",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["actively-looking", "open", "not-looking"],
+          "description": "Current job-seeking status"
+        },
+        "roles": {
+          "type": "array",
+          "description": "Preferred job titles or roles",
+          "items": { "type": "string" }
+        },
+        "locations": {
+          "type": "array",
+          "description": "Preferred work locations",
+          "items": { "type": "string" }
+        },
+        "workType": {
+          "type": "array",
+          "description": "Work arrangement preferences",
+          "items": {
+            "type": "string",
+            "enum": ["remote", "hybrid", "onsite"]
+          }
+        },
+        "employmentType": {
+          "type": "array",
+          "description": "Employment type preferences",
+          "items": {
+            "type": "string",
+            "enum": ["full-time", "part-time", "contract", "freelance", "internship"]
+          }
+        },
+        "startDate": { "type": "string", "description": "Earliest available start date (YYYY-MM-DD)" },
+        "sponsorship": { "type": "boolean", "description": "Whether visa sponsorship is needed" }
+      }
+    },
+    "ats": {
+      "type": "object",
+      "description": "Pre-parsed ATS metadata — auto-generated from CV data",
+      "properties": {
+        "keywords": {
+          "type": "array",
+          "description": "Extracted keywords from skills, job titles, and experience",
+          "items": { "type": "string" }
+        },
+        "yearsOfExperience": { "type": "integer", "description": "Total years of professional experience" },
+        "highestEducation": { "type": "string", "description": "Highest education level achieved" },
+        "seniority": {
+          "type": "string",
+          "enum": ["junior", "mid", "senior", "lead"],
+          "description": "Inferred seniority level based on experience"
+        }
+      }
+    },
+    "i18n": {
+      "type": "object",
+      "description": "Internationalization metadata",
+      "properties": {
+        "primary": { "type": "string", "description": "Primary language code (ISO 639-1), e.g. 'en'" },
+        "available": {
+          "type": "object",
+          "description": "Map of language code → URL for translated versions",
+          "additionalProperties": { "type": "string", "format": "uri" }
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "description": "Trust and verification signals",
+      "properties": {
+        "email": { "type": "boolean", "description": "Whether email has been verified" },
+        "platform": { "type": "string", "description": "Platform that generated this cv.json" }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "required": ["version", "canonical", "lastModified"],
+      "description": "Schema version, canonical URL, and tooling metadata",
+      "properties": {
+        "version": { "type": "string", "description": "Schema version (semver), e.g. '1.0'" },
+        "canonical": { "type": "string", "format": "uri", "description": "Canonical URL for this cv.json — always returns the latest version" },
+        "lastModified": { "type": "string", "description": "ISO 8601 timestamp of last CV update" },
+        "generator": { "type": "string", "description": "Tool or platform that generated this file" }
+      }
+    }
+  }
+}
