@@ -64,6 +64,7 @@
       "startDate": "2013",
       "endDate": "2015",
       "score": "3.8 GPA",
+      "summary": "Focused on technology strategy and entrepreneurship.",
       "highlights": ["Dean's List", "Stanford Venture Studio Fellow"]
     },
     {
@@ -114,17 +115,41 @@
     {
       "name": "DevMetrics",
       "description": "Open-source developer productivity dashboard",
+      "role": "Creator & Lead Developer",
       "url": "https://github.com/ashleychen/devmetrics",
-      "keywords": ["React", "Node.js", "PostgreSQL", "D3.js"]
+      "keywords": ["React", "Node.js", "PostgreSQL", "D3.js"],
+      "highlights": ["500+ GitHub stars", "Used by 3 enterprise teams"]
     }
   ],
+
+  "publications": [
+    {
+      "name": "Rethinking Developer Onboarding in the API Economy",
+      "publisher": "Harvard Business Review",
+      "releaseDate": "2024-03",
+      "url": "https://hbr.org/2024/03/developer-onboarding",
+      "summary": "Analysis of how API-first companies can reduce time-to-first-call."
+    }
+  ],
+
+  "awards": [
+    {
+      "title": "Product Leader of the Year",
+      "date": "2023-11",
+      "awarder": "ProductCon",
+      "summary": "Recognized for shipping Stripe Apps marketplace."
+    }
+  ],
+
+  "interests": ["AI Ethics", "Open Source", "Hiking", "Board Games"],
 
   "volunteer": [
     {
       "organization": "Code.org",
       "position": "Volunteer Instructor",
       "startDate": "2019-01",
-      "summary": "Teach introductory CS workshops to underrepresented high school students"
+      "summary": "Teach introductory CS workshops to underrepresented high school students.",
+      "highlights": ["Mentored 50+ students", "Led 2 annual hackathons"]
     }
   ],
 
@@ -156,7 +181,7 @@
   },
 
   "meta": {
-    "version": "1.0",
+    "version": "1.1",
     "canonical": "https://freecv.org/p/ashley/cv.json",
     "lastModified": "2026-04-11T10:00:00Z",
     "generator": "FreeCV"

@@ -53,31 +53,49 @@ https://freecv.org/schema/cv/v1.json
 # Use any JSON Schema validator (ajv, zod, etc.)
 ```
 
-## Schema Overview
+## Schema Overview — v1.1
 
-A complete, structured career data schema — all fields optional, production-ready.
+A complete, structured career data schema — all fields optional except `basics` and `meta`, production-ready. All date fields validated as `YYYY`, `YYYY-MM`, or `YYYY-MM-DD`.
 
 ### Core Fields
 
 | Field | Description |
 |---|---|
 | `basics` | Name, title, photo, summary, location, social profiles |
-| `work` | Companies, positions, dates, highlights |
-| `education` | Institutions, degrees, fields, scores |
+| `work` | Companies, positions, dates, summary + highlights per entry |
+| `education` | Institutions, degrees, fields, scores, summary + highlights |
 | `skills` | Flat array of skill names |
 | `languages` | Languages with fluency levels |
-| `projects` | Portfolio projects with URLs and keywords |
-| `certificates` | Professional certifications |
-| `volunteer` | Volunteer experience |
+| `projects` | Portfolio projects with role, URLs, keywords + highlights |
+| `certificates` | Professional certifications with issuer, date, verification URL |
+| `publications` | Papers, articles, books — with publisher, date, and URL |
+| `awards` | Awards, honors, and recognitions with awarder and date |
+| `interests` | Personal interests and hobbies as a flat list |
+| `volunteer` | Volunteer experience with summary + highlights |
 
-### Extended Fields
+### Extended Fields (FreeCV extensions)
 
 | Field | Description |
 |---|---|
-| `availability` | Job-seeking status, preferred roles, work type, salary range, sponsorship |
-| `ats` | Auto-generated ATS metadata: keywords, years of experience, seniority |
+| `availability` | Job-seeking status, preferred roles, work type, sponsorship |
+| `ats` | Auto-generated ATS metadata: keywords, years of experience, seniority. Treat as hints, not authoritative values. |
 | `verification` | Trust signals: email verified, platform source |
+| `i18n` | Internationalization: primary language, map of translated cv.json URLs |
 | `meta` | Schema version, canonical URL, last modified, generator |
+
+### What's New in v1.1
+
+- **Date validation** — all date fields enforce `YYYY`, `YYYY-MM`, or `YYYY-MM-DD` patterns
+- **`publications`** — papers, articles, books for academics and researchers
+- **`awards`** — honors and recognitions
+- **`interests`** — personal interests as a flat string array
+- **`projects.role`** — your role on the project (e.g., "Lead Developer")
+- **`projects.highlights`** — key accomplishments on the project
+- **`education.summary`** / **`volunteer.summary`** — consistent with `work.summary`
+- **`employmentType`** — added `"temporary"` and `"seasonal"` options
+- **`ats` description** — clarified as auto-generated hints
+
+All changes are **non-breaking** — v1.0 documents remain valid.
 
 ## Example
 
@@ -96,12 +114,15 @@ A complete, structured career data schema — all fields optional, production-re
   "work": [{
     "company": "Stripe",
     "position": "Senior PM",
+    "startDate": "2021-06",
     "current": true,
     "highlights": ["Increased developer adoption by 34%"]
   }],
 
   "skills": ["Product Strategy", "SQL", "Figma"],
   "education": [{ "institution": "Stanford", "degree": "MBA" }],
+  "certificates": [{ "name": "PMP", "issuer": "PMI" }],
+  "interests": ["AI Ethics", "Open Source"],
 
   "availability": {
     "status": "open",
@@ -115,7 +136,14 @@ A complete, structured career data schema — all fields optional, production-re
     "seniority": "senior"
   },
 
-  "verification": { "email": true, "platform": "freecv.org" }
+  "verification": { "email": true, "platform": "freecv.org" },
+
+  "meta": {
+    "version": "1.1",
+    "canonical": "https://freecv.org/p/ashley/cv.json",
+    "lastModified": "2026-04-11T10:00:00Z",
+    "generator": "FreeCV"
+  }
 }
 ```
 
@@ -135,7 +163,7 @@ Update your CV once → every system that fetches your endpoint gets the latest 
 ```
 Content-Type: application/json; charset=utf-8
 Link: <https://freecv.org/schema/cv/v1.json>; rel="describedby"
-X-CV-Version: 1.0
+X-CV-Version: 1.1
 Access-Control-Allow-Origin: *
 Cache-Control: public, max-age=300
 ```
