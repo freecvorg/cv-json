@@ -15,7 +15,7 @@
       "type": "object",
       "required": ["name"],
       "properties": {
-        "name": { "type": "string", "description": "Full name of the person" },
+        "name": { "type": "string", "minLength": 1, "description": "Full name of the person" },
         "label": { "type": "string", "description": "Job title or professional headline, e.g. 'Senior Product Manager'" },
         "email": { "type": "string", "format": "email", "description": "Email address (only included if user opted in)" },
         "phone": { "type": "string", "description": "Phone number in any format" },
@@ -99,6 +99,7 @@
     "skills": {
       "type": "array",
       "description": "Professional skills as a flat list of names",
+      "uniqueItems": true,
       "items": { "type": "string" }
     },
     "languages": {
@@ -134,6 +135,7 @@
             "description": "Key accomplishments on the project",
             "items": { "type": "string" }
           },
+          "current": { "type": "boolean", "description": "true if this is an ongoing project" },
           "startDate": {
             "type": "string",
             "pattern": "^[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?$"
@@ -158,6 +160,11 @@
             "type": "string",
             "pattern": "^[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?$",
             "description": "Date issued (YYYY, YYYY-MM, or YYYY-MM-DD)"
+          },
+          "expiryDate": {
+            "type": "string",
+            "pattern": "^[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?$",
+            "description": "Expiry date if applicable (YYYY, YYYY-MM, or YYYY-MM-DD)"
           },
           "url": { "type": "string", "format": "uri", "description": "Verification URL" }
         }
@@ -214,6 +221,7 @@
         "properties": {
           "organization": { "type": "string" },
           "position": { "type": "string" },
+          "url": { "type": "string", "format": "uri", "description": "Organization website" },
           "summary": { "type": "string", "description": "Overview of volunteer responsibilities" },
           "startDate": {
             "type": "string",
@@ -282,11 +290,11 @@
           "description": "Extracted keywords from skills, job titles, and experience",
           "items": { "type": "string" }
         },
-        "yearsOfExperience": { "type": "integer", "description": "Total years of professional experience" },
+        "yearsOfExperience": { "type": "integer", "minimum": 0, "description": "Total years of professional experience" },
         "highestEducation": { "type": "string", "description": "Highest education level achieved" },
         "seniority": {
           "type": "string",
-          "enum": ["junior", "mid", "senior", "lead"],
+          "enum": ["entry", "junior", "mid", "senior", "lead", "executive"],
           "description": "Inferred seniority level based on experience"
         }
       }
@@ -295,7 +303,7 @@
       "type": "object",
       "description": "Internationalization metadata",
       "properties": {
-        "primary": { "type": "string", "description": "Primary language code (ISO 639-1), e.g. 'en'" },
+        "primary": { "type": "string", "pattern": "^[a-z]{2}(-[A-Z]{2})?$", "description": "Primary language code (ISO 639-1), e.g. 'en' or 'en-US'" },
         "available": {
           "type": "object",
           "description": "Map of language code → URL pointing to a valid cv.json file translated into that language",
@@ -316,9 +324,9 @@
       "required": ["version", "canonical", "lastModified"],
       "description": "Schema version, canonical URL, and tooling metadata",
       "properties": {
-        "version": { "type": "string", "description": "Schema version (semver), e.g. '1.1'" },
+        "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+(\\.[0-9]+)?$", "description": "Schema version, e.g. '1.1' or '1.1.0'" },
         "canonical": { "type": "string", "format": "uri", "description": "Canonical URL for this cv.json — always returns the latest version" },
-        "lastModified": { "type": "string", "description": "ISO 8601 timestamp of last CV update" },
+        "lastModified": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}", "description": "ISO 8601 date or datetime of last CV update, e.g. '2026-04-12' or '2026-04-12T09:00:00Z'" },
         "generator": { "type": "string", "description": "Tool or platform that generated this file" }
       }
     }

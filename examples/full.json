@@ -12,7 +12,7 @@
     "image": "https://freecv.org/avatars/ashley.jpg",
     "profiles": [
       { "network": "LinkedIn", "url": "https://linkedin.com/in/ashleychen" },
-      { "network": "GitHub", "url": "https://github.com/ashleychen" },
+      { "network": "GitHub", "username": "ashleychen", "url": "https://github.com/ashleychen" },
       { "network": "Twitter", "url": "https://twitter.com/ashleychen" }
     ]
   },
@@ -102,6 +102,7 @@
       "name": "PMP",
       "issuer": "Project Management Institute",
       "date": "2020-03",
+      "expiryDate": "2026-03",
       "url": "https://www.pmi.org/certifications/project-management-pmp"
     },
     {
@@ -116,9 +117,12 @@
       "name": "DevMetrics",
       "description": "Open-source developer productivity dashboard",
       "role": "Creator & Lead Developer",
+      "current": false,
       "url": "https://github.com/ashleychen/devmetrics",
       "keywords": ["React", "Node.js", "PostgreSQL", "D3.js"],
-      "highlights": ["500+ GitHub stars", "Used by 3 enterprise teams"]
+      "highlights": ["500+ GitHub stars", "Used by 3 enterprise teams"],
+      "startDate": "2023-01",
+      "endDate": "2024-06"
     }
   ],
 
@@ -147,6 +151,7 @@
     {
       "organization": "Code.org",
       "position": "Volunteer Instructor",
+      "url": "https://code.org",
       "startDate": "2019-01",
       "summary": "Teach introductory CS workshops to underrepresented high school students.",
       "highlights": ["Mentored 50+ students", "Led 2 annual hackathons"]
@@ -156,7 +161,9 @@
   "availability": {
     "status": "open",
     "workType": ["remote", "hybrid"],
+    "employmentType": ["full-time", "contract"],
     "roles": ["VP Product", "Head of Product", "Senior PM"],
+    "locations": ["San Francisco, CA", "Remote"],
     "startDate": "2026-06-01",
     "sponsorship": false
   },
@@ -183,7 +190,7 @@
   "meta": {
     "version": "1.1",
     "canonical": "https://freecv.org/p/ashley/cv.json",
-    "lastModified": "2026-04-11T10:00:00Z",
+    "lastModified": "2026-04-12",
     "generator": "FreeCV"
   }
 }

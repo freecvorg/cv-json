@@ -1,11 +1,13 @@
 {
   "$schema": "https://freecv.org/schema/cv/v1.json",
+
   "basics": {
     "name": "Jane Smith",
     "label": "Software Engineer",
     "location": "London, UK",
-    "summary": "Full-stack developer with 3 years of experience."
+    "summary": "Full-stack developer with 3 years of experience building web applications."
   },
+
   "work": [
     {
       "company": "Acme Corp",
@@ -15,12 +17,21 @@
       "highlights": ["Built internal tooling that reduced deploy time by 40%"]
     }
   ],
+
   "skills": ["JavaScript", "TypeScript", "React", "Node.js", "PostgreSQL"],
+
   "education": [
     {
       "institution": "University of London",
       "degree": "BSc Computer Science",
       "endDate": "2022"
     }
-  ]
+  ],
+
+  "meta": {
+    "version": "1.1",
+    "canonical": "https://freecv.org/p/janesmith/cv.json",
+    "lastModified": "2026-04-12",
+    "generator": "FreeCV"
+  }
 }
