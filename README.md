@@ -13,6 +13,7 @@
 <p align="center">
   <a href="https://freecv.org/open">Spec</a> ·
   <a href="https://freecv.org/schema/cv/v1.json">JSON Schema</a> ·
+  <a href="https://freecv.org/validate">Validator</a> ·
   <a href="https://freecv.org/builder">Builder</a> ·
   <a href="https://freecv.org/blog/cv-json">Blog Post</a>
 </p>
@@ -46,6 +47,9 @@ Portfolio pages include a `<link>` tag for automated discovery:
 ### Validate
 
 ```bash
+# Online validator
+https://freecv.org/validate
+
 # Schema URL
 https://freecv.org/schema/cv/v1.json
 
@@ -64,14 +68,14 @@ A complete, structured career data schema — all fields optional except `basics
 | `basics` | Name, title, photo, summary, location, social profiles |
 | `work` | Companies, positions, dates, summary + highlights per entry |
 | `education` | Institutions, degrees, fields, scores, summary + highlights |
-| `skills` | Flat array of skill names |
+| `skills` | Flat array of unique skill names |
 | `languages` | Languages with fluency levels |
 | `projects` | Portfolio projects with role, URLs, keywords + highlights |
-| `certificates` | Professional certifications with issuer, date, verification URL |
+| `certificates` | Professional certifications with issuer, date, expiry, verification URL |
 | `publications` | Papers, articles, books — with publisher, date, and URL |
 | `awards` | Awards, honors, and recognitions with awarder and date |
 | `interests` | Personal interests and hobbies as a flat list |
-| `volunteer` | Volunteer experience with summary + highlights |
+| `volunteer` | Volunteer experience with organization URL, summary + highlights |
 
 ### Extended Fields (FreeCV extensions)
 
@@ -83,6 +87,22 @@ A complete, structured career data schema — all fields optional except `basics
 | `i18n` | Internationalization: primary language, map of translated cv.json URLs |
 | `meta` | Schema version, canonical URL, last modified, generator |
 
+### Field Constraints
+
+| Field | Constraint |
+|---|---|
+| `basics.name` | Required, min length 1 |
+| `skills` | Unique items only |
+| `ats.yearsOfExperience` | Integer, minimum 0 |
+| `ats.seniority` | Enum: `entry`, `junior`, `mid`, `senior`, `lead`, `executive` |
+| `availability.status` | Enum: `actively-looking`, `open`, `not-looking` |
+| `availability.workType[]` | Enum: `remote`, `hybrid`, `onsite` |
+| `availability.employmentType[]` | Enum: `full-time`, `part-time`, `contract`, `freelance`, `internship`, `temporary`, `seasonal` |
+| `i18n.primary` | Pattern: `^[a-z]{2}(-[A-Z]{2})?$` (ISO 639-1, e.g. `en`, `en-US`) |
+| `meta.version` | Pattern: `^[0-9]+\.[0-9]+(\.[0-9]+)?$` (e.g. `1.1` or `1.1.0`) |
+| `meta.lastModified` | Pattern: `^[0-9]{4}-[0-9]{2}-[0-9]{2}` (ISO 8601 date prefix) |
+| All date fields | Pattern: `YYYY`, `YYYY-MM`, or `YYYY-MM-DD` |
+
 ### What's New in v1.1
 
 - **Date validation** — all date fields enforce `YYYY`, `YYYY-MM`, or `YYYY-MM-DD` patterns
@@ -90,9 +110,17 @@ A complete, structured career data schema — all fields optional except `basics
 - **`awards`** — honors and recognitions
 - **`interests`** — personal interests as a flat string array
 - **`projects.role`** — your role on the project (e.g., "Lead Developer")
+- **`projects.current`** — boolean flag for ongoing projects
 - **`projects.highlights`** — key accomplishments on the project
 - **`education.summary`** / **`volunteer.summary`** — consistent with `work.summary`
+- **`volunteer[].url`** — organization website URL
+- **`certificates[].expiryDate`** — expiry date for time-limited certifications
 - **`employmentType`** — added `"temporary"` and `"seasonal"` options
+- **`ats.seniority`** — added `"entry"` and `"executive"` to enum
+- **`ats.yearsOfExperience`** — enforced `minimum: 0`
+- **`skills`** — enforced `uniqueItems: true`
+- **`basics.name`** — enforced `minLength: 1`
+- **`meta.version`** / **`meta.lastModified`** — format patterns enforced
 - **`ats` description** — clarified as auto-generated hints
 
 All changes are **non-breaking** — v1.0 documents remain valid.
@@ -121,12 +149,13 @@ All changes are **non-breaking** — v1.0 documents remain valid.
 
   "skills": ["Product Strategy", "SQL", "Figma"],
   "education": [{ "institution": "Stanford", "degree": "MBA" }],
-  "certificates": [{ "name": "PMP", "issuer": "PMI" }],
+  "certificates": [{ "name": "PMP", "issuer": "PMI", "date": "2020-03", "expiryDate": "2026-03" }],
   "interests": ["AI Ethics", "Open Source"],
 
   "availability": {
     "status": "open",
     "workType": ["remote", "hybrid"],
+    "employmentType": ["full-time", "contract"],
     "roles": ["Product Manager", "Head of Product"]
   },
 
@@ -172,7 +201,7 @@ Cache-Control: public, max-age=300
 
 - **Off by default** — cv.json returns 404 until explicitly enabled
 - **Email hidden by default** — opt-in to include contact info
-- **Phone hidden by default** — opt-in to include phone number  
+- **Phone hidden by default** — opt-in to include phone number
 - **One-click disable** — turn off your endpoint anytime from Dashboard → Settings
 - **Guest users** — no cv.json endpoint (requires account + slug)
 
@@ -193,6 +222,10 @@ Cache-Control: public, max-age=300
 - [FreeCV Builder](https://freecv.org/builder) — Build and export cv.json (free)
 - [FreeCV Portfolio](https://freecv.org/live-cv) — Live endpoint at `/p/{slug}/cv.json`
 
+### Validate cv.json
+
+- [FreeCV Validator](https://freecv.org/validate) — Paste JSON or enter a URL to validate online
+
 ### Consume cv.json
 
 _Your tool here — [open an issue](https://github.com/freecvorg/cv-json/issues) to be listed._
@@ -212,6 +245,6 @@ MIT — use cv.json in any project, commercial or otherwise.
 ---
 
 <p align="center">
-  <strong>Built by <a href="https://freecv.org">FreeCV</a></strong> · 
+  <strong>Built by <a href="https://freecv.org">FreeCV</a></strong> ·
   Used by job seekers in 180+ countries
 </p>
