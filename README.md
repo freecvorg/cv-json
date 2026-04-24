@@ -13,7 +13,6 @@
 <p align="center">
   <a href="https://freecv.org/open">Spec</a> ·
   <a href="https://freecv.org/schema/cv/v1.json">JSON Schema</a> ·
-  <a href="https://freecv.org/validate">Validator</a> ·
   <a href="https://freecv.org/builder">Builder</a> ·
   <a href="https://freecv.org/blog/cv-json">Blog Post</a>
 </p>
@@ -47,9 +46,6 @@ Portfolio pages include a `<link>` tag for automated discovery:
 ### Validate
 
 ```bash
-# Online validator
-https://freecv.org/validate
-
 # Schema URL
 https://freecv.org/schema/cv/v1.json
 
@@ -57,7 +53,7 @@ https://freecv.org/schema/cv/v1.json
 # Use any JSON Schema validator (ajv, zod, etc.)
 ```
 
-## Schema Overview — v1.1
+## Schema Overview — v1.2
 
 A complete, structured career data schema — all fields optional except `basics` and `meta`, production-ready. All date fields validated as `YYYY`, `YYYY-MM`, or `YYYY-MM-DD`.
 
@@ -68,40 +64,35 @@ A complete, structured career data schema — all fields optional except `basics
 | `basics` | Name, title, photo, summary, location, social profiles |
 | `work` | Companies, positions, dates, summary + highlights per entry |
 | `education` | Institutions, degrees, fields, scores, summary + highlights |
-| `skills` | Flat array of unique skill names |
+| `skills` | Flat array of skill names |
 | `languages` | Languages with fluency levels |
 | `projects` | Portfolio projects with role, URLs, keywords + highlights |
-| `certificates` | Professional certifications with issuer, date, expiry, verification URL |
+| `certificates` | Professional certifications with issuer, date, verification URL |
 | `publications` | Papers, articles, books — with publisher, date, and URL |
 | `awards` | Awards, honors, and recognitions with awarder and date |
 | `interests` | Personal interests and hobbies as a flat list |
-| `volunteer` | Volunteer experience with organization URL, summary + highlights |
+| `volunteer` | Volunteer experience with summary + highlights |
+| `references` | Professional references — see also `referencesMode` for visibility control |
 
 ### Extended Fields (FreeCV extensions)
 
 | Field | Description |
 |---|---|
+| `referencesMode` | `"show"` \| `"on-request"` \| `"hide"` — controls how references render. Defaults to `"hide"`. Data stays in `references[]` regardless, so toggling visibility never loses data. |
+| `customization` | Visual rendering preferences (template, accentColor, font, fontSize, lineHeight, sectionLang). Honored by renderers (gallery, PDF, mobile); safely ignored by pure data consumers (ATS, AI agents). |
 | `availability` | Job-seeking status, preferred roles, work type, sponsorship |
 | `ats` | Auto-generated ATS metadata: keywords, years of experience, seniority. Treat as hints, not authoritative values. |
 | `verification` | Trust signals: email verified, platform source |
 | `i18n` | Internationalization: primary language, map of translated cv.json URLs |
 | `meta` | Schema version, canonical URL, last modified, generator |
 
-### Field Constraints
+### What's New in v1.2
 
-| Field | Constraint |
-|---|---|
-| `basics.name` | Required, min length 1 |
-| `skills` | Unique items only |
-| `ats.yearsOfExperience` | Integer, minimum 0 |
-| `ats.seniority` | Enum: `entry`, `junior`, `mid`, `senior`, `lead`, `executive` |
-| `availability.status` | Enum: `actively-looking`, `open`, `not-looking` |
-| `availability.workType[]` | Enum: `remote`, `hybrid`, `onsite` |
-| `availability.employmentType[]` | Enum: `full-time`, `part-time`, `contract`, `freelance`, `internship`, `temporary`, `seasonal` |
-| `i18n.primary` | Pattern: `^[a-z]{2}(-[A-Z]{2})?$` (ISO 639-1, e.g. `en`, `en-US`) |
-| `meta.version` | Pattern: `^[0-9]+\.[0-9]+(\.[0-9]+)?$` (e.g. `1.1` or `1.1.0`) |
-| `meta.lastModified` | Pattern: `^[0-9]{4}-[0-9]{2}-[0-9]{2}` (ISO 8601 date prefix) |
-| All date fields | Pattern: `YYYY`, `YYYY-MM`, or `YYYY-MM-DD` |
+- **`references`** — optional array of professional references with `name`, `title`, `company`, `relationship`, `email`, `phone`
+- **`referencesMode`** — enum controlling visibility: `"show"`, `"on-request"`, or `"hide"` (default). The classic "References available upon request" footer is just the `"on-request"` variant
+- **`customization`** — renderer hints: `template`, `accentColor` (6-digit hex), `font`, `fontSize` (6-16pt), `lineHeight` (1.0-2.5), `sectionLang` (ISO 639-1). All fields optional; unknown values fall back to renderer defaults
+
+All changes are **non-breaking** — v1.0 and v1.1 documents remain valid. Consumers that don't understand these fields can safely ignore them.
 
 ### What's New in v1.1
 
@@ -110,20 +101,26 @@ A complete, structured career data schema — all fields optional except `basics
 - **`awards`** — honors and recognitions
 - **`interests`** — personal interests as a flat string array
 - **`projects.role`** — your role on the project (e.g., "Lead Developer")
-- **`projects.current`** — boolean flag for ongoing projects
 - **`projects.highlights`** — key accomplishments on the project
 - **`education.summary`** / **`volunteer.summary`** — consistent with `work.summary`
-- **`volunteer[].url`** — organization website URL
-- **`certificates[].expiryDate`** — expiry date for time-limited certifications
 - **`employmentType`** — added `"temporary"` and `"seasonal"` options
-- **`ats.seniority`** — added `"entry"` and `"executive"` to enum
-- **`ats.yearsOfExperience`** — enforced `minimum: 0`
-- **`skills`** — enforced `uniqueItems: true`
-- **`basics.name`** — enforced `minLength: 1`
-- **`meta.version`** / **`meta.lastModified`** — format patterns enforced
 - **`ats` description** — clarified as auto-generated hints
 
 All changes are **non-breaking** — v1.0 documents remain valid.
+
+### Field naming — FreeCV builder vs cv.json schema
+
+FreeCV's editor uses slightly friendlier names than the JSONResume-compatible schema. When generating or consuming cv.json, the mapping is:
+
+| Builder name | cv.json field | Notes |
+|---|---|---|
+| `personal.jobTitle` | `basics.label` | Same concept |
+| `personal.photo` | `basics.image` | Same concept |
+| `experience.bullets` | `work[].highlights` | Same semantics |
+| `language.level` | `languages[].fluency` | Same semantics |
+| `project.tech` | `projects[].keywords` | Same semantics, `tech` is more specific intent |
+
+Renaming was considered for v1.2 but rejected to preserve JSONResume interop and keep v1.x non-breaking. The names will unify in v2.0.
 
 ## Example
 
@@ -149,13 +146,12 @@ All changes are **non-breaking** — v1.0 documents remain valid.
 
   "skills": ["Product Strategy", "SQL", "Figma"],
   "education": [{ "institution": "Stanford", "degree": "MBA" }],
-  "certificates": [{ "name": "PMP", "issuer": "PMI", "date": "2020-03", "expiryDate": "2026-03" }],
+  "certificates": [{ "name": "PMP", "issuer": "PMI" }],
   "interests": ["AI Ethics", "Open Source"],
 
   "availability": {
     "status": "open",
     "workType": ["remote", "hybrid"],
-    "employmentType": ["full-time", "contract"],
     "roles": ["Product Manager", "Head of Product"]
   },
 
@@ -168,9 +164,9 @@ All changes are **non-breaking** — v1.0 documents remain valid.
   "verification": { "email": true, "platform": "freecv.org" },
 
   "meta": {
-    "version": "1.1",
+    "version": "1.2",
     "canonical": "https://freecv.org/p/ashley/cv.json",
-    "lastModified": "2026-04-11T10:00:00Z",
+    "lastModified": "2026-04-25T10:00:00Z",
     "generator": "FreeCV"
   }
 }
@@ -192,7 +188,7 @@ Update your CV once → every system that fetches your endpoint gets the latest 
 ```
 Content-Type: application/json; charset=utf-8
 Link: <https://freecv.org/schema/cv/v1.json>; rel="describedby"
-X-CV-Version: 1.1
+X-CV-Version: 1.2
 Access-Control-Allow-Origin: *
 Cache-Control: public, max-age=300
 ```
@@ -201,7 +197,7 @@ Cache-Control: public, max-age=300
 
 - **Off by default** — cv.json returns 404 until explicitly enabled
 - **Email hidden by default** — opt-in to include contact info
-- **Phone hidden by default** — opt-in to include phone number
+- **Phone hidden by default** — opt-in to include phone number  
 - **One-click disable** — turn off your endpoint anytime from Dashboard → Settings
 - **Guest users** — no cv.json endpoint (requires account + slug)
 
@@ -222,10 +218,6 @@ Cache-Control: public, max-age=300
 - [FreeCV Builder](https://freecv.org/builder) — Build and export cv.json (free)
 - [FreeCV Portfolio](https://freecv.org/live-cv) — Live endpoint at `/p/{slug}/cv.json`
 
-### Validate cv.json
-
-- [FreeCV Validator](https://freecv.org/validate) — Paste JSON or enter a URL to validate online
-
 ### Consume cv.json
 
 _Your tool here — [open an issue](https://github.com/freecvorg/cv-json/issues) to be listed._
@@ -245,6 +237,6 @@ MIT — use cv.json in any project, commercial or otherwise.
 ---
 
 <p align="center">
-  <strong>Built by <a href="https://freecv.org">FreeCV</a></strong> ·
+  <strong>Built by <a href="https://freecv.org">FreeCV</a></strong> · 
   Used by job seekers in 180+ countries
 </p>

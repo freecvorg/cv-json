@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://freecv.org/schema/cv/v1.json",
-  "title": "cv.json — Open CV Standard v1.1",
+  "title": "cv.json — Open CV Standard v1.2",
   "description": "An open, machine-readable standard for career data. Created by FreeCV.org for the AI era.",
   "type": "object",
   "required": ["basics", "meta"],
@@ -235,6 +235,64 @@
             "type": "array",
             "items": { "type": "string" }
           }
+        }
+      }
+    },
+    "references": {
+      "type": "array",
+      "description": "Professional references — only rendered when referencesMode is 'show'. Kept in-document even when hidden so users don't re-enter them when they change visibility.",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string", "description": "Referee's full name" },
+          "title": { "type": "string", "description": "Referee's current job title" },
+          "company": { "type": "string", "description": "Referee's current company or organization" },
+          "relationship": { "type": "string", "description": "How the referee knows the candidate, e.g. 'Former Manager', 'PhD Advisor', 'Colleague'" },
+          "email": { "type": "string", "format": "email", "description": "Referee's email (share cautiously — candidates should have permission to list)" },
+          "phone": { "type": "string", "description": "Referee's phone number" }
+        }
+      }
+    },
+    "referencesMode": {
+      "type": "string",
+      "enum": ["show", "on-request", "hide"],
+      "description": "Controls how references render in output. 'show' = list full details. 'on-request' = render a localized 'References available upon request' footer instead of the list. 'hide' = render nothing. Default: 'hide'.",
+      "default": "hide"
+    },
+    "customization": {
+      "type": "object",
+      "description": "Visual rendering preferences. Consumers that render the cv.json (template gallery, PDF service, mobile app) should honor these when present. Pure data consumers (ATS, AI agents) can ignore this block.",
+      "properties": {
+        "template": {
+          "type": "string",
+          "description": "Template identifier, e.g. 'modern', 'onyx', 'apex'. Platform-specific — consumers should fall back to a default if unknown."
+        },
+        "accentColor": {
+          "type": "string",
+          "pattern": "^#[0-9a-fA-F]{6}$",
+          "description": "Brand/accent color as a 6-digit hex code, e.g. '#6366f1'"
+        },
+        "font": {
+          "type": "string",
+          "description": "Preferred font family name, e.g. 'Inter', 'Georgia', 'IBM Plex Sans'"
+        },
+        "fontSize": {
+          "type": "number",
+          "minimum": 6,
+          "maximum": 16,
+          "description": "Base font size in points for rendered output (affects all text proportionally)"
+        },
+        "lineHeight": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 2.5,
+          "description": "Base line-height multiplier for rendered output"
+        },
+        "sectionLang": {
+          "type": "string",
+          "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
+          "description": "Override language for section heading localization (ISO 639-1). Useful when CV content is English but section titles should render in another language."
         }
       }
     },

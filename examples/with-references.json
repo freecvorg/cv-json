@@ -1,0 +1,64 @@
+{
+  "$schema": "https://freecv.org/schema/cv/v1.json",
+
+  "basics": {
+    "name": "Priya Kumar",
+    "label": "Senior Software Engineer",
+    "email": "priya@example.com",
+    "location": "Bangalore, India",
+    "summary": "Backend engineer with 8 years of experience shipping distributed systems at scale."
+  },
+
+  "work": [
+    {
+      "company": "Zerodha",
+      "position": "Senior Software Engineer",
+      "startDate": "2022-03",
+      "current": true,
+      "highlights": [
+        "Rebuilt order-matching pipeline, cutting p99 latency from 80ms to 12ms",
+        "Led migration from monolith to 6 services — zero downtime rollout"
+      ]
+    }
+  ],
+
+  "education": [
+    { "institution": "IIT Madras", "degree": "BTech", "field": "Computer Science", "endDate": "2017" }
+  ],
+
+  "skills": ["Go", "Postgres", "Kafka", "Kubernetes", "Redis"],
+
+  "references": [
+    {
+      "name": "Vijay Sharma",
+      "title": "Engineering Director",
+      "company": "Zerodha",
+      "relationship": "Manager, 2022-present",
+      "email": "vijay.sharma@zerodha.example"
+    },
+    {
+      "name": "Anita Raghavan",
+      "title": "Staff Engineer",
+      "company": "Razorpay",
+      "relationship": "Former tech lead, 2019-2022",
+      "email": "anita@razorpay.example",
+      "phone": "+91-9876-543210"
+    }
+  ],
+
+  "referencesMode": "show",
+
+  "customization": {
+    "template": "professional",
+    "accentColor": "#0891b2",
+    "font": "IBM Plex Sans",
+    "fontSize": 10
+  },
+
+  "meta": {
+    "version": "1.2",
+    "canonical": "https://freecv.org/p/priya/cv.json",
+    "lastModified": "2026-04-25",
+    "generator": "FreeCV"
+  }
+}

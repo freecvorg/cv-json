@@ -147,6 +147,34 @@
 
   "interests": ["AI Ethics", "Open Source", "Hiking", "Board Games"],
 
+  "references": [
+    {
+      "name": "Maya Patel",
+      "title": "VP Product",
+      "company": "Stripe",
+      "relationship": "Direct manager, 2022-present",
+      "email": "maya.patel@stripe.example",
+      "phone": "+1-555-0199"
+    },
+    {
+      "name": "Dr. James Okonkwo",
+      "title": "Associate Professor",
+      "company": "Stanford Graduate School of Business",
+      "relationship": "MBA thesis advisor",
+      "email": "jokonkwo@stanford.example"
+    }
+  ],
+
+  "referencesMode": "on-request",
+
+  "customization": {
+    "template": "apex",
+    "accentColor": "#6366f1",
+    "font": "Inter",
+    "fontSize": 10,
+    "lineHeight": 1.4
+  },
+
   "volunteer": [
     {
       "organization": "Code.org",
@@ -188,9 +216,9 @@
   },
 
   "meta": {
-    "version": "1.1",
+    "version": "1.2",
     "canonical": "https://freecv.org/p/ashley/cv.json",
-    "lastModified": "2026-04-12",
+    "lastModified": "2026-04-25",
     "generator": "FreeCV"
   }
 }
