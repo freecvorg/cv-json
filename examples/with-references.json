@@ -48,13 +48,6 @@
 
   "referencesMode": "show",
 
-  "customization": {
-    "template": "professional",
-    "accentColor": "#0891b2",
-    "font": "IBM Plex Sans",
-    "fontSize": 10
-  },
-
   "meta": {
     "version": "1.2",
     "canonical": "https://freecv.org/p/priya/cv.json",

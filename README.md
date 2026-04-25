@@ -79,7 +79,6 @@ A complete, structured career data schema — all fields optional except `basics
 | Field | Description |
 |---|---|
 | `referencesMode` | `"show"` \| `"on-request"` \| `"hide"` — controls how references render. Defaults to `"hide"`. Data stays in `references[]` regardless, so toggling visibility never loses data. |
-| `customization` | Visual rendering preferences (template, accentColor, font, fontSize, lineHeight, sectionLang). Honored by renderers (gallery, PDF, mobile); safely ignored by pure data consumers (ATS, AI agents). |
 | `availability` | Job-seeking status, preferred roles, work type, sponsorship |
 | `ats` | Auto-generated ATS metadata: keywords, years of experience, seniority. Treat as hints, not authoritative values. |
 | `verification` | Trust signals: email verified, platform source |
@@ -90,9 +89,10 @@ A complete, structured career data schema — all fields optional except `basics
 
 - **`references`** — optional array of professional references with `name`, `title`, `company`, `relationship`, `email`, `phone`
 - **`referencesMode`** — enum controlling visibility: `"show"`, `"on-request"`, or `"hide"` (default). The classic "References available upon request" footer is just the `"on-request"` variant
-- **`customization`** — renderer hints: `template`, `accentColor` (6-digit hex), `font`, `fontSize` (6-16pt), `lineHeight` (1.0-2.5), `sectionLang` (ISO 639-1). All fields optional; unknown values fall back to renderer defaults
 
 All changes are **non-breaking** — v1.0 and v1.1 documents remain valid. Consumers that don't understand these fields can safely ignore them.
+
+> **Note:** an earlier draft of v1.2 included a `customization` block (template, accentColor, font, etc.). It was dropped before release — cv.json is a pure data interchange format, not a rendering instruction set. Visual presentation belongs to whoever's rendering. Same philosophy as jsonresume.org. If a renderer wants to round-trip its own visual prefs, use a vendor-extension key like `x-yourplatform`.
 
 ### What's New in v1.1
 

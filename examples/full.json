@@ -167,14 +167,6 @@
 
   "referencesMode": "on-request",
 
-  "customization": {
-    "template": "apex",
-    "accentColor": "#6366f1",
-    "font": "Inter",
-    "fontSize": 10,
-    "lineHeight": 1.4
-  },
-
   "volunteer": [
     {
       "organization": "Code.org",
