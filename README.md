@@ -92,8 +92,6 @@ A complete, structured career data schema — all fields optional except `basics
 
 All changes are **non-breaking** — v1.0 and v1.1 documents remain valid. Consumers that don't understand these fields can safely ignore them.
 
-> **Note:** an earlier draft of v1.2 included a `customization` block (template, accentColor, font, etc.). It was dropped before release — cv.json is a pure data interchange format, not a rendering instruction set. Visual presentation belongs to whoever's rendering. Same philosophy as jsonresume.org. If a renderer wants to round-trip its own visual prefs, use a vendor-extension key like `x-yourplatform`.
-
 ### What's New in v1.1
 
 - **Date validation** — all date fields enforce `YYYY`, `YYYY-MM`, or `YYYY-MM-DD` patterns
