@@ -50,7 +50,7 @@ If the proposal is rejected, the maintainer will write why. Rejected proposals c
 
 ### Step 3 — Open a PR
 
-Once a proposal is accepted (labeled `accepted`), open a PR against `schema/cv-v1.x-draft.json`:
+Once a proposal is accepted (labeled `accepted`), open a PR against `schema/v1.x-draft.json`:
 
 - Update the JSON Schema with the new field.
 - Update **at least one example** in `examples/` to demonstrate the field in realistic context. PRs without examples will not be merged.

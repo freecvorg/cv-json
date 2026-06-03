@@ -11,7 +11,7 @@ This project follows [Semantic Versioning](https://semver.org/):
 
 ## [1.3.0-preview] — UNRELEASED (target: 2026 Q3)
 
-**Status:** PREVIEW. Schema draft at `schema/cv-v1.3-draft.json`. Subject to change before final release.
+**Status:** PREVIEW. Schema draft at `schema/v1.3-draft.json`. Subject to change before final release.
 
 **Breaking changes:** None. Fully additive. v1.2 documents remain valid v1.3 documents.
 

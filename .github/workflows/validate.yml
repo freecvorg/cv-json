@@ -29,14 +29,14 @@ jobs:
           shopt -s nullglob
           fail=0
           for example in examples/*.json; do
-            echo "::group::Validating $example against cv-v1.3-preview.json"
+            echo "::group::Validating $example against v1.3-preview.json"
             if ! ajv validate \
-              -s schema/cv-v1.3-preview.json \
+              -s schema/v1.3-preview.json \
               -d "$example" \
               -c ajv-formats \
               --strict=false \
               --all-errors; then
-              echo "::error file=$example::Failed validation against cv-v1.3-preview.json"
+              echo "::error file=$example::Failed validation against v1.3-preview.json"
               fail=1
             fi
             echo "::endgroup::"
@@ -49,14 +49,14 @@ jobs:
           shopt -s nullglob
           fail=0
           for example in examples/*.json; do
-            echo "::group::Validating $example against cv-v1.json (backward compat)"
+            echo "::group::Validating $example against v1.json (backward compat)"
             if ! ajv validate \
-              -s schema/cv-v1.json \
+              -s schema/v1.json \
               -d "$example" \
               -c ajv-formats \
               --strict=false \
               --all-errors; then
-              echo "::error file=$example::Failed backward-compat validation against cv-v1.json"
+              echo "::error file=$example::Failed backward-compat validation against v1.json"
               fail=1
             fi
             echo "::endgroup::"

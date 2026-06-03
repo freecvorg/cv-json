@@ -14,7 +14,7 @@ The name **"cv.json"** is a trademark of FreeCV.
 
 The "cv.json" mark may be used freely, without prior permission, by any implementation that **faithfully follows the published schema** at its declared version. Specifically:
 
-- Tools that produce or consume documents conforming to the official `schema/cv-v1.x.json` may describe themselves as "cv.json compatible", "cv.json compliant", or "supports cv.json".
+- Tools that produce or consume documents conforming to the official `schema/v1.x.json` may describe themselves as "cv.json compatible", "cv.json compliant", or "supports cv.json".
 - Articles, talks, tutorials, and educational content may reference cv.json by name.
 - Forks and derivatives that preserve schema fidelity may say "based on cv.json".
 

@@ -27,7 +27,7 @@ Minimal steps to reproduce. If it's a schema/validation bug, please include:
 And the command + output:
 
 ```
-$ ajv validate -s schema/cv-v1.3-preview.json -d your-file.json
+$ ajv validate -s schema/v1.3-preview.json -d your-file.json
 <paste output>
 ```
 

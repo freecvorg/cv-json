@@ -24,8 +24,8 @@ Target schema file(s):
 
 ## Backward compat verified?
 
-- [ ] All existing `examples/*.json` still validate against `schema/cv-v1.json` (stable)
-- [ ] All existing `examples/*.json` still validate against `schema/cv-v1.3-preview.json` (preview)
+- [ ] All existing `examples/*.json` still validate against `schema/v1.json` (stable)
+- [ ] All existing `examples/*.json` still validate against `schema/v1.3-preview.json` (preview)
 - [ ] CI green
 - [ ] If this is a breaking change, migration notes added to `CHANGELOG.md`
 
