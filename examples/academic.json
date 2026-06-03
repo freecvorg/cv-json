@@ -1,278 +1,168 @@
 {
-  "$schema": "https://freecv.org/schema/cv/v1.json",
-
+  "$schema": "https://freecv.org/schema/cv/v1.3-preview.json",
   "basics": {
     "name": "Dr. Eleanor Vance",
     "label": "Postdoctoral Researcher, Machine Learning Systems",
-    "email": "eleanor.vance@cs.example.ac.uk",
+    "email": "eleanor.vance@example.ac.uk",
     "location": "Edinburgh, United Kingdom",
     "url": "https://eleanorvance.org",
-    "summary": "Postdoctoral researcher in efficient ML systems at the University of Edinburgh. PhD from ETH Zurich (2024). Research focuses on energy-aware training, sparse model architectures, and distributed inference. 14 peer-reviewed publications; ~1,800 citations (Google Scholar).",
-    "image": "https://eleanorvance.org/portrait.jpg",
+    "summary": "Postdoctoral researcher in efficient ML systems. PhD from ETH Zurich (2024). Research focuses on energy-aware training, sparse model architectures, and distributed inference.",
     "profiles": [
       { "network": "Google Scholar", "url": "https://scholar.google.com/citations?user=evance" },
       { "network": "ORCID", "username": "0000-0002-1825-0097", "url": "https://orcid.org/0000-0002-1825-0097" },
-      { "network": "GitHub", "username": "evance", "url": "https://github.com/evance" },
-      { "network": "LinkedIn", "username": "eleanor-vance", "url": "https://linkedin.com/in/eleanor-vance" },
-      { "network": "DBLP", "url": "https://dblp.org/pid/123/4567.html" }
+      { "network": "GitHub", "username": "evance", "url": "https://github.com/evance" }
     ]
   },
-
   "work": [
     {
-      "company": "University of Edinburgh — Institute for Computing Systems Architecture",
-      "position": "Postdoctoral Research Associate",
+      "company": "University of Edinburgh, School of Informatics",
+      "position": "Postdoctoral Research Fellow",
+      "location": "Edinburgh, UK",
       "startDate": "2024-09",
       "current": true,
-      "location": "Edinburgh, UK",
-      "summary": "Postdoc with Prof. Murray McKenzie on energy-aware ML systems.",
       "highlights": [
-        "PI on a £180k EPSRC-funded mini-project (GreenInfer)",
-        "Co-supervising 2 PhD students and 4 MSc dissertations",
-        "Lead author on 3 publications in 2025 (NeurIPS, MLSys, EuroSys)"
+        "Lead researcher on the EPSRC-funded 'Sparse-LLMs' project (£420k, 2024–2027).",
+        "Co-supervising 2 PhD students on energy-efficient inference."
       ]
     },
     {
-      "company": "ETH Zurich — Systems Group",
-      "position": "Doctoral Researcher",
-      "startDate": "2019-10",
-      "endDate": "2024-07",
+      "company": "ETH Zurich, Institute of Computing Platforms",
+      "position": "PhD Student",
       "location": "Zurich, Switzerland",
-      "summary": "PhD candidate under Prof. Anna Koehler on sparse training systems.",
+      "startDate": "2020-10",
+      "endDate": "2024-08",
+      "current": false,
       "highlights": [
-        "PhD thesis defended with distinction (summa cum laude)",
-        "First-author papers at OSDI '23, SOSP '22, NeurIPS '21",
-        "Won the ETH Medal for outstanding doctoral thesis"
+        "Thesis: 'Sparse Computation Patterns for Energy-Efficient Deep Learning'. Defended with summa cum laude."
       ]
-    },
-    {
-      "company": "Google Research",
-      "position": "Research Intern",
-      "startDate": "2022-06",
-      "endDate": "2022-09",
-      "location": "Zurich, Switzerland",
-      "highlights": [
-        "Worked with the Pathways team on cross-host scheduling for sparse models",
-        "Internship work led to a co-authored MLSys '23 publication"
-      ]
-    },
-    {
-      "company": "Microsoft Research Cambridge",
-      "position": "Research Intern",
-      "startDate": "2021-07",
-      "endDate": "2021-09",
-      "location": "Cambridge, UK"
     }
   ],
-
   "education": [
     {
       "institution": "ETH Zurich",
       "degree": "PhD",
       "field": "Computer Science",
-      "startDate": "2019",
-      "endDate": "2024",
-      "summary": "Thesis: 'Energy-Aware Sparse Training for Large Neural Networks'. Advisor: Prof. Anna Koehler. Committee: Prof. Torsten Hoefler (ETH), Prof. Christopher Ré (Stanford).",
-      "highlights": [
-        "Defended summa cum laude",
-        "ETH Medal for outstanding doctoral thesis (2024)",
-        "Best Paper Award, OSDI 2023"
-      ]
+      "startDate": "2020",
+      "endDate": "2024"
     },
     {
-      "institution": "University of Cambridge",
-      "degree": "MPhil",
-      "field": "Advanced Computer Science",
+      "institution": "ETH Zurich",
+      "degree": "MSc",
+      "field": "Computer Science",
       "startDate": "2018",
-      "endDate": "2019",
-      "score": "Distinction (top 5%)",
-      "highlights": ["G-Research Prize for top dissertation in machine learning"]
-    },
-    {
-      "institution": "University of Edinburgh",
-      "degree": "BSc (Hons)",
-      "field": "Computer Science and Mathematics",
-      "startDate": "2014",
-      "endDate": "2018",
-      "score": "First Class Honours",
-      "highlights": ["Class Medal in Mathematics", "School Prize for top CS student"]
+      "endDate": "2020",
+      "gpa": "5.85/6.0"
     }
   ],
-
   "skills": [
-    "Machine Learning Systems",
-    "Sparse Neural Networks",
-    "Distributed Training",
-    "Energy-Aware Computing",
-    "Python", "C++", "CUDA", "Triton",
-    "PyTorch", "JAX",
-    "Research Writing",
-    "Grant Writing",
-    "Teaching",
-    "Peer Review"
+    "Machine Learning Systems", "Sparse Computation", "Distributed Training",
+    "PyTorch", "Triton", "CUDA", "Energy-Aware Computing", "Academic Writing"
   ],
-
   "languages": [
-    { "language": "English", "fluency": "Native" },
-    { "language": "German", "fluency": "Fluent" },
-    { "language": "French", "fluency": "Conversational" }
+    { "language": "English", "fluency": "Native or bilingual" },
+    { "language": "French", "fluency": "Professional working" },
+    { "language": "German", "fluency": "Limited working" }
   ],
-
   "publications": [
     {
-      "name": "GreenInfer: Energy-Adaptive Inference for Sparse Foundation Models",
-      "publisher": "NeurIPS 2025",
-      "releaseDate": "2025-12",
-      "url": "https://arxiv.org/abs/2505.12345",
-      "summary": "First author. 42 citations as of May 2026."
+      "name": "SparseFlash: Block-Sparse Attention with Hardware-Aware Pruning",
+      "publisher": "NeurIPS 2024",
+      "releaseDate": "2024-12",
+      "url": "https://arxiv.org/abs/2024.xxxxx",
+      "summary": "Block-sparse attention kernels achieving 2.7× speedup over FlashAttention-2 on consumer GPUs with no accuracy degradation."
     },
     {
-      "name": "Cross-Host Sparse Scheduling in the Pathways System",
-      "publisher": "MLSys 2023",
-      "releaseDate": "2023-05",
-      "url": "https://arxiv.org/abs/2302.98765",
-      "summary": "Co-first author with K. Liu (Google). 187 citations."
+      "name": "Energy-First Training: When the Loss Function Includes Joules",
+      "publisher": "ICML 2024",
+      "releaseDate": "2024-07",
+      "url": "https://arxiv.org/abs/2024.xxxxx"
     },
     {
-      "name": "Sparse Training at the Edge of Memory: Lessons from a 540B Parameter Model",
-      "publisher": "OSDI 2023",
-      "releaseDate": "2023-07",
-      "url": "https://www.usenix.org/conference/osdi23/presentation/vance",
-      "summary": "First author. BEST PAPER AWARD. 412 citations."
-    },
-    {
-      "name": "Energy-Aware Gradient Checkpointing for Large Models",
-      "publisher": "SOSP 2022",
-      "releaseDate": "2022-10",
-      "url": "https://dl.acm.org/doi/10.1145/3477132.SOSP22-12345",
-      "summary": "First author. 298 citations."
-    },
-    {
-      "name": "Bit-Mask Pruning: A Practical Path to 90% Sparse Inference",
-      "publisher": "NeurIPS 2021",
-      "releaseDate": "2021-12",
-      "url": "https://arxiv.org/abs/2111.54321",
-      "summary": "First author. 521 citations."
-    },
-    {
-      "name": "On the Carbon Cost of Foundation Model Training",
-      "publisher": "Communications of the ACM",
-      "releaseDate": "2024-04",
-      "url": "https://cacm.acm.org/research/carbon-cost-foundation-models",
-      "summary": "Co-author. 264 citations."
-    },
-    {
-      "name": "Survey of Energy-Efficient Deep Learning Systems",
+      "name": "A Survey of Sparsity Patterns in Modern LLMs",
       "publisher": "ACM Computing Surveys",
-      "releaseDate": "2025-03",
-      "url": "https://dl.acm.org/doi/10.1145/CSUR-2025-survey",
-      "summary": "First author. 78 citations."
+      "releaseDate": "2023-11"
     }
   ],
-
   "awards": [
     {
-      "title": "OSDI 2023 Best Paper Award",
-      "date": "2023-07",
-      "awarder": "USENIX",
-      "summary": "For 'Sparse Training at the Edge of Memory'."
+      "title": "Best Paper Award",
+      "date": "2024-12",
+      "awarder": "NeurIPS 2024 Efficient ML Workshop",
+      "summary": "For 'SparseFlash: Block-Sparse Attention with Hardware-Aware Pruning'."
     },
     {
-      "title": "ETH Medal for Outstanding Doctoral Thesis",
-      "date": "2024-09",
+      "title": "ETH Medal",
+      "date": "2024-08",
       "awarder": "ETH Zurich",
-      "summary": "One of 12 awarded across all ETH departments in 2024."
-    },
-    {
-      "title": "Google PhD Fellowship in Machine Learning",
-      "date": "2022-04",
-      "awarder": "Google Research",
-      "summary": "Three-year fellowship. ~$75k/year stipend + research budget."
-    },
-    {
-      "title": "G-Research Prize for Best ML Dissertation",
-      "date": "2019-09",
-      "awarder": "University of Cambridge",
-      "summary": "For MPhil dissertation on sparse attention."
-    },
-    {
-      "title": "Heidelberg Laureate Forum — Young Researcher",
-      "date": "2023-09",
-      "awarder": "Heidelberg Laureate Forum Foundation"
+      "summary": "Awarded to PhD theses of exceptional merit."
     }
   ],
-
-  "credentials": [
-    {
-      "type": "VerifiableCredential",
-      "claim": "degree",
-      "subject": "PhD in Computer Science, ETH Zurich (summa cum laude), 2024",
-      "issuer": "did:web:ethz.ch",
-      "issuanceDate": "2024-07-15",
-      "proof": "https://verify.ethz.ch/d/evance-phd-2024"
-    },
-    {
-      "type": "VerifiableCredential",
-      "claim": "degree",
-      "subject": "MPhil in Advanced Computer Science, University of Cambridge (Distinction), 2019",
-      "issuer": "did:web:cam.ac.uk",
-      "issuanceDate": "2019-09-12",
-      "proof": "https://verify.cam.ac.uk/d/evance-mphil-2019"
-    },
-    {
-      "type": "VerifiableCredential",
-      "claim": "award",
-      "subject": "OSDI 2023 Best Paper Award",
-      "issuer": "did:web:usenix.org",
-      "issuanceDate": "2023-07-13",
-      "proof": "https://verify.usenix.org/awards/osdi23/best-paper"
-    }
-  ],
-
   "availability": {
     "status": "open",
-    "roles": ["Assistant Professor", "Research Scientist", "Senior Research Scientist"],
-    "locations": ["United Kingdom", "European Union", "United States", "Canada"],
+    "noticeRequired": "P90D",
+    "roles": ["Assistant Professor (tenure-track)", "Research Scientist"],
+    "locations": ["Edinburgh, UK", "EU", "Remote"],
     "workType": ["onsite", "hybrid"],
-    "employmentType": ["full-time"],
-    "startDate": "2026-09-01",
-    "sponsorship": true
+    "employmentType": ["full-time"]
   },
-
   "ats": {
-    "keywords": ["Machine Learning", "ML Systems", "Sparse Networks", "Research Scientist", "PhD"],
-    "yearsOfExperience": 7,
-    "seniority": "senior",
-    "highestEducation": "PhD Computer Science (ETH Zurich)"
+    "keywords": ["Machine Learning", "Sparse Models", "Distributed Training", "Research", "PyTorch", "CUDA"],
+    "yearsOfExperience": 6,
+    "highestEducation": "PhD",
+    "seniority": "senior"
   },
-
   "verification": {
     "email": true,
     "platform": "freecv.org"
   },
-
+  "workAuthorization": {
+    "country": "GB",
+    "status": "work-permit",
+    "requiresSponsorship": true,
+    "openToRelocation": true,
+    "additionalCountries": ["CH"]
+  },
   "intentions": {
     "summary": "Applying for tenure-track Assistant Professor positions and industry research scientist roles. Strong preference for groups working on energy-efficient ML systems.",
     "track": "research",
     "openToManagement": false,
     "interestedDomains": ["ml-systems", "sparse-models", "green-computing", "distributed-training"]
   },
-
   "researchSignals": {
     "googleScholar": {
+      "profileUrl": "https://scholar.google.com/citations?user=evance",
       "citationsTotal": 1814,
+      "citationsLast5Years": 1750,
       "hIndex": 11,
       "i10Index": 9,
-      "lastSynced": "2026-05-20"
+      "lastSynced": "2026-05-20T08:00:00Z"
     },
     "openReviewProfile": "https://openreview.net/profile?id=~Eleanor_Vance1",
+    "orcid": "0000-0002-1825-0097",
     "reviewing": ["NeurIPS", "ICML", "MLSys", "OSDI", "SOSP"]
   },
-
+  "credentials": [
+    {
+      "type": "VerifiableCredential",
+      "claim": "degree",
+      "subject": "PhD in Computer Science, ETH Zurich (2024)",
+      "issuer": "did:web:ethz.ch",
+      "issuanceDate": "2024-08-15",
+      "proof": "https://credentials.ethz.ch/v/evance-phd-2024"
+    },
+    {
+      "type": "VerifiableCredential",
+      "claim": "award",
+      "subject": "NeurIPS 2024 Efficient ML Workshop — Best Paper Award",
+      "issuer": "did:web:neurips.cc",
+      "issuanceDate": "2024-12-13",
+      "proof": "https://credentials.neurips.cc/v/best-paper-efficient-ml-2024"
+    }
+  ],
   "meta": {
     "version": "1.3",
-    "canonical": "https://eleanorvance.org/cv.json",
-    "lastModified": "2026-05-22",
+    "canonical": "https://livelink.cv/eleanor-vance",
+    "lastModified": "2026-06-01",
     "generator": "FreeCV"
   }
 }

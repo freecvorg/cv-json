@@ -1,0 +1,180 @@
+{
+  "$schema": "https://freecv.org/schema/cv/v1.json",
+  "basics": {
+    "name": "Ashley Chen",
+    "label": "Senior Product Manager",
+    "email": "ashley@example.com",
+    "phone": "+1-415-555-0182",
+    "image": "https://livelink.cv/ashley-chen/photo.jpg",
+    "location": "San Francisco, CA",
+    "url": "https://ashleychen.work",
+    "summary": "Senior product manager with 8 years of experience shipping consumer fintech products. Currently leading the savings team at Stripe. Previously at Plaid, Robinhood, and a YC-backed startup. MBA from Stanford GSB.",
+    "profiles": [
+      { "network": "LinkedIn", "username": "ashleychen", "url": "https://www.linkedin.com/in/ashleychen" },
+      { "network": "GitHub", "username": "ashleychen", "url": "https://github.com/ashleychen" },
+      { "network": "Twitter", "username": "ashleychen", "url": "https://twitter.com/ashleychen" }
+    ]
+  },
+  "work": [
+    {
+      "company": "Stripe",
+      "position": "Senior Product Manager, Savings",
+      "location": "San Francisco, CA",
+      "startDate": "2023-06",
+      "current": true,
+      "summary": "Lead product for the consumer savings line.",
+      "highlights": [
+        "Launched the high-yield savings account that grew to 2M users and $4B in deposits in 14 months.",
+        "Cut new-user onboarding from 7 minutes to 90 seconds by rebuilding the KYC flow.",
+        "Drove the cross-functional partnership with the risk and compliance teams on the multi-state deposit-broker model."
+      ]
+    },
+    {
+      "company": "Plaid",
+      "position": "Product Manager",
+      "location": "San Francisco, CA",
+      "startDate": "2021-04",
+      "endDate": "2023-05",
+      "current": false,
+      "highlights": [
+        "Owned the developer-facing API for income verification, used by 800+ fintech apps.",
+        "Shipped the Brazilian Pix integration generating $12M ARR in its first year."
+      ]
+    },
+    {
+      "company": "Robinhood",
+      "position": "Associate Product Manager",
+      "location": "Menlo Park, CA",
+      "startDate": "2018-08",
+      "endDate": "2021-03",
+      "current": false,
+      "highlights": [
+        "Rotational APM program: shipped on the equities, options, and crypto teams.",
+        "Led the redesign of the order entry screen that improved order completion rate by 23%."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Stanford Graduate School of Business",
+      "degree": "MBA",
+      "field": "Finance",
+      "startDate": "2016",
+      "endDate": "2018",
+      "gpa": "3.9"
+    },
+    {
+      "institution": "UC Berkeley",
+      "degree": "BSc",
+      "field": "Industrial Engineering and Operations Research",
+      "startDate": "2010",
+      "endDate": "2014",
+      "gpa": "3.8"
+    }
+  ],
+  "skills": [
+    "Product Strategy", "User Research", "Quantitative Analysis", "SQL",
+    "A/B Testing", "Roadmap Planning", "Cross-functional Leadership",
+    "Fintech", "Regulatory Compliance"
+  ],
+  "languages": [
+    { "language": "English", "fluency": "Native or bilingual" },
+    { "language": "Mandarin", "fluency": "Professional working" },
+    { "language": "Spanish", "fluency": "Limited working" }
+  ],
+  "projects": [
+    {
+      "name": "Stripe Savings",
+      "description": "Consumer high-yield savings account integrated with Stripe Issuing and Stripe Treasury.",
+      "url": "https://stripe.com/savings",
+      "highlights": [
+        "Launched in 8 US states at GA, expanded to 47 within 9 months.",
+        "$4B in deposits, 2M users, 4.6 star rating in the app store."
+      ]
+    },
+    {
+      "name": "Plaid Income (Brazil)",
+      "description": "Income verification using Pix instant-payment data, the first non-US Plaid product.",
+      "url": "https://plaid.com/products/income"
+    }
+  ],
+  "publications": [
+    {
+      "name": "What we learned building the savings-as-a-product team at Stripe",
+      "publisher": "Stripe Engineering Blog",
+      "releaseDate": "2025-09-14",
+      "url": "https://stripe.com/blog/savings-team",
+      "summary": "Reflections on building a regulated consumer fintech product inside an infrastructure company."
+    }
+  ],
+  "awards": [
+    {
+      "title": "Top 50 PMs to Watch — Lenny's Newsletter",
+      "date": "2025-03",
+      "awarder": "Lenny Rachitsky",
+      "summary": "Industry-recognition list of high-impact product managers."
+    }
+  ],
+  "certificates": [
+    {
+      "name": "Series 7 (General Securities Representative)",
+      "issuer": "FINRA",
+      "date": "2024-02"
+    }
+  ],
+  "interests": [
+    "Open banking", "Consumer fintech UX", "Plain-language regulatory writing", "Pottery"
+  ],
+  "volunteer": [
+    {
+      "organization": "Code2040",
+      "position": "Mentor",
+      "startDate": "2020-01",
+      "current": true,
+      "summary": "Mentor early-career engineers from underrepresented backgrounds in tech."
+    }
+  ],
+  "references": [
+    {
+      "name": "Maria Lopez",
+      "title": "VP Product, Stripe",
+      "company": "Stripe",
+      "email": "maria.lopez@example.com",
+      "summary": "Direct manager since 2023."
+    }
+  ],
+  "referencesMode": "on-request",
+  "availability": {
+    "status": "not-looking",
+    "noticeRequired": "P30D",
+    "locations": ["San Francisco, CA", "Remote (US Pacific)"],
+    "workType": ["hybrid", "remote"],
+    "employmentType": ["full-time"],
+    "sponsorship": false
+  },
+  "ats": {
+    "keywords": [
+      "Product Manager", "Fintech", "Consumer Products", "SaaS", "B2B2C",
+      "Regulatory Compliance", "User Research", "A/B Testing"
+    ],
+    "yearsOfExperience": 8,
+    "highestEducation": "MBA",
+    "seniority": "senior"
+  },
+  "i18n": {
+    "primary": "en",
+    "available": {
+      "en": "https://livelink.cv/ashley-chen/cv.json"
+    }
+  },
+  "verification": {
+    "email": true,
+    "platform": "freecv.org"
+  },
+  "meta": {
+    "version": "1.2",
+    "canonical": "https://livelink.cv/ashley-chen",
+    "lastModified": "2026-05-30",
+    "generator": "FreeCV"
+  }
+}

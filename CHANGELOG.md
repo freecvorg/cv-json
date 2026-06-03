@@ -11,27 +11,41 @@ This project follows [Semantic Versioning](https://semver.org/):
 
 ## [1.3.0-preview] — UNRELEASED (target: 2026 Q3)
 
-**Status:** PREVIEW. Schema draft at `schema/v1.3-draft.json`. Subject to change before final release.
+**Status:** PREVIEW. Schema published at [`schema/v1.3-preview.json`](./schema/v1.3-preview.json). Subject to change before final release.
 
 **Breaking changes:** None. Fully additive. v1.2 documents remain valid v1.3 documents.
 
-### Added
+### Added — Tier 1 (Ready today)
 
-- **`compensation`** — structured salary expectations (currency, min/max, period, equity preference, notes). Replaces ad-hoc free-text in `meta.notes`.
-- **`workAuthorization`** — array of jurisdictions with status (citizen / permanent_resident / work_visa / requires_sponsorship) and expiry where applicable. Lets ATS filter without illegal questions.
-- **`outreach`** — opt-in recruiter contact preferences: roles of interest, role levels, remote/hybrid/onsite, geographies, contact channel preference, response SLA.
-- **`privacy`** — per-section visibility map. Each top-level section can be marked `public`, `authenticated`, `private`, or `redacted-from-public`. Lets one cv.json serve a public profile and a recruiter-only view.
-- **`verification` (v2)** — extends v1.2 verification with W3C Verifiable Credentials support. Each verification entry can now carry a `credential` object (JWT-VC or JSON-LD VC) and an `issuer` DID. Old `verified: true` booleans still accepted but discouraged.
-- **`provenance`** — per-section authorship trail. Records who/what generated each section (`human`, `llm-assisted`, `imported-from`) with timestamps. Discloses AI assistance honestly.
-- **`highlights`** — top-level array of 3-7 cross-section highlight pointers ("see basics.summary", "see work[0].achievements[2]"). Powers tl;dr renderings.
-- **`intentions`** — what the person is actually looking for, separate from `outreach`. Free-form but structured: `seeking` (array of goal strings), `notSeeking` (array), `timeframe`.
-- **`signals`** — quantitative signals other systems may want (years of experience computed, primary language, location radius). Computed/derived, not authored.
-- **`policy`** — machine-readable usage policy for the document: `noLLMTraining` (boolean), `noResale` (boolean), `attributionRequired` (boolean), `contactBeforeUse` (boolean).
+Fields a producer can fill in by hand and a consumer can act on immediately.
+
+- **`compensation`** — structured salary expectations (currency, min/max base + total, period, equity preference, visibility hint). Replaces ad-hoc free-text in summary.
+- **`workAuthorization`** — country, status (citizen / permanent-resident / work-permit / requires-sponsorship), expiry, and additional countries. Lets ATS filter without illegal questions.
+- **`locationPreferences`** — current base, willingness to relocate, allowed countries, remote-only acceptable, preferred timezone overlap.
+- **`intentions`** — what the candidate is looking for in their own words: free-form summary, IC/management track, openToManagement, interested/avoid domains, interested stages.
+- **`outreachControls`** — opt-in recruiter contact rules: acceptingInbound, preferredChannel, minimum-viable-offer, anti-spray/anti-crypto filters, response SLA.
+- **`highlights`** — top-level array of 3–7 career highlights with type tag (shipped-product, open-source, talk, etc.). Powers tl;dr renderings.
+- **`provenance`** — authorship and AI-assistance disclosure: authoredBy (human / human+ai / ai), aiAssisted, scope of assistance, last human review timestamp.
+
+### Added — Tier 2 (Needs platform)
+
+Fields whose shape is stable but whose values are only useful if a publisher auto-populates and refreshes them.
+
+- **`signals`** — quantitative third-party signals: `github` (repos, stars, followers, contributions, lastSynced), `speaking` (events with URLs), and similar attestable counters.
+- **`researchSignals`** — academic equivalent: Google Scholar (citations, h-index, i10-index, lastSynced), OpenReview profile, ORCID, reviewing venues.
+- **`credentials`** — array of W3C Verifiable Credentials issued by employers, schools, certification bodies (`type`, `claim`, `subject`, `issuer` DID, `issuanceDate`, `proof` URL). Replaces "trust me bro" with cryptographic attestation when the issuer participates.
+
+### Added — Tier 3 (Future-looking)
+
+Fields whose semantics are real but whose enforcement depends on consumer behavior.
+
+- **`privacy`** — audience-scoped visibility: `mode`, per-audience field allowlists (`showToPublic`, `showToRecruiter`, `showToAgent`), `excludeAudience` (block specific domains), `anonymousMode`, `blockReason`.
+- **`policy`** — machine-readable document usage policy: `noLLMTraining`, `noResale`, `attributionRequired`, `contactBeforeUse`.
 
 ### Changed
 
-- `verification[].method` enum expanded with `vc-jwt` and `vc-ld`.
-- `meta.version` recommended value bumped to `"1.3"`.
+- `meta.version` recommended value bumped to `"1.3"` when any v1.3 field is present.
+- Examples reorganized from profession-based files to a completeness-based set: `minimal.json`, `typical.json`, `full-v1.2.json`, `full-v1.3.json`, `academic.json`, `with-references.json`, `with-privacy.json`, `with-credentials.json`.
 
 ### Migration notes
 

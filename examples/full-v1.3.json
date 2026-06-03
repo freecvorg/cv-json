@@ -1,0 +1,194 @@
+{
+  "$schema": "https://freecv.org/schema/cv/v1.3-preview.json",
+  "basics": {
+    "name": "Diego Marín",
+    "label": "Staff Software Engineer",
+    "email": "diego@example.com",
+    "location": "Mexico City, Mexico",
+    "url": "https://diegomarin.dev",
+    "summary": "Staff engineer with 9 years of experience in distributed systems and developer tools. Looking for the next role at a Series C+ infrastructure company where I can scale a team of senior ICs.",
+    "profiles": [
+      { "network": "GitHub", "username": "diegomarin", "url": "https://github.com/diegomarin" },
+      { "network": "LinkedIn", "username": "diegomarin", "url": "https://www.linkedin.com/in/diegomarin" }
+    ]
+  },
+  "work": [
+    {
+      "company": "Vercel",
+      "position": "Staff Software Engineer, Edge Runtime",
+      "location": "Remote (Mexico)",
+      "startDate": "2023-04",
+      "current": true,
+      "highlights": [
+        "Tech lead for the V8 isolate runtime that powers Edge Functions; ~3B invocations/day.",
+        "Reduced p99 cold-start from 230ms to 38ms by redesigning the snapshot loader.",
+        "Wrote the design doc and led the cross-team rollout of WASM-based middleware."
+      ]
+    },
+    {
+      "company": "Cloudflare",
+      "position": "Senior Systems Engineer",
+      "location": "Remote",
+      "startDate": "2020-06",
+      "endDate": "2023-03",
+      "current": false,
+      "highlights": [
+        "Owned Workers KV at the data-plane layer (Rust). 99.995% availability over 24 months.",
+        "Co-authored the Durable Objects autoscaler that handles burst workloads."
+      ]
+    },
+    {
+      "company": "Resilio",
+      "position": "Backend Engineer",
+      "location": "Mexico City",
+      "startDate": "2017-09",
+      "endDate": "2020-05",
+      "current": false,
+      "highlights": [
+        "Migrated the file-sync protocol from a polling architecture to event-driven over WebSocket."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "ITAM",
+      "degree": "BSc Computer Engineering",
+      "startDate": "2013",
+      "endDate": "2017",
+      "gpa": "9.4/10"
+    }
+  ],
+  "skills": [
+    "Rust", "TypeScript", "V8", "WebAssembly", "Distributed Systems",
+    "Edge Computing", "Performance Engineering", "Open Source"
+  ],
+  "languages": [
+    { "language": "Spanish", "fluency": "Native or bilingual" },
+    { "language": "English", "fluency": "Native or bilingual" },
+    { "language": "Portuguese", "fluency": "Limited working" }
+  ],
+  "projects": [
+    {
+      "name": "v8-snapshot-loader",
+      "description": "Open-source V8 snapshot loader designed for sub-50ms cold starts in serverless environments.",
+      "url": "https://github.com/diegomarin/v8-snapshot-loader",
+      "keywords": ["v8", "rust", "snapshot", "serverless"]
+    }
+  ],
+  "availability": {
+    "status": "actively-looking",
+    "noticeRequired": "P30D",
+    "startDate": "2026-09-01",
+    "roles": ["Staff Engineer", "Principal Engineer", "Tech Lead"],
+    "locations": ["Mexico City", "Remote (Americas)"],
+    "workType": ["remote", "hybrid"],
+    "employmentType": ["full-time"],
+    "sponsorship": false
+  },
+  "ats": {
+    "keywords": ["Rust", "Distributed Systems", "Edge Computing", "WebAssembly", "Performance"],
+    "yearsOfExperience": 9,
+    "seniority": "senior"
+  },
+  "verification": {
+    "email": true,
+    "platform": "freecv.org"
+  },
+  "compensation": {
+    "currency": "USD",
+    "desiredRange": {
+      "totalMin": 340000,
+      "totalMax": 480000,
+      "notes": "Public equity or late-stage liquid equity preferred over early-stage paper."
+    },
+    "visibility": "on-request"
+  },
+  "workAuthorization": {
+    "country": "MX",
+    "status": "citizen",
+    "requiresSponsorship": true,
+    "openToRelocation": true,
+    "additionalCountries": ["ES"]
+  },
+  "locationPreferences": {
+    "currentBase": "Mexico City, Mexico",
+    "willingToRelocate": true,
+    "relocationCountries": ["US", "CA", "ES", "PT"],
+    "remoteOnlyAcceptable": true,
+    "preferredTimezoneOverlap": "min 4h with PT or CET"
+  },
+  "intentions": {
+    "summary": "Looking for a Staff or Principal IC role at a Series C+ infrastructure company. Strong preference for runtime, edge, or systems work — not platform engineering or DevOps.",
+    "track": "individual-contributor",
+    "openToManagement": false,
+    "interestedDomains": ["edge-computing", "runtimes", "developer-tools", "wasm", "v8"],
+    "avoidDomains": ["crypto", "gambling", "ad-tech"],
+    "interestedStages": ["Series C", "Series D", "Public"]
+  },
+  "outreachControls": {
+    "acceptingInbound": true,
+    "preferredChannel": "email",
+    "minimumViableOffer": {
+      "stage": "Series C or later",
+      "totalCompMin": 340000,
+      "totalCompCurrency": "USD",
+      "roleLevel": "Staff or Principal IC"
+    },
+    "filters": {
+      "noEarlyStage": true,
+      "noRecruiterSpray": true,
+      "noCrypto": true
+    },
+    "responseSLA": "I respond within 3 business days to personalized pitches."
+  },
+  "highlights": [
+    {
+      "type": "shipped-product",
+      "company": "Vercel",
+      "role": "Tech Lead, Edge Runtime",
+      "period": "2023-04 — present",
+      "outcome": "shipped to GA",
+      "summary": "Designed and shipped the V8 isolate runtime that now powers ~3B Edge Function invocations/day across Vercel's network."
+    },
+    {
+      "type": "open-source",
+      "summary": "Maintainer of v8-snapshot-loader (1.2k GitHub stars). Used in production at 3 companies for sub-50ms serverless cold starts."
+    }
+  ],
+  "signals": {
+    "github": {
+      "username": "diegomarin",
+      "publicRepos": 38,
+      "followers": 1240,
+      "stars": 1800,
+      "contributionsLast12Months": 1400,
+      "topLanguages": ["Rust", "TypeScript", "C++"],
+      "lastSynced": "2026-06-02T10:00:00Z"
+    },
+    "speaking": [
+      {
+        "event": "RustConf 2025",
+        "title": "What we learned scaling a V8 fleet in Rust",
+        "url": "https://rustconf.com/2025/talks/v8-fleet",
+        "year": 2025
+      }
+    ]
+  },
+  "provenance": {
+    "authoredBy": "human+ai",
+    "aiAssisted": true,
+    "aiAssistance": {
+      "tools": ["Claude"],
+      "scope": ["grammar", "summary"],
+      "humanReviewedAt": "2026-06-02T18:00:00Z"
+    },
+    "lastReviewedByOwner": "2026-06-02",
+    "notes": "Bullets and achievements written by me. Claude polished the summary section for grammar; final wording is mine."
+  },
+  "meta": {
+    "version": "1.3",
+    "canonical": "https://livelink.cv/diego-marin",
+    "lastModified": "2026-06-02",
+    "generator": "FreeCV"
+  }
+}

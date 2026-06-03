@@ -1,0 +1,92 @@
+{
+  "$schema": "https://freecv.org/schema/cv/v1.3-preview.json",
+  "basics": {
+    "name": "Priya Kumar",
+    "label": "Senior Engineering Manager",
+    "location": "Bangalore, India",
+    "summary": "Engineering manager exploring next steps. Currently employed; please respect the audience-scoping rules in `privacy` below."
+  },
+  "work": [
+    {
+      "company": "TechCorp India",
+      "position": "Senior Engineering Manager",
+      "startDate": "2022-06",
+      "current": true,
+      "highlights": [
+        "Manage 14 engineers across the payments platform team."
+      ]
+    },
+    {
+      "company": "Fintech Studio",
+      "position": "Engineering Manager",
+      "startDate": "2019-08",
+      "endDate": "2022-05",
+      "current": false
+    }
+  ],
+  "skills": ["Engineering Management", "Payments", "Platform Engineering", "Mentoring"],
+  "education": [
+    {
+      "institution": "IIT Bombay",
+      "degree": "BTech",
+      "field": "Computer Science"
+    }
+  ],
+  "availability": {
+    "status": "open"
+  },
+  "verification": {
+    "email": true,
+    "platform": "freecv.org"
+  },
+  "privacy": {
+    "mode": "selective",
+    "showToPublic": ["basics.name", "basics.label", "basics.location"],
+    "showToRecruiter": [
+      "basics", "work", "education", "skills", "availability", "intentions",
+      "compensation", "outreachControls"
+    ],
+    "showToAgent": [
+      "basics", "work", "education", "skills", "availability", "intentions",
+      "ats", "outreachControls"
+    ],
+    "excludeAudience": [
+      "techcorp-india.example",
+      "*.techcorp-india.example"
+    ],
+    "anonymousMode": false,
+    "blockReason": "Active job search; cannot be visible to current employer."
+  },
+  "outreachControls": {
+    "acceptingInbound": true,
+    "preferredChannel": "email",
+    "filters": {
+      "noRecruiterSpray": true
+    },
+    "responseSLA": "I respond within 5 business days to personalized pitches.",
+    "excludeDomains": [
+      "techcorp-india.example"
+    ]
+  },
+  "compensation": {
+    "currency": "INR",
+    "desiredRange": {
+      "baseMin": 8000000,
+      "baseMax": 12000000,
+      "notes": "Open to lower base with strong equity at a Series B+ company."
+    },
+    "visibility": "on-request"
+  },
+  "intentions": {
+    "summary": "Exploring Director of Engineering or Senior EM roles at a Series B–D fintech or developer-tools company.",
+    "track": "management",
+    "openToManagement": true,
+    "interestedDomains": ["fintech", "developer-tools", "infra"],
+    "avoidDomains": ["crypto", "ad-tech"]
+  },
+  "meta": {
+    "version": "1.3",
+    "canonical": "https://livelink.cv/priya-kumar",
+    "lastModified": "2026-06-02"
+  }
+}

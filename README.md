@@ -10,7 +10,7 @@
 
 **Emerging.** cv.json is not a ratified standard. It is a small, opinionated schema currently maintained by [FreeCV](https://freecv.org) and used in production on the FreeCV portfolio platform. We're publishing the schema, validator, and examples here so other tools can adopt it and so the schema can evolve in the open. If you ship a CV product and want a say in v2, [open an issue](https://github.com/freecvorg/cv-json/issues).
 
-The schema is **JSON Resume–compatible at the top level** for the core fields (`basics`, `work`, `education`, `skills`, `projects`…). cv.json adds a few fields JSON Resume doesn't have (`availability`, `ats`, `verification`, `referencesMode`, `i18n`) and pins down date formats and a discovery convention.
+cv.json keeps the top-level field names of `basics`, `work`, `education`, `skills`, `projects`, `languages`, `publications`, `awards`, `volunteer`, `interests`, `references`, and `meta` familiar — anyone who has touched a JSON-shaped CV before should feel at home. It adds fields the rest of the ecosystem doesn't have (`availability`, `ats`, `verification`, `referencesMode`, `i18n`, and the v1.3 hiring-signal block) and pins down date formats and a discovery convention.
 
 ---
 
@@ -81,7 +81,7 @@ Three problems, one schema.
 
 **1. PDFs are unparseable in practice.** Every CV in the world eventually meets an ATS. ATS parsers are notorious for merging job titles into dates, putting names in the address field, and silently dropping skills. The fix isn't a better parser — it's not parsing in the first place.
 
-**2. JSON Resume hasn't moved in years.** [JSON Resume](https://jsonresume.org) had the right idea in 2014, but the schema has been effectively frozen since v1.0.0 in 2020 and the community registry is read-only. cv.json keeps wire-format compatibility for the core sections and moves forward on the parts that haven't been touched — discovery, versioning, availability signals, ATS hints, references handling.
+**2. Existing JSON CV schemas have stalled.** The shape of a JSON résumé has been a solved problem for years, but nothing in the space has moved meaningfully — no discovery convention, no version negotiation, no availability or ATS signals, no references-mode. cv.json picks up the parts that haven't been touched and ships them under a real versioning policy.
 
 **3. AI agents need structured career data.** Recruiting agents, candidate-search tools, and matching systems are being built right now against scraped PDFs and HTML. A canonical JSON endpoint at a known URL is the cheapest way to feed them — same role HTML played for browsers, robots.txt played for crawlers, OpenAPI plays for APIs.
 
@@ -229,7 +229,7 @@ cv.json follows **semver at the schema level**.
 | `v1.0` | Stable (frozen) | Original release. Documents remain valid forever. |
 | `v1.1` | Stable | Date validation, `publications`, `awards`, `interests`, `projects.role/highlights`, `education.summary`, `volunteer.summary`, employment types, `ats` clarified. |
 | `v1.2` | **Current stable** | `references`, `referencesMode`. |
-| `v1.3` | Preview | Under discussion in [issues](https://github.com/freecvorg/cv-json/issues). Likely: richer `availability`, `i18n` improvements. |
+| `v1.3-preview` | Preview | Hiring-side signal block — see [stability tiers](#v13-stability-tiers) below. Schema published as [`schema/v1.3-preview.json`](./schema/v1.3-preview.json). |
 | `v2.0` | Future | Reserved for breaking changes. No timeline. |
 
 **Rules within v1.x:**
@@ -242,17 +242,38 @@ cv.json follows **semver at the schema level**.
 
 ---
 
+## v1.3 stability tiers
+
+v1.3 adds a sizeable hiring-signal block on top of stable v1.2. To stay honest about which of those fields are usable today vs. which depend on platform work that hasn't shipped yet, every v1.3 field falls into one of three tiers:
+
+**Tier 1 — Ready today.** Fields a producer can fill in by hand and an ATS or agent can act on immediately. No platform infrastructure required. These are: `compensation`, `workAuthorization`, `locationPreferences`, `intentions`, `outreachControls`, `highlights`, `provenance`.
+
+**Tier 2 — Needs platform.** Fields whose *shape* is stable, but whose *value* is only useful if a publisher (FreeCV or another) auto-populates and refreshes them. Hand-written values go stale fast. These are: `signals` (GitHub, speaking, writing), `researchSignals` (Google Scholar, OpenReview, ORCID), `credentials` (W3C Verifiable Credentials).
+
+**Tier 3 — Future-looking.** Fields whose semantics are real but whose enforcement depends on consumer behavior — they only matter if recruiters, ATSs, and agents honor them. These are: `privacy` (audience-scoped visibility), `policy` (consumer obligations).
+
+If you're publishing a CV by hand, fill in Tier 1 fields where they apply, skip Tier 2 unless you genuinely keep the numbers fresh, and treat Tier 3 fields as a signal of intent rather than a guarantee. The full schema accepts all three tiers — the tiering is editorial guidance, not a validation rule.
+
+---
+
 ## Repository layout
 
 ```
-schema/v1.json         JSON Schema (Draft 2020-12) for v1.x
+schema/
+  v1.json                  JSON Schema (Draft 2020-12) for stable v1.x (v1.0–v1.2)
+  v1.3-preview.json        JSON Schema for the v1.3 preview, additive over v1.json
 examples/
-  minimal.json         Smallest valid document
-  full.json            Every section populated
-  with-references.json Demonstrates referencesMode
-validate.js            CLI validator (node validate.js path/to/cv.json)
-CONTRIBUTING.md        How to propose changes
-LICENSE                MIT
+  minimal.json             Smallest valid document — basics + meta only
+  typical.json             What most people publish — work, education, skills, languages
+  full-v1.2.json           Every section of stable v1.2 populated
+  full-v1.3.json           Every section of v1.3 populated, including all tier-1 hiring signals
+  academic.json            Researcher CV: publications, awards, researchSignals, degree credentials
+  with-references.json     Demonstrates referencesMode
+  with-privacy.json        Demonstrates privacy.excludeAudience (block current employer)
+  with-credentials.json    Demonstrates W3C VerifiableCredential pattern across roles
+validate.js                CLI validator (node validate.js path/to/cv.json)
+CONTRIBUTING.md            How to propose changes
+LICENSE                    MIT
 ```
 
 ---
