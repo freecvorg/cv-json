@@ -2,7 +2,7 @@
 
 > An open schema for publishing a CV as a single JSON document at a stable URL — so AI agents, ATS systems, and other tools can read career data without parsing a PDF.
 
-[Spec](https://freecv.org/cv-json) · [Validator](https://freecv.org/validate) · [Schema (v1)](https://freecv.org/schema/cv/v1.json) · [`/.well-known/cv.json` discovery](https://freecv.org/cv-json#discovery)
+[Spec](https://freecv.org/cv-json) · [Validator](https://freecv.org/validate) · [Schema (v1)](https://freecv.org/schema/cv/v1.json) · [`/.well-known/cv.json` discovery](#discovery)
 
 ---
 
