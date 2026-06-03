@@ -2,7 +2,7 @@
 
 > An open schema for publishing a CV as a single JSON document at a stable URL — so AI agents, ATS systems, and other tools can read career data without parsing a PDF.
 
-[Spec](https://freecv.org/open) · [Validator](https://freecv.org/validate) · [Schema (v1)](https://freecv.org/schema/cv/v1.json) · [`/.well-known/cv.json` discovery](https://freecv.org/open#discovery)
+[Spec](https://freecv.org/cv-json) · [Validator](https://freecv.org/validate) · [Schema (v1)](https://freecv.org/schema/cv/v1.json) · [`/.well-known/cv.json` discovery](https://freecv.org/cv-json#discovery)
 
 ---
 
@@ -262,10 +262,10 @@ LICENSE                MIT
 If you publish a cv.json, drop this badge in your README or portfolio so it's visible:
 
 ```markdown
-[![cv.json](https://freecv.org/badge/cv-json.svg)](https://freecv.org/open)
+[![cv.json](https://freecv.org/badge/cv-json.svg)](https://freecv.org/cv-json)
 ```
 
-Renders as: [![cv.json](https://freecv.org/badge/cv-json.svg)](https://freecv.org/open)
+Renders as: [![cv.json](https://freecv.org/badge/cv-json.svg)](https://freecv.org/cv-json)
 
 The badge links to the spec. The badge SVG is served from `freecv.org/badge/cv-json.svg` and is free to embed.
 
@@ -280,7 +280,7 @@ The badge links to the spec. The badge SVG is served from `freecv.org/badge/cv-j
 
 ## Links
 
-- Spec page — https://freecv.org/open
+- Spec page — https://freecv.org/cv-json
 - JSON Schema (v1) — https://freecv.org/schema/cv/v1.json
 - Validator — https://freecv.org/validate
 - Discovery manifest — https://freecv.org/.well-known/cv.json
