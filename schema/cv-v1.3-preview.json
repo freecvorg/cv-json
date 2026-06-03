@@ -1,0 +1,395 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://freecv.org/schema/cv/v1.3-preview.json",
+  "title": "cv.json — Open CV Standard v1.3 (PREVIEW)",
+  "description": "PREVIEW of the v1.3 Open CV Standard. This is a forward-looking draft and SHOULD NOT be relied on for production — fields may change before v1.3 is stamped stable. All v1.2 documents remain valid under v1.3 (v1.3 is a superset). See https://freecv.org/schema for the stable schema.",
+  "type": "object",
+  "required": ["basics", "meta"],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Link to the cv.json schema version for validation",
+      "format": "uri"
+    },
+    "basics": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "label": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string" },
+        "image": { "type": "string", "format": "uri" },
+        "summary": { "type": "string" },
+        "location": { "type": "string" },
+        "url": { "type": "string", "format": "uri" },
+        "pronouns": {
+          "type": "string",
+          "description": "NEW in v1.3 — preferred pronouns, e.g. 'she/her', 'they/them'. Optional, only emit if user opted in."
+        },
+        "timezone": {
+          "type": "string",
+          "description": "NEW in v1.3 — IANA timezone, e.g. 'Europe/Berlin'. Useful for remote-work matching."
+        },
+        "profiles": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["network", "url"],
+            "properties": {
+              "network": { "type": "string" },
+              "username": { "type": "string" },
+              "url": { "type": "string", "format": "uri" },
+              "verified": {
+                "type": "boolean",
+                "description": "NEW in v1.3 — whether the serving platform verified ownership of this profile (e.g. OAuth handshake)."
+              }
+            }
+          }
+        }
+      }
+    },
+    "work": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["company", "position"],
+        "properties": {
+          "company": { "type": "string" },
+          "position": { "type": "string" },
+          "location": { "type": "string" },
+          "workType": {
+            "type": "string",
+            "enum": ["remote", "hybrid", "onsite"],
+            "description": "NEW in v1.3 — work arrangement for this role."
+          },
+          "employmentType": {
+            "type": "string",
+            "enum": ["full-time", "part-time", "contract", "freelance", "internship", "temporary", "seasonal"],
+            "description": "NEW in v1.3 — employment type for this role."
+          },
+          "startDate": { "type": "string", "pattern": "^[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?$" },
+          "endDate": { "type": "string", "pattern": "^[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?$" },
+          "current": { "type": "boolean" },
+          "summary": { "type": "string" },
+          "highlights": { "type": "array", "items": { "type": "string" } },
+          "metrics": {
+            "type": "array",
+            "description": "NEW in v1.3 — structured, machine-readable impact metrics for this role.",
+            "items": {
+              "type": "object",
+              "required": ["label", "value"],
+              "properties": {
+                "label": { "type": "string", "description": "Human label, e.g. 'Revenue impact'" },
+                "value": { "type": "string", "description": "Display value, e.g. '+$2.4M ARR'" },
+                "kind": {
+                  "type": "string",
+                  "enum": ["currency", "percentage", "count", "duration", "other"]
+                }
+              }
+            }
+          },
+          "stack": {
+            "type": "array",
+            "description": "NEW in v1.3 — technologies / tools used in this role.",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "education": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["institution", "degree"],
+        "properties": {
+          "institution": { "type": "string" },
+          "degree": { "type": "string" },
+          "field": { "type": "string" },
+          "startDate": { "type": "string", "pattern": "^[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?$" },
+          "endDate": { "type": "string", "pattern": "^[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?$" },
+          "score": { "type": "string" },
+          "summary": { "type": "string" },
+          "highlights": { "type": "array", "items": { "type": "string" } },
+          "courses": {
+            "type": "array",
+            "description": "NEW in v1.3 — notable courses taken.",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "skills": {
+      "description": "v1.3 accepts BOTH the v1.2 flat string list AND a new structured categorized form. Consumers MUST handle either shape.",
+      "oneOf": [
+        {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string" }
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name"],
+            "properties": {
+              "name": { "type": "string", "description": "Skill or category name" },
+              "level": {
+                "type": "string",
+                "enum": ["beginner", "intermediate", "advanced", "expert"],
+                "description": "NEW in v1.3 — self-assessed proficiency level."
+              },
+              "yearsOfExperience": { "type": "number", "minimum": 0 },
+              "keywords": {
+                "type": "array",
+                "description": "Sub-skills or related technologies.",
+                "items": { "type": "string" }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "languages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["language"],
+        "properties": {
+          "language": { "type": "string" },
+          "fluency": { "type": "string" },
+          "cefr": {
+            "type": "string",
+            "enum": ["A1", "A2", "B1", "B2", "C1", "C2", "Native"],
+            "description": "NEW in v1.3 — standardized CEFR level."
+          }
+        }
+      }
+    },
+    "projects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "role": { "type": "string" },
+          "url": { "type": "string", "format": "uri" },
+          "repository": {
+            "type": "string",
+            "format": "uri",
+            "description": "NEW in v1.3 — public source code repository URL."
+          },
+          "keywords": { "type": "array", "items": { "type": "string" } },
+          "highlights": { "type": "array", "items": { "type": "string" } },
+          "current": { "type": "boolean" },
+          "startDate": { "type": "string", "pattern": "^[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?$" },
+          "endDate": { "type": "string", "pattern": "^[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?$" }
+        }
+      }
+    },
+    "certificates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string" },
+          "issuer": { "type": "string" },
+          "date": { "type": "string", "pattern": "^[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?$" },
+          "expiryDate": {
+            "type": "string",
+            "pattern": "^[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?$",
+            "description": "NEW in v1.3 — when the certificate expires, if applicable."
+          },
+          "credentialId": {
+            "type": "string",
+            "description": "NEW in v1.3 — issuer-assigned credential ID for verification."
+          },
+          "url": { "type": "string", "format": "uri" }
+        }
+      }
+    },
+    "publications": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string" },
+          "publisher": { "type": "string" },
+          "releaseDate": { "type": "string", "pattern": "^[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?$" },
+          "url": { "type": "string", "format": "uri" },
+          "summary": { "type": "string" },
+          "doi": {
+            "type": "string",
+            "description": "NEW in v1.3 — Digital Object Identifier."
+          },
+          "authors": {
+            "type": "array",
+            "description": "NEW in v1.3 — co-authors of the publication.",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "awards": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["title"],
+        "properties": {
+          "title": { "type": "string" },
+          "date": { "type": "string", "pattern": "^[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?$" },
+          "awarder": { "type": "string" },
+          "summary": { "type": "string" }
+        }
+      }
+    },
+    "interests": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "volunteer": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["organization"],
+        "properties": {
+          "organization": { "type": "string" },
+          "position": { "type": "string" },
+          "url": { "type": "string", "format": "uri" },
+          "summary": { "type": "string" },
+          "startDate": { "type": "string", "pattern": "^[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?$" },
+          "endDate": { "type": "string", "pattern": "^[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?$" },
+          "highlights": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string" },
+          "title": { "type": "string" },
+          "company": { "type": "string" },
+          "relationship": { "type": "string" },
+          "email": { "type": "string", "format": "email" },
+          "phone": { "type": "string" }
+        }
+      }
+    },
+    "referencesMode": {
+      "type": "string",
+      "enum": ["show", "on-request", "hide"],
+      "default": "hide"
+    },
+    "availability": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["actively-looking", "open", "not-looking"]
+        },
+        "roles": { "type": "array", "items": { "type": "string" } },
+        "locations": { "type": "array", "items": { "type": "string" } },
+        "workType": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["remote", "hybrid", "onsite"] }
+        },
+        "employmentType": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["full-time", "part-time", "contract", "freelance", "internship", "temporary", "seasonal"]
+          }
+        },
+        "startDate": { "type": "string", "pattern": "^[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?$" },
+        "sponsorship": { "type": "boolean" },
+        "salaryExpectation": {
+          "type": "object",
+          "description": "NEW in v1.3 — optional salary expectation range.",
+          "properties": {
+            "currency": { "type": "string", "description": "ISO 4217 code, e.g. 'USD'" },
+            "min": { "type": "number", "minimum": 0 },
+            "max": { "type": "number", "minimum": 0 },
+            "period": { "type": "string", "enum": ["hour", "day", "month", "year"] }
+          }
+        }
+      }
+    },
+    "ats": {
+      "type": "object",
+      "properties": {
+        "keywords": { "type": "array", "items": { "type": "string" } },
+        "yearsOfExperience": { "type": "integer", "minimum": 0 },
+        "highestEducation": { "type": "string" },
+        "seniority": {
+          "type": "string",
+          "enum": ["entry", "junior", "mid", "senior", "lead", "executive"]
+        }
+      }
+    },
+    "aiContext": {
+      "type": "object",
+      "description": "NEW in v1.3 — hints for AI agents consuming this CV. All fields optional.",
+      "properties": {
+        "prompt": {
+          "type": "string",
+          "description": "A short natural-language description of the candidate for LLM context windows."
+        },
+        "doNotTrain": {
+          "type": "boolean",
+          "description": "User opt-out signal: AI providers SHOULD NOT use this CV for model training."
+        },
+        "preferredContactMethod": {
+          "type": "string",
+          "enum": ["email", "phone", "linkedin", "form"]
+        }
+      }
+    },
+    "i18n": {
+      "type": "object",
+      "properties": {
+        "primary": { "type": "string", "pattern": "^[a-z]{2}(-[A-Z]{2})?$" },
+        "available": {
+          "type": "object",
+          "additionalProperties": { "type": "string", "format": "uri" }
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "properties": {
+        "email": { "type": "boolean" },
+        "platform": { "type": "string" },
+        "signature": {
+          "type": "object",
+          "description": "NEW in v1.3 — cryptographic signature of the document by the serving platform.",
+          "properties": {
+            "algorithm": { "type": "string", "description": "e.g. 'ed25519'" },
+            "publicKey": { "type": "string", "format": "uri", "description": "URL to platform's public key" },
+            "value": { "type": "string", "description": "Base64-encoded signature of the canonical JSON form" }
+          }
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "required": ["version", "canonical", "lastModified"],
+      "properties": {
+        "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+(\\.[0-9]+)?$", "description": "Schema version this document conforms to, e.g. '1.3'." },
+        "canonical": { "type": "string", "format": "uri" },
+        "lastModified": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}" },
+        "generator": { "type": "string" },
+        "license": {
+          "type": "string",
+          "description": "NEW in v1.3 — SPDX identifier or URL describing reuse rights for this CV's content, e.g. 'CC-BY-4.0', 'all-rights-reserved'."
+        }
+      }
+    }
+  }
+}

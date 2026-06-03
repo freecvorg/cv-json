@@ -1,0 +1,217 @@
+{
+  "$schema": "https://freecv.org/schema/cv/v1.json",
+
+  "basics": {
+    "name": "Marco Reinhardt",
+    "label": "Staff Software Engineer",
+    "email": "marco@reinhardt.dev",
+    "location": "Austin, TX",
+    "url": "https://reinhardt.dev",
+    "summary": "Staff Engineer with 8 years building distributed systems and developer infrastructure. Shipped Kubernetes-native data pipelines at scale, maintained 4 popular open-source projects, and led platform teams of 6-10 engineers.",
+    "image": "https://reinhardt.dev/avatar.jpg",
+    "profiles": [
+      { "network": "GitHub", "username": "mreinhardt", "url": "https://github.com/mreinhardt" },
+      { "network": "LinkedIn", "username": "marcoreinhardt", "url": "https://linkedin.com/in/marcoreinhardt" },
+      { "network": "Mastodon", "username": "@marco@hachyderm.io", "url": "https://hachyderm.io/@marco" }
+    ]
+  },
+
+  "work": [
+    {
+      "company": "Datadog",
+      "position": "Staff Software Engineer",
+      "startDate": "2023-02",
+      "current": true,
+      "location": "Remote (Austin, TX)",
+      "summary": "Tech lead for the Pipelines team — observability data routing at >50M events/sec.",
+      "highlights": [
+        "Designed and shipped Vector-based pipeline engine, replacing legacy Fluentd stack and cutting infra costs by 41%",
+        "Mentored 7 engineers, 2 of whom were promoted to Senior in 2024",
+        "Led on-call SRE rotation redesign that dropped P1 page volume 60% YoY"
+      ]
+    },
+    {
+      "company": "Stripe",
+      "position": "Senior Software Engineer",
+      "startDate": "2020-06",
+      "endDate": "2023-01",
+      "location": "Remote (Austin, TX)",
+      "highlights": [
+        "Owned the Radar ML feature store powering fraud detection on $800B+ annual payment volume",
+        "Wrote the RFC and shipped Stripe's internal Bazel monorepo migration for the Risk org",
+        "Promoted from L4 to L5 in 18 months"
+      ]
+    },
+    {
+      "company": "Cockroach Labs",
+      "position": "Software Engineer",
+      "startDate": "2018-07",
+      "endDate": "2020-05",
+      "location": "New York, NY",
+      "highlights": [
+        "Built distributed SQL query planner optimizations contributing to 2.3x p99 latency improvement",
+        "Shipped CockroachDB 20.1 backup/restore subsystem, adopted by 4 enterprise customers within a quarter"
+      ]
+    },
+    {
+      "company": "Etsy",
+      "position": "Software Engineer",
+      "startDate": "2017-08",
+      "endDate": "2018-06",
+      "location": "Brooklyn, NY",
+      "highlights": [
+        "Migrated checkout service from PHP monolith to Go microservice — 35% latency reduction",
+        "First-year engineer on the Payments Infrastructure team"
+      ]
+    }
+  ],
+
+  "education": [
+    {
+      "institution": "Carnegie Mellon University",
+      "degree": "BSc",
+      "field": "Computer Science",
+      "startDate": "2013",
+      "endDate": "2017",
+      "score": "3.87 GPA",
+      "highlights": ["Honors in Distributed Systems", "Teaching Assistant for 15-440 (Distributed Systems)"]
+    }
+  ],
+
+  "skills": [
+    "Go", "Rust", "Python", "TypeScript",
+    "Kubernetes", "Terraform", "Postgres", "Kafka",
+    "Distributed Systems", "Observability", "SRE",
+    "Bazel", "gRPC", "Protobuf",
+    "Technical Leadership", "Mentoring"
+  ],
+
+  "languages": [
+    { "language": "English", "fluency": "Native" },
+    { "language": "German", "fluency": "Fluent" }
+  ],
+
+  "projects": [
+    {
+      "name": "tinypaxos",
+      "description": "Educational Paxos implementation in Rust — used in 3 university courses.",
+      "role": "Creator & Maintainer",
+      "url": "https://github.com/mreinhardt/tinypaxos",
+      "keywords": ["Rust", "Consensus", "Distributed Systems"],
+      "highlights": ["2.4k GitHub stars", "Adopted as teaching material at CMU 15-440 and UW CSE 552"],
+      "current": true,
+      "startDate": "2021-09"
+    },
+    {
+      "name": "kube-budget",
+      "description": "Kubernetes namespace cost attribution controller.",
+      "role": "Co-author",
+      "url": "https://github.com/mreinhardt/kube-budget",
+      "keywords": ["Go", "Kubernetes", "FinOps"],
+      "highlights": ["900+ stars", "Used by 12 known production clusters"],
+      "startDate": "2022-03",
+      "endDate": "2024-11"
+    }
+  ],
+
+  "publications": [
+    {
+      "name": "Observability Pipelines at 50M events/sec: a Vector retrospective",
+      "publisher": "Datadog Engineering Blog",
+      "releaseDate": "2024-09",
+      "url": "https://www.datadoghq.com/blog/observability-pipelines-vector"
+    }
+  ],
+
+  "availability": {
+    "status": "open",
+    "roles": ["Staff Engineer", "Principal Engineer", "Tech Lead"],
+    "locations": ["Austin, TX", "Remote (US)"],
+    "workType": ["remote", "hybrid"],
+    "employmentType": ["full-time"],
+    "sponsorship": false
+  },
+
+  "ats": {
+    "keywords": ["Go", "Rust", "Kubernetes", "Distributed Systems", "SRE", "Staff Engineer"],
+    "yearsOfExperience": 8,
+    "seniority": "lead",
+    "highestEducation": "BSc Computer Science"
+  },
+
+  "verification": {
+    "email": true,
+    "platform": "freecv.org"
+  },
+
+  "compensation": {
+    "currency": "USD",
+    "current": {
+      "base": 285000,
+      "equityAnnualized": 140000,
+      "bonusTarget": 0.20,
+      "totalTarget": 482000
+    },
+    "desiredRange": {
+      "totalMin": 480000,
+      "totalMax": 620000
+    },
+    "visibility": "on-request"
+  },
+
+  "workAuthorization": {
+    "country": "US",
+    "status": "citizen",
+    "requiresSponsorship": false
+  },
+
+  "credentials": [
+    {
+      "type": "VerifiableCredential",
+      "claim": "employment",
+      "subject": "Staff Software Engineer at Datadog",
+      "issuer": "did:web:datadog.com",
+      "issuanceDate": "2024-02-15",
+      "proof": "https://verify.workproof.io/c/dd-9f3a-2024"
+    },
+    {
+      "type": "VerifiableCredential",
+      "claim": "education",
+      "subject": "BSc Computer Science, Carnegie Mellon University",
+      "issuer": "did:web:cmu.edu",
+      "issuanceDate": "2017-05-21",
+      "proof": "https://verify.cmu.edu/d/3e8c1f"
+    }
+  ],
+
+  "intentions": {
+    "summary": "Looking for a Staff or Principal IC role at a Series C+ infra/devtools company. Interested in observability, databases, or platform engineering. Not pursuing management track.",
+    "track": "individual-contributor",
+    "openToManagement": false,
+    "interestedDomains": ["observability", "databases", "developer-tools", "platform-engineering"],
+    "avoidDomains": ["adtech", "crypto", "defense"]
+  },
+
+  "signals": {
+    "github": {
+      "username": "mreinhardt",
+      "publicRepos": 47,
+      "followers": 1820,
+      "stars": 4200,
+      "contributionsLast12Months": 1847,
+      "topLanguages": ["Rust", "Go", "Python"],
+      "lastSynced": "2026-05-30T12:00:00Z"
+    },
+    "speaking": [
+      { "event": "KubeCon NA 2024", "title": "Vector at 50M events/sec", "url": "https://kccncna2024.sched.com/event/vector-50m" },
+      { "event": "Strange Loop 2022", "title": "Designing for partial failure", "url": "https://thestrangeloop.com/2022/sessions/partial-failure" }
+    ]
+  },
+
+  "meta": {
+    "version": "1.3",
+    "canonical": "https://reinhardt.dev/cv.json",
+    "lastModified": "2026-05-30",
+    "generator": "FreeCV"
+  }
+}

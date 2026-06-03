@@ -1,0 +1,237 @@
+{
+  "$schema": "https://freecv.org/schema/cv/v1.json",
+
+  "basics": {
+    "name": "Jordan Beaumont",
+    "label": "Three-time Founder, currently exploring",
+    "email": "jordan@beaumont.work",
+    "location": "Lisbon, Portugal",
+    "url": "https://beaumont.work",
+    "summary": "Three-time founder across devtools, fintech infrastructure, and consumer mobile. Two acquisitions (one announced, one undisclosed), one wound down. Currently exploring senior IC roles at later-stage companies where I can stop wearing the CEO hat and go deep on product engineering again.",
+    "profiles": [
+      { "network": "LinkedIn", "username": "jordanbeaumont", "url": "https://linkedin.com/in/jordanbeaumont" },
+      { "network": "GitHub", "username": "jbeaumont", "url": "https://github.com/jbeaumont" },
+      { "network": "Twitter", "username": "@jbeaumont", "url": "https://twitter.com/jbeaumont" },
+      { "network": "Crunchbase", "url": "https://www.crunchbase.com/person/jordan-beaumont" }
+    ]
+  },
+
+  "highlights": [
+    {
+      "type": "founder",
+      "company": "Loopstack",
+      "role": "Co-founder & CEO",
+      "period": "2022-02 — 2025-04",
+      "outcome": "acquired",
+      "summary": "Workflow orchestration for ML teams. Acquired by Mosaic Compute (April 2025, undisclosed). YC W22. Grew to 14 people and $4.2M ARR.",
+      "url": "https://loopstack.dev"
+    },
+    {
+      "type": "founder",
+      "company": "Tendril Pay",
+      "role": "Co-founder & CTO",
+      "period": "2018-09 — 2021-12",
+      "outcome": "acquired",
+      "summary": "Embedded payments API for SaaS platforms. Acquired by a publicly-traded fintech in Q4 2021 ($38M reported). Built initial team from 2 to 28.",
+      "url": "https://web.archive.org/web/2021/https://tendrilpay.com"
+    },
+    {
+      "type": "founder",
+      "company": "Casette",
+      "role": "Solo Founder",
+      "period": "2016-04 — 2018-07",
+      "outcome": "wound-down",
+      "summary": "Consumer audio sharing app. Reached 80k MAU, raised a $750k pre-seed, ultimately wound down after failing to find sustainable retention. Returned remaining capital to investors.",
+      "url": null
+    }
+  ],
+
+  "work": [
+    {
+      "company": "Loopstack",
+      "position": "Co-founder & CEO",
+      "startDate": "2022-02",
+      "endDate": "2025-04",
+      "location": "Remote (Lisbon)",
+      "summary": "ML workflow orchestration platform. YC W22. Acquired by Mosaic Compute April 2025.",
+      "highlights": [
+        "Built and led 14-person fully-remote team across 8 countries",
+        "Grew from $0 to $4.2M ARR in 24 months; gross margin >78%",
+        "Raised $9M seed (Accel led) and a $14M Series A (Index led)",
+        "Architected the core scheduler in Rust; personally shipped ~40% of initial codebase",
+        "Negotiated and closed the Mosaic acquisition; integration completed Q3 2025"
+      ]
+    },
+    {
+      "company": "Tendril Pay",
+      "position": "Co-founder & CTO",
+      "startDate": "2018-09",
+      "endDate": "2021-12",
+      "location": "Berlin, Germany",
+      "summary": "Embedded payments API for B2B SaaS. Acquired Q4 2021 for $38M.",
+      "highlights": [
+        "Hired and led engineering org from 0 to 18 engineers across 4 squads",
+        "Designed PCI-DSS Level 1 architecture; passed audit in year 2",
+        "Processed $2.1B in lifetime payment volume across 1,200 SaaS customers"
+      ]
+    },
+    {
+      "company": "Casette",
+      "position": "Solo Founder & Engineer",
+      "startDate": "2016-04",
+      "endDate": "2018-07",
+      "location": "London, UK",
+      "summary": "Consumer audio sharing app. Wound down honourably; capital returned to investors.",
+      "highlights": [
+        "Reached 80k MAU and #4 on App Store Music Discovery",
+        "Built entire iOS + Android + backend stack solo for first 18 months"
+      ]
+    },
+    {
+      "company": "Monzo",
+      "position": "Senior Software Engineer",
+      "startDate": "2014-03",
+      "endDate": "2016-03",
+      "location": "London, UK",
+      "highlights": [
+        "Engineer #11. Built early ledger and card-issuing services in Go.",
+        "On-call rotation for the founding banking license launch."
+      ]
+    }
+  ],
+
+  "education": [
+    {
+      "institution": "Imperial College London",
+      "degree": "MEng",
+      "field": "Computing",
+      "startDate": "2009",
+      "endDate": "2013",
+      "score": "First Class Honours"
+    }
+  ],
+
+  "skills": [
+    "Go", "Rust", "TypeScript", "Python",
+    "Distributed Systems", "Payments Infrastructure",
+    "Engineering Leadership", "Hiring & Team Building",
+    "Fundraising", "Product Strategy",
+    "Zero-to-One Product Development",
+    "Customer Discovery"
+  ],
+
+  "languages": [
+    { "language": "English", "fluency": "Native" },
+    { "language": "Portuguese", "fluency": "Intermediate" },
+    { "language": "French", "fluency": "Basic" }
+  ],
+
+  "projects": [
+    {
+      "name": "rust-actor-bench",
+      "description": "Benchmark suite comparing Rust actor frameworks under realistic workloads.",
+      "role": "Author",
+      "url": "https://github.com/jbeaumont/rust-actor-bench",
+      "keywords": ["Rust", "Benchmarking", "Open Source"],
+      "highlights": ["1.1k GitHub stars", "Referenced by 2 actor framework docs"],
+      "startDate": "2024-08",
+      "current": true
+    }
+  ],
+
+  "publications": [
+    {
+      "name": "What I learned founding three startups in a decade",
+      "publisher": "Personal blog",
+      "releaseDate": "2025-06",
+      "url": "https://beaumont.work/three-startups"
+    },
+    {
+      "name": "How we ran a 14-person fully-remote engineering org",
+      "publisher": "Loopstack Engineering Blog (archived)",
+      "releaseDate": "2024-11",
+      "url": "https://web.archive.org/web/2024/loopstack.dev/blog/remote-eng"
+    }
+  ],
+
+  "availability": {
+    "status": "actively-looking",
+    "roles": ["Staff Engineer", "Principal Engineer", "Founding Engineer at Series C+"],
+    "locations": ["Remote (EU)", "Lisbon, Portugal", "London, UK", "Berlin, Germany"],
+    "workType": ["remote", "hybrid"],
+    "employmentType": ["full-time"],
+    "startDate": "2026-07-01",
+    "sponsorship": false
+  },
+
+  "ats": {
+    "keywords": ["Founder", "CEO", "CTO", "Go", "Rust", "Payments", "ML Infrastructure"],
+    "yearsOfExperience": 13,
+    "seniority": "executive",
+    "highestEducation": "MEng Computing"
+  },
+
+  "verification": {
+    "email": true,
+    "platform": "freecv.org"
+  },
+
+  "intentions": {
+    "summary": "After three founder runs (2 acquisitions, 1 wind-down), I'm explicitly looking for a senior IC engineering role at a Series C or later company — no co-founder, no early-stage CTO, no advisory-for-equity. I want to ship code, mentor, and not run a P&L for a few years.",
+    "track": "individual-contributor",
+    "openToManagement": false,
+    "interestedDomains": ["payments", "developer-tools", "ml-infrastructure", "fintech"],
+    "avoidDomains": ["pre-seed", "seed", "consumer-social", "crypto"],
+    "explicitlyNotInterestedIn": [
+      "Co-founder roles",
+      "Founding engineer at pre-PMF startups",
+      "CTO roles below Series C",
+      "Advisory positions",
+      "Board seats"
+    ]
+  },
+
+  "compensation": {
+    "currency": "EUR",
+    "desiredRange": {
+      "baseMin": 200000,
+      "baseMax": 280000,
+      "totalMin": 320000,
+      "notes": "Public equity or late-stage liquid equity strongly preferred over early-stage paper."
+    },
+    "visibility": "on-request"
+  },
+
+  "outreachControls": {
+    "acceptingInbound": true,
+    "preferredChannel": "email",
+    "minimumViableOffer": {
+      "stage": "Series C or later",
+      "totalCompMin": 320000,
+      "totalCompCurrency": "EUR",
+      "roleLevel": "Staff or Principal IC"
+    },
+    "filters": {
+      "noEarlyStage": true,
+      "noCoFounderPitches": true,
+      "noRecruiterSpray": true,
+      "noUnpaidAdvisory": true
+    },
+    "responseSLA": "I read everything; I reply within 5 business days to messages that meet the minimum viable offer.",
+    "blockedTopics": ["crypto", "web3", "defense", "gambling"]
+  },
+
+  "provenance": {
+    "authoredBy": "human",
+    "aiAssisted": false,
+    "lastReviewedByOwner": "2026-05-29",
+    "notes": "Hand-written and hand-edited by the candidate. No AI generation used for any field in this document."
+  },
+
+  "meta": {
+    "version": "1.3",
+    "canonical": "https://beaumont.work/cv.json",
+    "lastModified": "2026-05-29",
+    "generator": "FreeCV"
+  }
+}

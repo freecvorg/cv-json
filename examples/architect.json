@@ -1,0 +1,231 @@
+{
+  "$schema": "https://freecv.org/schema/cv/v1.json",
+
+  "basics": {
+    "name": "Priya Raghavan",
+    "label": "Principal Software Architect",
+    "email": "priya@praghavan.io",
+    "location": "Bengaluru, India",
+    "url": "https://praghavan.io",
+    "summary": "Principal Software Architect with 13 years designing cloud-native, multi-region systems for fintech and e-commerce at planet scale. Track record across 4 companies leading architecture for platforms serving 100M+ users. Currently exploring senior architect roles in North America or Western Europe with relocation support.",
+    "image": "https://praghavan.io/avatar.jpg",
+    "profiles": [
+      { "network": "LinkedIn", "username": "praghavan", "url": "https://linkedin.com/in/praghavan" },
+      { "network": "GitHub", "username": "praghavan", "url": "https://github.com/praghavan" },
+      { "network": "Medium", "username": "@priya.raghavan", "url": "https://medium.com/@priya.raghavan" }
+    ]
+  },
+
+  "work": [
+    {
+      "company": "Razorpay",
+      "position": "Principal Architect",
+      "startDate": "2022-01",
+      "current": true,
+      "location": "Bengaluru, India",
+      "summary": "Reports to CTO. Owns architecture for the payments platform processing $90B+ annual TPV.",
+      "highlights": [
+        "Led active-active multi-region rollout across 3 AZs — 99.995% availability SLA achieved",
+        "Architecture review board chair; sign-off authority on all org-wide RFCs",
+        "Drove move from monolith to 140+ services with a 14-person architecture guild",
+        "Mentored 6 staff engineers; 4 promoted to Principal under my mentorship"
+      ]
+    },
+    {
+      "company": "Flipkart",
+      "position": "Senior Staff Architect",
+      "startDate": "2018-05",
+      "endDate": "2021-12",
+      "location": "Bengaluru, India",
+      "highlights": [
+        "Architected Big Billion Day order pipeline — handled 1.5M orders/minute peak",
+        "Designed eventual-consistency model for inventory across 7 fulfillment regions",
+        "Tech lead for the migration from Oracle to a self-hosted Postgres + Vitess stack"
+      ]
+    },
+    {
+      "company": "Goldman Sachs",
+      "position": "VP, Engineering Architect",
+      "startDate": "2015-08",
+      "endDate": "2018-04",
+      "location": "Bengaluru, India",
+      "highlights": [
+        "Architected risk pricing platform used across equities and derivatives desks",
+        "Owned data architecture for the Marquee client platform launch (2017)",
+        "Cross-trained 3 mos in NYC office (2016)"
+      ]
+    },
+    {
+      "company": "ThoughtWorks",
+      "position": "Lead Consultant",
+      "startDate": "2013-04",
+      "endDate": "2015-07",
+      "location": "Pune, India",
+      "highlights": [
+        "Delivered 6 architecture engagements for retail and banking clients in EU and US",
+        "Co-led the firm's microservices community of practice"
+      ]
+    }
+  ],
+
+  "education": [
+    {
+      "institution": "Indian Institute of Technology, Madras",
+      "degree": "MSc",
+      "field": "Computer Science",
+      "startDate": "2011",
+      "endDate": "2013",
+      "score": "9.1/10 CGPA",
+      "summary": "Thesis: Quorum-based replication in geo-distributed key-value stores."
+    },
+    {
+      "institution": "BITS Pilani",
+      "degree": "BE",
+      "field": "Computer Science",
+      "startDate": "2007",
+      "endDate": "2011",
+      "score": "8.7/10 CGPA"
+    }
+  ],
+
+  "skills": [
+    "Distributed Systems",
+    "Event-Driven Architecture",
+    "Domain-Driven Design",
+    "Java", "Go", "Kotlin",
+    "Kafka", "Postgres", "Cassandra", "Redis",
+    "AWS", "GCP",
+    "Kubernetes", "Service Mesh",
+    "Multi-Region Active-Active",
+    "Architecture Decision Records",
+    "Technical Strategy",
+    "Mentoring Staff+ Engineers"
+  ],
+
+  "languages": [
+    { "language": "English", "fluency": "Fluent" },
+    { "language": "Tamil", "fluency": "Native" },
+    { "language": "Hindi", "fluency": "Fluent" },
+    { "language": "German", "fluency": "Basic" }
+  ],
+
+  "publications": [
+    {
+      "name": "Active-Active Payments at $90B TPV: a Razorpay retrospective",
+      "publisher": "InfoQ",
+      "releaseDate": "2025-01",
+      "url": "https://www.infoq.com/articles/razorpay-active-active-payments"
+    },
+    {
+      "name": "Order pipelines for hyperscale sale events",
+      "publisher": "ACM Queue",
+      "releaseDate": "2021-09",
+      "url": "https://queue.acm.org/detail.cfm?id=hyperscale-orders"
+    }
+  ],
+
+  "awards": [
+    {
+      "title": "Razorpay Distinguished Engineer Award",
+      "date": "2024-12",
+      "awarder": "Razorpay",
+      "summary": "For platform reliability work during the FY24 festive season."
+    },
+    {
+      "title": "Flipkart Tech Excellence Award",
+      "date": "2020-10",
+      "awarder": "Flipkart",
+      "summary": "Big Billion Day 2020 platform leadership."
+    }
+  ],
+
+  "certificates": [
+    {
+      "name": "AWS Certified Solutions Architect — Professional",
+      "issuer": "Amazon Web Services",
+      "date": "2023-04",
+      "url": "https://aws.amazon.com/verification/abc-123"
+    },
+    {
+      "name": "Google Cloud Professional Cloud Architect",
+      "issuer": "Google Cloud",
+      "date": "2022-07"
+    }
+  ],
+
+  "availability": {
+    "status": "actively-looking",
+    "roles": ["Principal Architect", "Distinguished Engineer", "Chief Architect", "VP Architecture"],
+    "locations": ["San Francisco, CA", "Seattle, WA", "London, UK", "Amsterdam, Netherlands", "Berlin, Germany"],
+    "workType": ["onsite", "hybrid"],
+    "employmentType": ["full-time"],
+    "startDate": "2026-09-01",
+    "sponsorship": true
+  },
+
+  "ats": {
+    "keywords": ["Software Architecture", "Distributed Systems", "Principal Engineer", "Payments", "Multi-region"],
+    "yearsOfExperience": 13,
+    "seniority": "lead",
+    "highestEducation": "MSc Computer Science"
+  },
+
+  "verification": {
+    "email": true,
+    "platform": "freecv.org"
+  },
+
+  "compensation": {
+    "currency": "USD",
+    "current": {
+      "base": 175000,
+      "equityAnnualized": 90000,
+      "bonusTarget": 0.25,
+      "totalTarget": 308750,
+      "notes": "Bengaluru-denominated comp; converted to USD at 83 INR/USD."
+    },
+    "desiredRange": {
+      "baseMin": 350000,
+      "baseMax": 450000,
+      "totalMin": 600000,
+      "totalMax": 850000,
+      "notes": "Relocation package required. Open to lower base if equity is meaningful at Series D+ or public."
+    },
+    "visibility": "on-request"
+  },
+
+  "workAuthorization": {
+    "country": "IN",
+    "status": "citizen",
+    "requiresSponsorship": true,
+    "preferredDestinations": [
+      { "country": "US", "visaType": "O-1 or EB-1B preferred; open to H-1B transfer", "relocationRequired": true },
+      { "country": "UK", "visaType": "Global Talent or Skilled Worker", "relocationRequired": true },
+      { "country": "NL", "visaType": "Highly Skilled Migrant", "relocationRequired": true },
+      { "country": "DE", "visaType": "EU Blue Card", "relocationRequired": true }
+    ]
+  },
+
+  "locationPreferences": {
+    "currentBase": "Bengaluru, India",
+    "willingToRelocate": true,
+    "relocationCountries": ["US", "UK", "NL", "DE", "IE", "CA"],
+    "remoteOnlyAcceptable": false,
+    "preferredTimezoneOverlap": "min 4h with PT or CET"
+  },
+
+  "intentions": {
+    "summary": "Targeting Principal/Distinguished IC or Chief Architect roles at growth-stage and public companies in payments, fintech, or large-scale infra. Strong preference for relocation to North America or Western Europe.",
+    "track": "individual-contributor",
+    "openToManagement": false,
+    "interestedDomains": ["payments", "fintech", "platform-engineering", "distributed-databases"],
+    "avoidDomains": ["crypto", "gambling"]
+  },
+
+  "meta": {
+    "version": "1.3",
+    "canonical": "https://praghavan.io/cv.json",
+    "lastModified": "2026-05-28",
+    "generator": "FreeCV"
+  }
+}

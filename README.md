@@ -1,240 +1,289 @@
-<p align="center">
-  <img src="https://freecv.org/icon.png" alt="cv.json" width="64" height="64" style="border-radius: 12px" />
-</p>
+# cv.json
 
-<h1 align="center">cv.json</h1>
+> An open schema for publishing a CV as a single JSON document at a stable URL — so AI agents, ATS systems, and other tools can read career data without parsing a PDF.
 
-<p align="center">
-  <strong>The open, machine-readable standard for career data.</strong><br>
-  One JSON file. One URL. Always current.<br>
-  Built for AI agents, ATS systems, and humans.
-</p>
-
-<p align="center">
-  <a href="https://freecv.org/open">Spec</a> ·
-  <a href="https://freecv.org/schema/cv/v1.json">JSON Schema</a> ·
-  <a href="https://freecv.org/builder">Builder</a> ·
-  <a href="https://freecv.org/blog/cv-json">Blog Post</a>
-</p>
+[Spec](https://freecv.org/open) · [Validator](https://freecv.org/validate) · [Schema (v1)](https://freecv.org/schema/cv/v1.json) · [`/.well-known/cv.json` discovery](https://freecv.org/open#discovery)
 
 ---
 
-## Why
+## Status
 
-Every day, millions of CVs are uploaded as PDFs — then butchered by ATS parsers. Names become addresses. Job titles merge with dates. Skills vanish. AI recruiting agents need structured data, not guesswork from PDF extraction.
+**Emerging.** cv.json is not a ratified standard. It is a small, opinionated schema currently maintained by [FreeCV](https://freecv.org) and used in production on the FreeCV portfolio platform. We're publishing the schema, validator, and examples here so other tools can adopt it and so the schema can evolve in the open. If you ship a CV product and want a say in v2, [open an issue](https://github.com/freecvorg/cv-json/issues).
 
-**cv.json** gives every professional a canonical, machine-readable endpoint for their career data.
+The schema is **JSON Resume–compatible at the top level** for the core fields (`basics`, `work`, `education`, `skills`, `projects`…). cv.json adds a few fields JSON Resume doesn't have (`availability`, `ats`, `verification`, `referencesMode`, `i18n`) and pins down date formats and a discovery convention.
 
-## Quick Start
+---
 
-### Consume
+## 60-second demo
 
-```bash
-curl https://freecv.org/p/ashley/cv.json
-```
-
-No API key. No auth. Standard HTTP.
-
-### Discover
-
-Portfolio pages include a `<link>` tag for automated discovery:
-
-```html
-<link rel="alternate" type="application/json" href="/p/ashley/cv.json" title="cv.json" />
-```
-
-### Validate
+Every published cv.json lives at a stable URL. No auth, no API key, plain HTTP:
 
 ```bash
-# Schema URL
-https://freecv.org/schema/cv/v1.json
-
-# Every cv.json includes a $schema field pointing to this URL
-# Use any JSON Schema validator (ajv, zod, etc.)
+$ curl -s https://freecv.org/p/ashley/cv.json | jq '.basics.name, .work[0].company'
+"Ashley Chen"
+"Stripe"
 ```
 
-## Schema Overview — v1.2
+The response advertises its schema in headers:
 
-A complete, structured career data schema — all fields optional except `basics` and `meta`, production-ready. All date fields validated as `YYYY`, `YYYY-MM`, or `YYYY-MM-DD`.
-
-### Core Fields
-
-| Field | Description |
-|---|---|
-| `basics` | Name, title, photo, summary, location, social profiles |
-| `work` | Companies, positions, dates, summary + highlights per entry |
-| `education` | Institutions, degrees, fields, scores, summary + highlights |
-| `skills` | Flat array of skill names |
-| `languages` | Languages with fluency levels |
-| `projects` | Portfolio projects with role, URLs, keywords + highlights |
-| `certificates` | Professional certifications with issuer, date, verification URL |
-| `publications` | Papers, articles, books — with publisher, date, and URL |
-| `awards` | Awards, honors, and recognitions with awarder and date |
-| `interests` | Personal interests and hobbies as a flat list |
-| `volunteer` | Volunteer experience with summary + highlights |
-| `references` | Professional references — see also `referencesMode` for visibility control |
-
-### Extended Fields (FreeCV extensions)
-
-| Field | Description |
-|---|---|
-| `referencesMode` | `"show"` \| `"on-request"` \| `"hide"` — controls how references render. Defaults to `"hide"`. Data stays in `references[]` regardless, so toggling visibility never loses data. |
-| `availability` | Job-seeking status, preferred roles, work type, sponsorship |
-| `ats` | Auto-generated ATS metadata: keywords, years of experience, seniority. Treat as hints, not authoritative values. |
-| `verification` | Trust signals: email verified, platform source |
-| `i18n` | Internationalization: primary language, map of translated cv.json URLs |
-| `meta` | Schema version, canonical URL, last modified, generator |
-
-### What's New in v1.2
-
-- **`references`** — optional array of professional references with `name`, `title`, `company`, `relationship`, `email`, `phone`
-- **`referencesMode`** — enum controlling visibility: `"show"`, `"on-request"`, or `"hide"` (default). The classic "References available upon request" footer is just the `"on-request"` variant
-
-All changes are **non-breaking** — v1.0 and v1.1 documents remain valid. Consumers that don't understand these fields can safely ignore them.
-
-### What's New in v1.1
-
-- **Date validation** — all date fields enforce `YYYY`, `YYYY-MM`, or `YYYY-MM-DD` patterns
-- **`publications`** — papers, articles, books for academics and researchers
-- **`awards`** — honors and recognitions
-- **`interests`** — personal interests as a flat string array
-- **`projects.role`** — your role on the project (e.g., "Lead Developer")
-- **`projects.highlights`** — key accomplishments on the project
-- **`education.summary`** / **`volunteer.summary`** — consistent with `work.summary`
-- **`employmentType`** — added `"temporary"` and `"seasonal"` options
-- **`ats` description** — clarified as auto-generated hints
-
-All changes are **non-breaking** — v1.0 documents remain valid.
-
-### Field naming — FreeCV builder vs cv.json schema
-
-FreeCV's editor uses slightly friendlier names than the JSONResume-compatible schema. When generating or consuming cv.json, the mapping is:
-
-| Builder name | cv.json field | Notes |
-|---|---|---|
-| `personal.jobTitle` | `basics.label` | Same concept |
-| `personal.photo` | `basics.image` | Same concept |
-| `experience.bullets` | `work[].highlights` | Same semantics |
-| `language.level` | `languages[].fluency` | Same semantics |
-| `project.tech` | `projects[].keywords` | Same semantics, `tech` is more specific intent |
-
-Renaming was considered for v1.2 but rejected to preserve JSONResume interop and keep v1.x non-breaking. The names will unify in v2.0.
-
-## Example
-
-```json
-{
-  "$schema": "https://freecv.org/schema/cv/v1.json",
-
-  "basics": {
-    "name": "Ashley Chen",
-    "label": "Senior Product Manager",
-    "location": "San Francisco, CA",
-    "summary": "10+ years leading cross-functional teams...",
-    "profiles": [{ "network": "LinkedIn", "url": "..." }]
-  },
-
-  "work": [{
-    "company": "Stripe",
-    "position": "Senior PM",
-    "startDate": "2021-06",
-    "current": true,
-    "highlights": ["Increased developer adoption by 34%"]
-  }],
-
-  "skills": ["Product Strategy", "SQL", "Figma"],
-  "education": [{ "institution": "Stanford", "degree": "MBA" }],
-  "certificates": [{ "name": "PMP", "issuer": "PMI" }],
-  "interests": ["AI Ethics", "Open Source"],
-
-  "availability": {
-    "status": "open",
-    "workType": ["remote", "hybrid"],
-    "roles": ["Product Manager", "Head of Product"]
-  },
-
-  "ats": {
-    "keywords": ["Product Strategy", "SQL"],
-    "yearsOfExperience": 10,
-    "seniority": "senior"
-  },
-
-  "verification": { "email": true, "platform": "freecv.org" },
-
-  "meta": {
-    "version": "1.2",
-    "canonical": "https://freecv.org/p/ashley/cv.json",
-    "lastModified": "2026-04-25T10:00:00Z",
-    "generator": "FreeCV"
-  }
-}
-```
-
-## Live URL Pattern
-
-Unlike static file exports, cv.json is served from a **live endpoint**:
-
-```
-https://freecv.org/p/{slug}/cv.json    # Free tier
-https://livelink.cv/{slug}/cv.json     # Pro (custom domain)
-```
-
-Update your CV once → every system that fetches your endpoint gets the latest version.
-
-### Response Headers
-
-```
+```http
+HTTP/1.1 200 OK
 Content-Type: application/json; charset=utf-8
-Link: <https://freecv.org/schema/cv/v1.json>; rel="describedby"
 X-CV-Version: 1.2
+Link: <https://freecv.org/schema/cv/v1.json>; rel="describedby"
 Access-Control-Allow-Origin: *
 Cache-Control: public, max-age=300
 ```
 
-## Privacy
+Sites that host a CV can also declare it in HTML for crawlers:
 
-- **Off by default** — cv.json returns 404 until explicitly enabled
-- **Email hidden by default** — opt-in to include contact info
-- **Phone hidden by default** — opt-in to include phone number  
-- **One-click disable** — turn off your endpoint anytime from Dashboard → Settings
-- **Guest users** — no cv.json endpoint (requires account + slug)
+```html
+<link rel="alternate" type="application/json"
+      href="/p/ashley/cv.json" title="cv.json" />
+```
 
-## Use Cases
-
-| Who | How |
-|---|---|
-| **AI Recruiting Agents** | Fetch, compare, and rank candidates from structured JSON |
-| **ATS Platforms** | Ingest pre-parsed career data — no PDF parsing needed |
-| **Job Boards** | Auto-populate profiles from a cv.json URL |
-| **Career Tools** | Build on top of portable, standardized career data |
-| **Individuals** | Own your career data in a universal, portable format |
-
-## Implementations
-
-### Generate cv.json
-
-- [FreeCV Builder](https://freecv.org/builder) — Build and export cv.json (free)
-- [FreeCV Portfolio](https://freecv.org/live-cv) — Live endpoint at `/p/{slug}/cv.json`
-
-### Consume cv.json
-
-_Your tool here — [open an issue](https://github.com/freecvorg/cv-json/issues) to be listed._
-
-## Contributing
-
-We welcome contributions:
-
-- **Schema improvements** — propose new fields via [Issues](https://github.com/freecvorg/cv-json/issues)
-- **Implementations** — build generators, parsers, validators in any language
-- **Documentation** — improve examples, add tutorials
-
-## License
-
-MIT — use cv.json in any project, commercial or otherwise.
+…or expose a site-wide discovery manifest at `/.well-known/cv.json` listing all CVs hosted on the domain.
 
 ---
 
-<p align="center">
-  <strong>Built by <a href="https://freecv.org">FreeCV</a></strong> · 
-  Used by job seekers in 180+ countries
-</p>
+## Schema at a glance
+
+Only `basics` and `meta` are required. Everything else is optional and consumers MUST ignore unknown fields.
+
+| Section | Type | Purpose |
+|---|---|---|
+| `basics` | object | Name, label, image, summary, location, contact, social profiles |
+| `work` | array | Roles: company, position, dates, summary, highlights |
+| `education` | array | Institution, degree, area, dates, score, summary, highlights |
+| `projects` | array | Name, role, description, URL, keywords, highlights |
+| `skills` | array of strings | Flat list of skill names |
+| `languages` | array | Language + fluency level |
+| `certificates` | array | Name, issuer, date, verification URL |
+| `publications` | array | Papers, articles, books |
+| `awards` | array | Honors and recognitions |
+| `volunteer` | array | Volunteer roles, same shape as `work` |
+| `interests` | array of strings | Flat list of interests |
+| `references` | array | Name, title, company, relationship, email, phone |
+| `referencesMode` | enum | `"show"` \| `"on-request"` \| `"hide"` (default `"hide"`) |
+| `availability` | object | Job-seeking status, preferred roles, work type, sponsorship |
+| `ats` | object | Auto-generated keywords, years of experience, seniority — **hints, not authoritative** |
+| `verification` | object | Trust signals: email verified, source platform |
+| `i18n` | object | Primary language + map of translated cv.json URLs |
+| `meta` | object | `version`, `canonical`, `lastModified`, `generator` |
+
+Date fields accept `YYYY`, `YYYY-MM`, or `YYYY-MM-DD`. The full schema is at [`schema/v1.json`](./schema/v1.json).
+
+---
+
+## Why cv.json exists
+
+Three problems, one schema.
+
+**1. PDFs are unparseable in practice.** Every CV in the world eventually meets an ATS. ATS parsers are notorious for merging job titles into dates, putting names in the address field, and silently dropping skills. The fix isn't a better parser — it's not parsing in the first place.
+
+**2. JSON Resume hasn't moved in years.** [JSON Resume](https://jsonresume.org) had the right idea in 2014, but the schema has been effectively frozen since v1.0.0 in 2020 and the community registry is read-only. cv.json keeps wire-format compatibility for the core sections and moves forward on the parts that haven't been touched — discovery, versioning, availability signals, ATS hints, references handling.
+
+**3. AI agents need structured career data.** Recruiting agents, candidate-search tools, and matching systems are being built right now against scraped PDFs and HTML. A canonical JSON endpoint at a known URL is the cheapest way to feed them — same role HTML played for browsers, robots.txt played for crawlers, OpenAPI plays for APIs.
+
+cv.json is the file. The URL is the contract.
+
+---
+
+## Quick start
+
+### Option 1 — Publish via FreeCV (easiest)
+
+1. Sign up at [freecv.org](https://freecv.org), build your CV in the editor.
+2. Enable the public endpoint in Dashboard → Settings → Public cv.json.
+3. Your endpoint goes live at `https://freecv.org/p/{your-slug}/cv.json`.
+
+That's the whole thing. Update your CV once, every consumer fetching the URL gets the new version.
+
+### Option 2 — Self-host
+
+You don't need FreeCV. Any web server can serve a cv.json. Minimal recipe:
+
+1. Write a JSON file conforming to [`schema/v1.json`](./schema/v1.json). Start from [`examples/minimal.json`](./examples/minimal.json).
+2. Serve it at a stable URL with `Content-Type: application/json` and (ideally) `Access-Control-Allow-Origin: *`.
+3. Add a discovery `<link>` to the HTML page that "represents" you (portfolio, personal site).
+4. Validate before publishing:
+
+```bash
+npx -y ajv-cli validate \
+  -s https://freecv.org/schema/cv/v1.json \
+  -d my-cv.json
+```
+
+Or paste it into [freecv.org/validate](https://freecv.org/validate).
+
+### Recommended response headers
+
+```
+Content-Type: application/json; charset=utf-8
+X-CV-Version: 1.2
+Link: <https://freecv.org/schema/cv/v1.json>; rel="describedby"
+Access-Control-Allow-Origin: *
+Cache-Control: public, max-age=300
+```
+
+`X-CV-Version` lets consumers branch behavior without parsing the body. `Access-Control-Allow-Origin: *` is what makes the file usable from browser tools — please set it.
+
+---
+
+## Minimal example
+
+```json
+{
+  "$schema": "https://freecv.org/schema/cv/v1.json",
+  "basics": {
+    "name": "Jane Smith",
+    "label": "Software Engineer",
+    "location": "London, UK",
+    "summary": "Full-stack developer with 3 years building web apps."
+  },
+  "work": [{
+    "company": "Acme Corp",
+    "position": "Software Engineer",
+    "startDate": "2022-03",
+    "current": true,
+    "highlights": ["Cut deploy time by 40% with new CI pipeline"]
+  }],
+  "skills": ["TypeScript", "React", "Node.js", "PostgreSQL"],
+  "education": [{
+    "institution": "University of London",
+    "degree": "BSc Computer Science",
+    "endDate": "2022"
+  }],
+  "meta": {
+    "version": "1.2",
+    "canonical": "https://example.com/cv.json",
+    "lastModified": "2026-06-01",
+    "generator": "hand-written"
+  }
+}
+```
+
+See [`examples/`](./examples) for a fuller document, a references-mode demo, and edge cases.
+
+---
+
+## Discovery
+
+Two complementary mechanisms:
+
+**Per-page link.** On any HTML page that represents a person, add:
+
+```html
+<link rel="alternate" type="application/json"
+      href="/cv.json" title="cv.json" />
+```
+
+This is the same pattern RSS used. Crawlers and agents can find a person's CV from any page they're mentioned on.
+
+**Site-wide manifest.** A platform hosting many CVs (job board, agency, talent network) can publish a discovery manifest at `/.well-known/cv.json`:
+
+```json
+{
+  "version": "1.0",
+  "platform": "example.com",
+  "endpoints": [
+    { "slug": "ashley", "url": "https://example.com/p/ashley/cv.json" },
+    { "slug": "jane",   "url": "https://example.com/p/jane/cv.json" }
+  ]
+}
+```
+
+This lets one HTTP request enumerate every CV a site is willing to expose. FreeCV serves this at [`https://freecv.org/.well-known/cv.json`](https://freecv.org/.well-known/cv.json).
+
+---
+
+## Adopters
+
+If you publish or consume cv.json, add yourself here via PR.
+
+### Publishers
+
+| Platform | Endpoint pattern | Notes |
+|---|---|---|
+| [FreeCV](https://freecv.org) | `https://freecv.org/p/{slug}/cv.json` | Free tier, schema v1.2 |
+| [LiveLink.cv](https://livelink.cv) | `https://livelink.cv/{slug}/cv.json` | Custom-domain tier |
+| _your tool here_ | | |
+
+### Consumers
+
+| Tool | What it does |
+|---|---|
+| [freecv.org/validate](https://freecv.org/validate) | Web validator against the published schema |
+| _your tool here_ | |
+
+PRs welcome. Be honest about implementation status (production, beta, prototype).
+
+---
+
+## Versioning policy
+
+cv.json follows **semver at the schema level**.
+
+| Version | Status | What changes |
+|---|---|---|
+| `v1.0` | Stable (frozen) | Original release. Documents remain valid forever. |
+| `v1.1` | Stable | Date validation, `publications`, `awards`, `interests`, `projects.role/highlights`, `education.summary`, `volunteer.summary`, employment types, `ats` clarified. |
+| `v1.2` | **Current stable** | `references`, `referencesMode`. |
+| `v1.3` | Preview | Under discussion in [issues](https://github.com/freecvorg/cv-json/issues). Likely: richer `availability`, `i18n` improvements. |
+| `v2.0` | Future | Reserved for breaking changes. No timeline. |
+
+**Rules within v1.x:**
+
+- New fields are additive and optional. Consumers MUST ignore unknown fields.
+- No field is renamed or removed within v1.x — even when we know the name isn't great. (For example, `basics.label` vs the more obvious `basics.jobTitle` stays as-is for JSON Resume interop; it changes in v2.)
+- Validation rules only get **stricter** within a minor bump if it's a clarification, never a real tightening that invalidates documents in the wild.
+
+**Declaring the version.** Producers should set `meta.version` to the highest minor version whose fields they use, and serve `X-CV-Version` matching. Consumers should branch on `X-CV-Version` for cheap version checks.
+
+---
+
+## Repository layout
+
+```
+schema/v1.json         JSON Schema (Draft 2020-12) for v1.x
+examples/
+  minimal.json         Smallest valid document
+  full.json            Every section populated
+  with-references.json Demonstrates referencesMode
+validate.js            CLI validator (node validate.js path/to/cv.json)
+CONTRIBUTING.md        How to propose changes
+LICENSE                MIT
+```
+
+---
+
+## Badge
+
+If you publish a cv.json, drop this badge in your README or portfolio so it's visible:
+
+```markdown
+[![cv.json](https://freecv.org/badge/cv-json.svg)](https://freecv.org/open)
+```
+
+Renders as: [![cv.json](https://freecv.org/badge/cv-json.svg)](https://freecv.org/open)
+
+The badge links to the spec. The badge SVG is served from `freecv.org/badge/cv-json.svg` and is free to embed.
+
+---
+
+## License
+
+- **Schema** (this repository, including `schema/v1.json`, examples, validator, docs): [MIT](./LICENSE). Fork it, embed it, ship it.
+- **"cv.json"** as a name: trademark of FreeCV, licensed for free use by any implementation that conforms to the published schema. We're not going to chase anyone — the only thing we'll push back on is a fork that diverges from the schema while still calling itself "cv.json." Call your fork something else and we're good.
+
+---
+
+## Links
+
+- Spec page — https://freecv.org/open
+- JSON Schema (v1) — https://freecv.org/schema/cv/v1.json
+- Validator — https://freecv.org/validate
+- Discovery manifest — https://freecv.org/.well-known/cv.json
+- Builder (reference implementation) — https://freecv.org/builder
+- Issues / proposals — https://github.com/freecvorg/cv-json/issues
+- Background post — https://freecv.org/blog/cv-json

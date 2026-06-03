@@ -1,0 +1,64 @@
+name: Validate examples
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    name: Validate examples against schema
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install ajv-cli
+        run: npm install -g ajv-cli ajv-formats
+
+      - name: Validate examples against v1.3-preview (current)
+        run: |
+          set -e
+          shopt -s nullglob
+          fail=0
+          for example in examples/*.json; do
+            echo "::group::Validating $example against cv-v1.3-preview.json"
+            if ! ajv validate \
+              -s schema/cv-v1.3-preview.json \
+              -d "$example" \
+              -c ajv-formats \
+              --strict=false \
+              --all-errors; then
+              echo "::error file=$example::Failed validation against cv-v1.3-preview.json"
+              fail=1
+            fi
+            echo "::endgroup::"
+          done
+          exit $fail
+
+      - name: Validate examples against v1.0 (backward compat)
+        run: |
+          set -e
+          shopt -s nullglob
+          fail=0
+          for example in examples/*.json; do
+            echo "::group::Validating $example against cv-v1.json (backward compat)"
+            if ! ajv validate \
+              -s schema/cv-v1.json \
+              -d "$example" \
+              -c ajv-formats \
+              --strict=false \
+              --all-errors; then
+              echo "::error file=$example::Failed backward-compat validation against cv-v1.json"
+              fail=1
+            fi
+            echo "::endgroup::"
+          done
+          exit $fail

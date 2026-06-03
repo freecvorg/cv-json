@@ -6,7 +6,15 @@
   "scripts": {
     "validate": "node validate.js"
   },
-  "keywords": ["cv", "resume", "json", "schema", "ats", "career", "open-standard"],
+  "keywords": [
+    "cv",
+    "resume",
+    "json",
+    "schema",
+    "ats",
+    "career",
+    "open-standard"
+  ],
   "author": "FreeCV (https://freecv.org)",
   "license": "MIT",
   "repository": {
@@ -15,7 +23,7 @@
   },
   "homepage": "https://freecv.org/open",
   "dependencies": {
-    "ajv": "^8.12.0",
+    "ajv": "^8.20.0",
     "ajv-formats": "^3.0.1"
   }
 }
