@@ -377,6 +377,364 @@
         }
       }
     },
+    "compensation": {
+      "type": "object",
+      "description": "NEW in v1.3 — current and desired compensation. Privacy-sensitive: set `visibility` to control exposure. Use 'on-request' for recruiter-only display behind authentication.",
+      "properties": {
+        "currency": { "type": "string", "description": "ISO 4217 code, e.g. 'USD', 'EUR'" },
+        "current": {
+          "type": "object",
+          "description": "Current compensation. Optional — many candidates omit to preserve negotiation leverage.",
+          "properties": {
+            "base": { "type": "number", "minimum": 0, "description": "Annualized base salary in `currency`" },
+            "equityAnnualized": { "type": "number", "minimum": 0, "description": "Estimated annualized equity value" },
+            "bonusTarget": { "type": "number", "minimum": 0, "description": "Target bonus as fraction of base (0.2 = 20%)" },
+            "totalTarget": { "type": "number", "minimum": 0, "description": "Total target compensation per year" }
+          }
+        },
+        "desiredRange": {
+          "type": "object",
+          "description": "Desired compensation. Use total* for OTE, base* for base-only.",
+          "properties": {
+            "baseMin": { "type": "number", "minimum": 0 },
+            "baseMax": { "type": "number", "minimum": 0 },
+            "totalMin": { "type": "number", "minimum": 0 },
+            "totalMax": { "type": "number", "minimum": 0 },
+            "notes": { "type": "string", "description": "Free-form negotiation notes, e.g. 'public equity preferred over early-stage paper'" }
+          }
+        },
+        "visibility": {
+          "type": "string",
+          "enum": ["public", "on-request", "private"],
+          "default": "private",
+          "description": "Who can see this block. `public` = unauthenticated. `on-request` = recruiter authenticated via signed claim or OAuth. `private` = never serialize."
+        }
+      }
+    },
+    "workAuthorization": {
+      "type": "object",
+      "description": "NEW in v1.3 — legal work eligibility. Lets recruiters filter at the sourcing stage instead of after a phone screen.",
+      "properties": {
+        "country": { "type": "string", "description": "ISO 3166-1 alpha-2 code where the candidate currently has primary work rights, e.g. 'US', 'GB', 'DE'" },
+        "status": {
+          "type": "string",
+          "enum": ["citizen", "permanent-resident", "visa-holder", "work-permit", "student-visa", "none"],
+          "description": "Current legal status in `country`. `none` = no current work rights (e.g. between visas)."
+        },
+        "requiresSponsorship": { "type": "boolean", "description": "Does the candidate need visa sponsorship for new employment?" },
+        "openToRelocation": { "type": "boolean" },
+        "additionalCountries": {
+          "type": "array",
+          "description": "Other countries where the candidate has work authorization without sponsorship",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "outreachControls": {
+      "type": "object",
+      "description": "NEW in v1.3 — anti-spam controls and recruiter outreach preferences. Helps both sides: candidates filter spam, recruiters see what's worth pitching.",
+      "properties": {
+        "acceptingInbound": { "type": "boolean", "description": "Top-level on/off switch. When false, the CV is effectively a no-contact archive." },
+        "preferredChannel": {
+          "type": "string",
+          "enum": ["email", "phone", "linkedin", "form", "introduction-only"],
+          "description": "How the candidate prefers to be contacted. `introduction-only` = mutual connection required."
+        },
+        "minimumViableOffer": {
+          "type": "object",
+          "description": "Minimum bar an outreach must meet to be worth a response. Saves both sides time.",
+          "properties": {
+            "stage": { "type": "string", "description": "Minimum company maturity, e.g. 'Series C or later'" },
+            "totalCompMin": { "type": "number", "minimum": 0 },
+            "totalCompCurrency": { "type": "string", "description": "ISO 4217 code" },
+            "roleLevel": { "type": "string", "description": "Minimum level title, e.g. 'Staff or Principal IC'" }
+          }
+        },
+        "filters": {
+          "type": "object",
+          "description": "Boolean opt-outs. When true, outreach matching these categories should be auto-rejected.",
+          "properties": {
+            "noEarlyStage": { "type": "boolean" },
+            "noCoFounderPitches": { "type": "boolean" },
+            "noRecruiterSpray": { "type": "boolean", "description": "Reject obviously templated outreach" },
+            "noUnpaidAdvisory": { "type": "boolean" },
+            "noCrypto": { "type": "boolean" },
+            "noWeapons": { "type": "boolean" },
+            "noGambling": { "type": "boolean" }
+          },
+          "additionalProperties": { "type": "boolean" }
+        },
+        "responseSLA": { "type": "string", "description": "Free-form: when/how the candidate replies, e.g. 'I read everything; respond within 5 business days to personalized pitches'" },
+        "excludeDomains": {
+          "type": "array",
+          "description": "Email or company domains to embargo (e.g. current employer). Outreach from these origins should be refused at the serving layer.",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "intentions": {
+      "type": "object",
+      "description": "NEW in v1.3 — what the candidate is looking for AND what they're not. Pre-filter at the recruiter side instead of a 30-minute call.",
+      "properties": {
+        "summary": { "type": "string", "description": "One paragraph: ideal next role, in the candidate's own voice." },
+        "track": {
+          "type": "string",
+          "enum": ["individual-contributor", "management", "either", "founder", "advisor", "research", "academic"],
+          "description": "Primary career track preference. `research` for academic / industry research scientists; `academic` for tenure-track."
+        },
+        "openToManagement": { "type": "boolean" },
+        "openToFounder": { "type": "boolean" },
+        "interestedDomains": { "type": "array", "items": { "type": "string" }, "description": "Domains/industries actively interested in" },
+        "avoidDomains": { "type": "array", "items": { "type": "string" }, "description": "Domains/industries to avoid" },
+        "interestedStages": { "type": "array", "items": { "type": "string" }, "description": "e.g. 'Series B', 'public company', 'bootstrapped'" },
+        "ideal": { "type": "string", "description": "Free-form: the dream role" },
+        "antiIdeal": { "type": "string", "description": "Free-form: what they explicitly don't want" }
+      }
+    },
+    "signals": {
+      "type": "object",
+      "description": "NEW in v1.3 — auto-derived authoritative metrics. These signals are stronger than self-assessment because they come from third parties (GitHub, conference programs, etc.). Always include `lastSynced` so consumers know freshness.",
+      "properties": {
+        "github": {
+          "type": "object",
+          "properties": {
+            "username": { "type": "string" },
+            "publicRepos": { "type": "integer", "minimum": 0 },
+            "followers": { "type": "integer", "minimum": 0 },
+            "stars": { "type": "integer", "minimum": 0 },
+            "contributionsLast12Months": { "type": "integer", "minimum": 0 },
+            "topLanguages": { "type": "array", "items": { "type": "string" } },
+            "lastSynced": { "type": "string", "description": "ISO 8601 datetime when these metrics were last fetched" }
+          }
+        },
+        "speaking": {
+          "type": "array",
+          "description": "Conference talks, podcast appearances, public speaking engagements",
+          "items": {
+            "type": "object",
+            "properties": {
+              "event": { "type": "string" },
+              "title": { "type": "string" },
+              "url": { "type": "string", "format": "uri" },
+              "year": { "type": "integer" },
+              "date": { "type": "string" }
+            }
+          }
+        },
+        "blog": {
+          "type": "object",
+          "properties": {
+            "url": { "type": "string", "format": "uri" },
+            "uniqueVisitors30d": { "type": "integer", "minimum": 0 },
+            "subscribers": { "type": "integer", "minimum": 0 },
+            "lastSynced": { "type": "string" }
+          }
+        },
+        "publications": {
+          "type": "object",
+          "description": "Aggregate publication metrics (see `researchSignals` for academic-specific structure)",
+          "properties": {
+            "hIndex": { "type": "integer", "minimum": 0 },
+            "citations": { "type": "integer", "minimum": 0 },
+            "lastSynced": { "type": "string" }
+          }
+        },
+        "openSource": {
+          "type": "object",
+          "description": "Maintainership signals beyond GitHub stats",
+          "properties": {
+            "projectsMaintained": { "type": "array", "items": { "type": "string" } },
+            "npmDownloadsMonthly": { "type": "integer", "minimum": 0 }
+          }
+        }
+      }
+    },
+    "researchSignals": {
+      "type": "object",
+      "description": "NEW in v1.3 — academic-specific signals. Distinct from `signals` because academic metrics use different platforms (Google Scholar, OpenReview, ORCID).",
+      "properties": {
+        "googleScholar": {
+          "type": "object",
+          "properties": {
+            "profileUrl": { "type": "string", "format": "uri" },
+            "citationsTotal": { "type": "integer", "minimum": 0 },
+            "citationsLast5Years": { "type": "integer", "minimum": 0 },
+            "hIndex": { "type": "integer", "minimum": 0 },
+            "i10Index": { "type": "integer", "minimum": 0 },
+            "lastSynced": { "type": "string" }
+          }
+        },
+        "openReviewProfile": { "type": "string", "format": "uri" },
+        "orcid": { "type": "string", "description": "ORCID identifier, format: 0000-0000-0000-0000" },
+        "reviewing": {
+          "type": "array",
+          "description": "Venues where this person serves as reviewer",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "credentials": {
+      "type": "array",
+      "description": "NEW in v1.3 — W3C Verifiable Credentials. Real cryptographic proof of employment, education, certifications. Each item points to a verifier endpoint that can confirm the claim. Replaces ad-hoc trust in resume claims.",
+      "items": {
+        "type": "object",
+        "required": ["type", "claim"],
+        "properties": {
+          "type": { "type": "string", "enum": ["VerifiableCredential"], "description": "W3C VC standard" },
+          "claim": {
+            "type": "string",
+            "enum": ["employment", "education", "degree", "certification", "license", "endorsement", "identity", "award", "publication"],
+            "description": "What kind of claim this credential attests to. `degree` is granular for academic credentials (vs broader `education`); `award` for honors-grade credentials."
+          },
+          "subject": { "type": "string", "description": "Human-readable subject, e.g. 'Staff Software Engineer at Datadog'" },
+          "issuer": { "type": "string", "description": "DID or domain of the issuer, e.g. 'did:web:stanford.edu' or 'datadog.com'" },
+          "issuanceDate": { "type": "string" },
+          "expirationDate": { "type": "string" },
+          "proof": { "type": "string", "format": "uri", "description": "URL where this credential can be cryptographically verified" }
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "description": "NEW in v1.3 — authorship transparency. In an era of LLM-generated CVs, this is a trust signal: candidates declare what was human-authored vs AI-assisted vs AI-generated. Recruiters can filter for human-authored work.",
+      "properties": {
+        "authoredBy": {
+          "type": "string",
+          "enum": ["human", "human+ai", "ai-generated"],
+          "description": "Top-level provenance. `human+ai` is honest about light AI assistance (grammar, summary polish); `ai-generated` is for transparency on fully-LLM-produced CVs."
+        },
+        "aiAssisted": { "type": "boolean", "description": "Boolean shorthand: was any AI tool used at all?" },
+        "aiAssistance": {
+          "type": "object",
+          "description": "Detail what AI was used for, so recruiters can assess",
+          "properties": {
+            "tools": { "type": "array", "items": { "type": "string" }, "description": "e.g. ['GPT-4o', 'Claude 3.5']" },
+            "scope": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["grammar", "summary", "bullets", "achievements", "experience", "translation", "structuring"]
+              },
+              "description": "What AI did. Narrower scope = higher trust."
+            },
+            "humanReviewedAt": { "type": "string", "description": "When the candidate last reviewed and approved AI-assisted content" }
+          }
+        },
+        "sourceImports": {
+          "type": "array",
+          "description": "Audit trail of fields imported from external sources (LinkedIn, GitHub, etc.)",
+          "items": {
+            "type": "object",
+            "properties": {
+              "field": { "type": "string", "description": "Dotted path, e.g. 'work[0].title'" },
+              "source": { "type": "string", "description": "Where it came from" },
+              "importedAt": { "type": "string" },
+              "userEdited": { "type": "boolean" }
+            }
+          }
+        },
+        "lastReviewedByOwner": { "type": "string", "description": "Date the candidate last reviewed and stood behind the document end-to-end" },
+        "lastFullReview": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    },
+    "highlights": {
+      "type": "array",
+      "description": "NEW in v1.3 — pinned achievements the candidate wants to lead with. Recruiters skim the first 5 seconds; highlights answer 'what's the headline?'. Order matters — first item is the top one.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": { "type": "string", "description": "Category, e.g. 'founder', 'shipped-product', 'achievement', 'award'" },
+          "company": { "type": "string" },
+          "role": { "type": "string" },
+          "period": { "type": "string", "description": "Free-form, e.g. '2022-02 — 2025-04'" },
+          "outcome": { "type": "string", "description": "Brief outcome label, e.g. 'acquired', 'IPO', 'shipped to GA'" },
+          "summary": { "type": "string", "description": "1-3 sentence narrative" },
+          "ref": { "type": "string", "description": "Optional RFC 6901 JSON Pointer back into the document, e.g. '/work/0/highlights/2'" },
+          "rank": { "type": "integer", "minimum": 1 },
+          "metric": {
+            "type": "object",
+            "properties": {
+              "value": { "type": "number" },
+              "unit": { "type": "string" },
+              "description": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "locationPreferences": {
+      "type": "object",
+      "description": "NEW in v1.3 — geographic constraints beyond `availability.locations`. Captures the full picture of where the candidate will and won't work.",
+      "properties": {
+        "currentBase": { "type": "string", "description": "Current city/country, e.g. 'Bengaluru, India'" },
+        "willingToRelocate": { "type": "boolean" },
+        "relocationCountries": { "type": "array", "items": { "type": "string" }, "description": "ISO country codes the candidate will relocate to" },
+        "remoteOnlyAcceptable": { "type": "boolean" },
+        "hybridDaysPerWeek": { "type": "integer", "minimum": 0, "maximum": 7 },
+        "preferredTimezoneOverlap": { "type": "string", "description": "e.g. 'min 4h with PT or CET'" }
+      }
+    },
+    "portfolio": {
+      "type": "object",
+      "description": "NEW in v1.3 — structured portfolio links for design/creative/research roles. Complements `projects` (which is achievement-focused) with branded portfolio + case studies.",
+      "properties": {
+        "primary": { "type": "string", "format": "uri", "description": "Main portfolio URL" },
+        "secondary": { "type": "array", "items": { "type": "string", "format": "uri" } },
+        "caseStudies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": { "type": "string" },
+              "url": { "type": "string", "format": "uri" },
+              "client": { "type": "string" },
+              "year": { "type": "integer" },
+              "tags": { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        }
+      }
+    },
+    "privacy": {
+      "type": "object",
+      "description": "NEW in v1.3 — fine-grained audience scoping. Beyond the per-section `visibility` controls, this lets the candidate declare global rules: who gets to see what, which domains are embargoed, whether anonymized first-pass screening is preferred.",
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": ["public", "selective", "private"],
+          "default": "public",
+          "description": "Top-level mode. `selective` = use showTo* arrays."
+        },
+        "showToPublic": { "type": "array", "items": { "type": "string" }, "description": "Field paths visible to unauthenticated fetchers, e.g. ['basics.firstName', 'basics.label']" },
+        "showToRecruiter": { "type": "array", "items": { "type": "string" }, "description": "Field paths visible to authenticated recruiters" },
+        "showToAgent": { "type": "array", "items": { "type": "string" }, "description": "Field paths visible to AI agents acting on behalf of someone" },
+        "excludeAudience": {
+          "type": "array",
+          "description": "Domains/emails to hide CV from entirely (e.g. current employer). Serving layer should 404 these requests.",
+          "items": { "type": "string" }
+        },
+        "anonymousMode": { "type": "boolean", "description": "First-pass blind screening: hide name + photo + protected-class signals from initial fetches" },
+        "blockReason": { "type": "string", "description": "Optional reason shown to embargoed fetchers" }
+      }
+    },
+    "policy": {
+      "type": "object",
+      "description": "NEW in v1.3 — terms-of-use signals. Lets the candidate declare what consumers can and can't do with their CV data: rate limits, training opt-out, license.",
+      "properties": {
+        "termsOfUse": { "type": "string", "format": "uri" },
+        "rateLimits": {
+          "type": "object",
+          "properties": {
+            "publicFetchesPerHour": { "type": "integer", "minimum": 0 },
+            "recruiterFetchesPerDay": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "embargo": { "type": "array", "items": { "type": "string" }, "description": "Hard-block domains regardless of authentication" },
+        "noLLMTraining": { "type": "boolean", "description": "Opt-out: AI providers SHOULD NOT use this CV for model training. Robots-like signal." },
+        "license": { "type": "string", "description": "How the data may be reused, e.g. 'CC-BY-NC-4.0', 'all-rights-reserved'" }
+      }
+    },
     "meta": {
       "type": "object",
       "required": ["version", "canonical", "lastModified"],
