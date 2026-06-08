@@ -16,6 +16,10 @@
     "open-standard"
   ],
   "author": "FreeCV (https://freecv.org)",
+  "contributors": [
+    "Ahmed Shanti (https://github.com/mkav3li)",
+    "Abd Shanti (https://github.com/abdshanti)"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
