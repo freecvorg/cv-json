@@ -735,6 +735,32 @@
         "license": { "type": "string", "description": "How the data may be reused, e.g. 'CC-BY-NC-4.0', 'all-rights-reserved'" }
       }
     },
+    "x-customSections": {
+      "type": "array",
+      "description": "Tier 1, NEW in v1.3. Vendor extension for USER-DEFINED sections that do not map to a standard top-level array (e.g. 'Speaking Engagements', 'Patents', 'Certifying Bodies'). The 'x-' prefix marks it as a non-standard annotation: a consumer that does not understand it MUST ignore it and never reject the document. Producers SHOULD fold standard-named sections into their canonical arrays instead (Awards -> awards, Volunteering -> volunteer, Publications -> publications, Interests/Hobbies -> interests), so only genuinely novel sections land here. Already emitted in production by FreeCV.",
+      "items": {
+        "type": "object",
+        "required": ["name", "items"],
+        "properties": {
+          "name": { "type": "string", "description": "The user-defined section heading exactly as it appears on the CV, e.g. 'Speaking Engagements'" },
+          "items": {
+            "type": "array",
+            "description": "Entries within the custom section",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string", "description": "Entry title / primary line" },
+                "summary": { "type": "string", "description": "Free-text detail: the entry's subtitle, date range, and/or description blended into one line" },
+                "highlights": { "type": "array", "items": { "type": "string" }, "description": "Bullet highlights for the entry" },
+                "date": { "type": "string", "description": "Start/issue date as a free-form string (e.g. '2024' or 'Jun 2024'); custom entries are not date-pattern constrained" },
+                "endDate": { "type": "string", "description": "End date as a free-form string, for ranged entries" },
+                "url": { "type": "string", "format": "uri", "description": "Link if provided" }
+              }
+            }
+          }
+        }
+      }
+    },
     "meta": {
       "type": "object",
       "required": ["version", "canonical", "lastModified"],

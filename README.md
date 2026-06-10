@@ -10,7 +10,7 @@
 
 **Emerging.** cv.json is not a ratified standard. It is a small, opinionated schema currently maintained by [FreeCV](https://freecv.org) and used in production on the FreeCV portfolio platform. We're publishing the schema, validator, and examples here so other tools can adopt it and so the schema can evolve in the open. If you ship a CV product and want a say in v2, [open an issue](https://github.com/freecvorg/cv-json/issues).
 
-cv.json keeps the top-level field names of `basics`, `work`, `education`, `skills`, `projects`, `languages`, `publications`, `awards`, `volunteer`, `interests`, `references`, and `meta` familiar — anyone who has touched a JSON-shaped CV before should feel at home. It adds fields the rest of the ecosystem doesn't have (`availability`, `ats`, `verification`, `referencesMode`, `i18n`, and the v1.3 hiring-signal block) and pins down date formats and a discovery convention.
+cv.json keeps the top-level field names of `basics`, `work`, `education`, `skills`, `projects`, `languages`, `publications`, `awards`, `volunteer`, `interests`, `references`, and `meta` familiar — anyone who has touched a JSON-shaped CV before should feel at home. It adds fields the rest of the ecosystem doesn't have (`availability`, `ats`, `verification`, `referencesMode`, `i18n`, the v1.3 hiring-signal block, and `x-customSections` for user-defined sections) and pins down date formats and a discovery convention.
 
 ---
 
@@ -246,7 +246,9 @@ cv.json follows **semver at the schema level**.
 
 v1.3 adds a sizeable hiring-signal block on top of stable v1.2. To stay honest about which of those fields are usable today vs. which depend on platform work that hasn't shipped yet, every v1.3 field falls into one of three tiers:
 
-**Tier 1 — Ready today.** Fields a producer can fill in by hand and an ATS or agent can act on immediately. No platform infrastructure required. These are: `compensation`, `workAuthorization`, `locationPreferences`, `intentions`, `outreachControls`, `highlights`, `provenance`.
+**Tier 1 — Ready today.** Fields a producer can fill in by hand and an ATS or agent can act on immediately. No platform infrastructure required. These are: `compensation`, `workAuthorization`, `locationPreferences`, `intentions`, `outreachControls`, `highlights`, `provenance`, `x-customSections`.
+
+`x-customSections` is the one vendor extension in v1.3: an `x-`-prefixed array for user-defined sections that have no standard home (e.g. "Speaking Engagements", "Patents"), shaped `[{ name, items: [{ name, summary?, highlights?, date?, endDate?, url? }] }]`. Producers fold standard-named sections (Awards, Volunteering, Publications, Interests) into their canonical arrays instead, so only genuinely novel sections land here. The `x-` prefix follows the JSON Schema vendor-annotation convention, so consumers that don't understand it ignore it and the document stays valid. Already emitted in production by FreeCV.
 
 **Tier 2 — Needs platform.** Fields whose *shape* is stable, but whose *value* is only useful if a publisher (FreeCV or another) auto-populates and refreshes them. Hand-written values go stale fast. These are: `signals` (GitHub, speaking, writing), `researchSignals` (Google Scholar, OpenReview, ORCID), `credentials` (W3C Verifiable Credentials).
 

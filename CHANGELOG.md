@@ -26,6 +26,7 @@ Fields a producer can fill in by hand and a consumer can act on immediately.
 - **`outreachControls`** — opt-in recruiter contact rules: acceptingInbound, preferredChannel, minimum-viable-offer, anti-spray/anti-crypto filters, response SLA.
 - **`highlights`** — top-level array of 3–7 career highlights with type tag (shipped-product, open-source, talk, etc.). Powers tl;dr renderings.
 - **`provenance`** — authorship and AI-assistance disclosure: authoredBy (human / human+ai / ai), aiAssisted, scope of assistance, last human review timestamp.
+- **`x-customSections`** — vendor extension (the `x-` prefix means consumers ignore what they don't understand) for user-defined sections with no standard home (e.g. "Speaking Engagements", "Patents"). Each is `{ name, items: [{ name, summary?, highlights?, date?, endDate?, url? }] }`. Standard-named sections fold into their canonical arrays (awards/volunteer/publications/interests) instead, so only novel sections land here. Already emitted in production by FreeCV.
 
 ### Added — Tier 2 (Needs platform)
 
