@@ -178,12 +178,12 @@
     "authoredBy": "human+ai",
     "aiAssisted": true,
     "aiAssistance": {
-      "tools": ["Claude"],
+      "tools": ["ChatGPT"],
       "scope": ["grammar", "summary"],
       "humanReviewedAt": "2026-06-02T18:00:00Z"
     },
     "lastReviewedByOwner": "2026-06-02",
-    "notes": "Bullets and achievements written by me. Claude polished the summary section for grammar; final wording is mine."
+    "notes": "Bullets and achievements written by me. ChatGPT polished the summary section for grammar; final wording is mine."
   },
   "meta": {
     "version": "1.3",

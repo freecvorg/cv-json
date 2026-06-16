@@ -608,7 +608,7 @@
           "type": "object",
           "description": "Detail what AI was used for, so recruiters can assess",
           "properties": {
-            "tools": { "type": "array", "items": { "type": "string" }, "description": "e.g. ['GPT-4o', 'Claude 3.5']" },
+            "tools": { "type": "array", "items": { "type": "string" }, "description": "e.g. ['GPT-4o', 'Copilot']" },
             "scope": {
               "type": "array",
               "items": {
