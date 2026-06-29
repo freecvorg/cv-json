@@ -54,6 +54,21 @@ No migration required. Implementers consuming v1.2 will read v1.3 documents with
 
 ---
 
+## [1.2.1] — 2026-06-29
+
+**Breaking changes:** None. A documentation/clarification patch — no field renamed or removed; every v1.2 document is a valid v1.2.1 document and vice versa.
+
+### Added
+
+- **`x-customSections`** — now formally documented in the **stable v1 schema** (previously declared only in `v1.3-preview`). A vendor extension (the `x-` prefix means consumers ignore what they don't understand) for user-defined sections with no standard home, shaped `[{ name, items: [{ name, summary?, highlights?, date?, endDate?, url? }] }]`. FreeCV already emits this in production — v1.2.1 simply makes the published v1 schema match what producers send.
+- Root **`additionalProperties: true`** — makes `x-` vendor extensions standards-valid (they were always meant to be ignored-not-rejected).
+
+### Notes
+
+Standard-named custom sections (Awards / Volunteering / Publications / Interests / Certifications / Projects / Languages / Skills) fold into their canonical arrays; only genuinely novel sections land in `x-customSections`. FreeCV serves this as `X-CV-Version: 1.2.1`.
+
+---
+
 ## [1.2.0] — 2026-04-12
 
 **Breaking changes:** None. Additive.

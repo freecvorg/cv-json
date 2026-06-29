@@ -1,6 +1,6 @@
 {
   "name": "cv-json",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "cv.json — the open, machine-readable standard for career data",
   "main": "validate.js",
   "scripts": {

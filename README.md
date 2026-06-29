@@ -29,7 +29,7 @@ The response advertises its schema in headers:
 ```http
 HTTP/1.1 200 OK
 Content-Type: application/json; charset=utf-8
-X-CV-Version: 1.2
+X-CV-Version: 1.2.1
 Link: <https://freecv.org/schema/cv/v1.json>; rel="describedby"
 Access-Control-Allow-Origin: *
 Cache-Control: public, max-age=300
@@ -120,7 +120,7 @@ Or paste it into [freecv.org/validate](https://freecv.org/validate).
 
 ```
 Content-Type: application/json; charset=utf-8
-X-CV-Version: 1.2
+X-CV-Version: 1.2.1
 Link: <https://freecv.org/schema/cv/v1.json>; rel="describedby"
 Access-Control-Allow-Origin: *
 Cache-Control: public, max-age=300
@@ -228,7 +228,7 @@ cv.json follows **semver at the schema level**.
 |---|---|---|
 | `v1.0` | Stable (frozen) | Original release. Documents remain valid forever. |
 | `v1.1` | Stable | Date validation, `publications`, `awards`, `interests`, `projects.role/highlights`, `education.summary`, `volunteer.summary`, employment types, `ats` clarified. |
-| `v1.2` | **Current stable** | `references`, `referencesMode`. |
+| `v1.2` | **Current stable** (latest patch `v1.2.1`) | `references`, `referencesMode`. **v1.2.1:** documents `x-customSections` + root `additionalProperties`. |
 | `v1.3-preview` | Preview | Hiring-side signal block — see [stability tiers](#v13-stability-tiers) below. Schema published as [`schema/v1.3-preview.json`](./schema/v1.3-preview.json). |
 | `v2.0` | Future | Reserved for breaking changes. No timeline. |
 
@@ -248,7 +248,7 @@ v1.3 adds a sizeable hiring-signal block on top of stable v1.2. To stay honest a
 
 **Tier 1 — Ready today.** Fields a producer can fill in by hand and an ATS or agent can act on immediately. No platform infrastructure required. These are: `compensation`, `workAuthorization`, `locationPreferences`, `intentions`, `outreachControls`, `highlights`, `provenance`, `x-customSections`.
 
-`x-customSections` is the one vendor extension in v1.3: an `x-`-prefixed array for user-defined sections that have no standard home (e.g. "Speaking Engagements", "Patents"), shaped `[{ name, items: [{ name, summary?, highlights?, date?, endDate?, url? }] }]`. Producers fold standard-named sections (Awards, Volunteering, Publications, Interests) into their canonical arrays instead, so only genuinely novel sections land here. The `x-` prefix follows the JSON Schema vendor-annotation convention, so consumers that don't understand it ignore it and the document stays valid. Already emitted in production by FreeCV.
+`x-customSections` is the one vendor extension in v1.3: an `x-`-prefixed array for user-defined sections that have no standard home (e.g. "Speaking Engagements", "Patents"), shaped `[{ name, items: [{ name, summary?, highlights?, date?, endDate?, url? }] }]`. Producers fold standard-named sections (Awards, Volunteering, Publications, Interests) into their canonical arrays instead, so only genuinely novel sections land here. The `x-` prefix follows the JSON Schema vendor-annotation convention, so consumers that don't understand it ignore it and the document stays valid. Already emitted in production by FreeCV — and **as of v1.2.1 it is documented in the stable v1 schema**, not just this preview.
 
 **Tier 2 — Needs platform.** Fields whose *shape* is stable, but whose *value* is only useful if a publisher (FreeCV or another) auto-populates and refreshes them. Hand-written values go stale fast. These are: `signals` (GitHub, speaking, writing), `researchSignals` (Google Scholar, OpenReview, ORCID), `credentials` (W3C Verifiable Credentials).
 
@@ -262,7 +262,7 @@ If you're publishing a CV by hand, fill in Tier 1 fields where they apply, skip 
 
 ```
 schema/
-  v1.json                  JSON Schema (Draft 2020-12) for stable v1.x (v1.0–v1.2)
+  v1.json                  JSON Schema (Draft 2020-12) for stable v1.x (v1.0–v1.2.1)
   v1.3-preview.json        JSON Schema for the v1.3 preview, additive over v1.json
 examples/
   minimal.json             Smallest valid document — basics + meta only

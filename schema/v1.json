@@ -1,9 +1,10 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://freecv.org/schema/cv/v1.json",
-  "title": "cv.json — Open CV Standard v1.2",
-  "description": "An open, machine-readable standard for career data. Created by FreeCV.org for the AI era.",
+  "title": "cv.json — Open CV Standard v1.2.1",
+  "description": "An open, machine-readable standard for career data. Created by FreeCV.org for the AI era. v1.2.1 is a backward-compatible patch: it formally documents the x-customSections vendor extension already emitted in production and confirms x- vendor extensions are standards-valid (additionalProperties is true at the root).",
   "type": "object",
+  "additionalProperties": true,
   "required": ["basics", "meta"],
   "properties": {
     "$schema": {
@@ -86,6 +87,7 @@
             "type": "string",
             "pattern": "^[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?$"
           },
+          "current": { "type": "boolean", "description": "True if studies are ongoing — omit endDate when set." },
           "score": { "type": "string", "description": "GPA or grade, e.g. '3.9/4.0'" },
           "summary": { "type": "string", "description": "Description of studies or thesis" },
           "highlights": {
@@ -226,6 +228,7 @@
             "type": "string",
             "pattern": "^[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?$"
           },
+          "current": { "type": "boolean", "description": "True if this role is ongoing — omit endDate when set." },
           "highlights": {
             "type": "array",
             "items": { "type": "string" }
@@ -316,6 +319,32 @@
         }
       }
     },
+    "x-customSections": {
+      "type": "array",
+      "description": "Vendor extension (x- prefix) for USER-DEFINED sections that do not map to a standard top-level array (e.g. 'Speaking Engagements', 'Patents', 'Certifying Bodies'). The 'x-' prefix marks it as a non-standard annotation: a consumer that does not understand it MUST ignore it and never reject the document. Producers SHOULD fold standard-named sections into their canonical arrays instead (Awards -> awards, Volunteering -> volunteer, Publications -> publications, Interests/Hobbies -> interests), so only genuinely novel sections land here. Already emitted in production by FreeCV; documented formally in v1.2.1.",
+      "items": {
+        "type": "object",
+        "required": ["name", "items"],
+        "properties": {
+          "name": { "type": "string", "description": "The user-defined section heading exactly as it appears on the CV, e.g. 'Speaking Engagements'" },
+          "items": {
+            "type": "array",
+            "description": "Entries within the custom section",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string", "description": "Entry title / primary line" },
+                "summary": { "type": "string", "description": "Free-text detail: the entry's subtitle, date range, and/or description blended into one line" },
+                "highlights": { "type": "array", "items": { "type": "string" }, "description": "Bullet highlights for the entry" },
+                "date": { "type": "string", "description": "Start/issue date as a free-form string (e.g. '2024' or 'Jun 2024'); custom entries are not date-pattern constrained" },
+                "endDate": { "type": "string", "description": "End date as a free-form string, for ranged entries" },
+                "url": { "type": "string", "format": "uri", "description": "Link if provided" }
+              }
+            }
+          }
+        }
+      }
+    },
     "i18n": {
       "type": "object",
       "description": "Internationalization metadata",
@@ -341,7 +370,7 @@
       "required": ["version", "canonical", "lastModified"],
       "description": "Schema version, canonical URL, and tooling metadata",
       "properties": {
-        "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+(\\.[0-9]+)?$", "description": "Schema version this document conforms to, e.g. '1.2'" },
+        "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+(\\.[0-9]+)?$", "description": "Schema version this document conforms to, e.g. '1.2.1'" },
         "canonical": { "type": "string", "format": "uri", "description": "Canonical URL for this cv.json — always returns the latest version" },
         "lastModified": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}", "description": "ISO 8601 date or datetime of last CV update, e.g. '2026-04-12' or '2026-04-12T09:00:00Z'" },
         "generator": { "type": "string", "description": "Tool or platform that generated this file" }
