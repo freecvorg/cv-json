@@ -70,6 +70,7 @@ Only `basics` and `meta` are required. Everything else is optional and consumers
 | `verification` | object | Trust signals: email verified, source platform |
 | `i18n` | object | Primary language + map of translated cv.json URLs |
 | `meta` | object | `version`, `canonical`, `lastModified`, `generator` |
+| `x-customSections` | array | **Vendor extension (v1.2.1).** User-defined sections with no standard home — e.g. "Speaking", "Patents". Shaped `[{ name, items: [{ name, summary?, highlights?, date?, endDate?, url? }] }]`. Standard-named sections fold into their canonical arrays instead; consumers ignore unknown `x-` fields. |
 
 Date fields accept `YYYY`, `YYYY-MM`, or `YYYY-MM-DD`. The full schema is at [`schema/v1.json`](./schema/v1.json).
 
@@ -248,7 +249,7 @@ v1.3 adds a sizeable hiring-signal block on top of stable v1.2. To stay honest a
 
 **Tier 1 — Ready today.** Fields a producer can fill in by hand and an ATS or agent can act on immediately. No platform infrastructure required. These are: `compensation`, `workAuthorization`, `locationPreferences`, `intentions`, `outreachControls`, `highlights`, `provenance`, `x-customSections`.
 
-`x-customSections` is the one vendor extension in v1.3: an `x-`-prefixed array for user-defined sections that have no standard home (e.g. "Speaking Engagements", "Patents"), shaped `[{ name, items: [{ name, summary?, highlights?, date?, endDate?, url? }] }]`. Producers fold standard-named sections (Awards, Volunteering, Publications, Interests) into their canonical arrays instead, so only genuinely novel sections land here. The `x-` prefix follows the JSON Schema vendor-annotation convention, so consumers that don't understand it ignore it and the document stays valid. Already emitted in production by FreeCV — and **as of v1.2.1 it is documented in the stable v1 schema**, not just this preview.
+`x-customSections` is the standard's one vendor extension (documented in stable **v1.2.1** and carried forward in v1.3): an `x-`-prefixed array for user-defined sections that have no standard home (e.g. "Speaking Engagements", "Patents"), shaped `[{ name, items: [{ name, summary?, highlights?, date?, endDate?, url? }] }]`. Producers fold standard-named sections (Awards, Volunteering, Publications, Interests) into their canonical arrays instead, so only genuinely novel sections land here. The `x-` prefix follows the JSON Schema vendor-annotation convention, so consumers that don't understand it ignore it and the document stays valid. Already emitted in production by FreeCV — and **as of v1.2.1 it is documented in the stable v1 schema**, not just this preview.
 
 **Tier 2 — Needs platform.** Fields whose *shape* is stable, but whose *value* is only useful if a publisher (FreeCV or another) auto-populates and refreshes them. Hand-written values go stale fast. These are: `signals` (GitHub, speaking, writing), `researchSignals` (Google Scholar, OpenReview, ORCID), `credentials` (W3C Verifiable Credentials).
 
