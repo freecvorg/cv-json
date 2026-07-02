@@ -2,7 +2,7 @@
 
 > An open schema for publishing a CV as a single JSON document at a stable URL — so AI agents, ATS systems, and other tools can read career data without parsing a PDF.
 
-[Spec](https://freecv.org/cv-json) · [Validator](https://freecv.org/validate) · [Schema (v1)](https://freecv.org/schema/cv/v1.json) · [`/.well-known/cv.json`](https://freecv.org/.well-known/cv.json) ([discovery](#discovery))
+[Site](https://cvjson.com) · [Validator](https://cvjson.com/validator) · [Schema (v1)](https://cvjson.com/schema/v1.json) · [`/.well-known/cv.json`](https://freecv.org/.well-known/cv.json) ([discovery](#discovery))
 
 ---
 
@@ -16,12 +16,13 @@ cv.json keeps the top-level field names of `basics`, `work`, `education`, `skill
 
 ## 60-second demo
 
-Every published cv.json lives at a stable URL. No auth, no API key, plain HTTP:
+Every published cv.json lives at a stable URL. No auth, no API key, plain HTTP.
+Try it right now — the demo profile is live (Ashley is fictional; the endpoint and format are real):
 
 ```bash
-$ curl -s https://freecv.org/p/ashley/cv.json | jq '.basics.name, .work[0].company'
-"Ashley Chen"
-"Stripe"
+$ curl -s https://livelink.cv/ashley/cv.json | jq '.basics.name, .work[0].company'
+"Ashley Carter"
+"Brightfold Studio"
 ```
 
 The response advertises its schema in headers:
@@ -30,7 +31,7 @@ The response advertises its schema in headers:
 HTTP/1.1 200 OK
 Content-Type: application/json; charset=utf-8
 X-CV-Version: 1.2.1
-Link: <https://freecv.org/schema/cv/v1.json>; rel="describedby"
+Link: <https://cvjson.com/schema/v1.json>; rel="describedby"
 Access-Control-Allow-Origin: *
 Cache-Control: public, max-age=300
 ```
@@ -39,7 +40,7 @@ Sites that host a CV can also declare it in HTML for crawlers:
 
 ```html
 <link rel="alternate" type="application/json"
-      href="/p/ashley/cv.json" title="cv.json" />
+      href="/ashley/cv.json" title="cv.json" />
 ```
 
 …or expose a site-wide discovery manifest at `/.well-known/cv.json` listing all CVs hosted on the domain.
@@ -96,7 +97,7 @@ cv.json is the file. The URL is the contract.
 
 1. Sign up at [freecv.org](https://freecv.org), build your CV in the editor.
 2. Enable the public endpoint in Dashboard → Settings → Public cv.json.
-3. Your endpoint goes live at `https://freecv.org/p/{your-slug}/cv.json`.
+3. Your endpoint goes live at `https://livelink.cv/{your-slug}/cv.json`.
 
 That's the whole thing. Update your CV once, every consumer fetching the URL gets the new version.
 
@@ -111,7 +112,7 @@ You don't need FreeCV. Any web server can serve a cv.json. Minimal recipe:
 
 ```bash
 npx -y ajv-cli validate \
-  -s https://freecv.org/schema/cv/v1.json \
+  -s https://cvjson.com/schema/v1.json \
   -d my-cv.json
 ```
 
@@ -122,7 +123,7 @@ Or paste it into [freecv.org/validate](https://freecv.org/validate).
 ```
 Content-Type: application/json; charset=utf-8
 X-CV-Version: 1.2.1
-Link: <https://freecv.org/schema/cv/v1.json>; rel="describedby"
+Link: <https://cvjson.com/schema/v1.json>; rel="describedby"
 Access-Control-Allow-Origin: *
 Cache-Control: public, max-age=300
 ```
@@ -135,7 +136,7 @@ Cache-Control: public, max-age=300
 
 ```json
 {
-  "$schema": "https://freecv.org/schema/cv/v1.json",
+  "$schema": "https://cvjson.com/schema/v1.json",
   "basics": {
     "name": "Jane Smith",
     "label": "Software Engineer",
@@ -156,7 +157,7 @@ Cache-Control: public, max-age=300
     "endDate": "2022"
   }],
   "meta": {
-    "version": "1.2",
+    "version": "1.2.1",
     "canonical": "https://example.com/cv.json",
     "lastModified": "2026-06-01",
     "generator": "hand-written"
@@ -185,16 +186,19 @@ This is the same pattern RSS used. Crawlers and agents can find a person's CV fr
 
 ```json
 {
-  "version": "1.0",
-  "platform": "example.com",
-  "endpoints": [
-    { "slug": "ashley", "url": "https://example.com/p/ashley/cv.json" },
-    { "slug": "jane",   "url": "https://example.com/p/jane/cv.json" }
-  ]
+  "standard": "cv.json",
+  "version": "1.2.1",
+  "schema": "https://cvjson.com/schema/v1.json",
+  "endpointPattern": "https://example.com/{slug}/cv.json",
+  "discovery": {
+    "humanReadable": "https://example.com/{slug}",
+    "machineReadable": "https://example.com/{slug}/cv.json",
+    "index": "https://example.com/sitemap-portfolios.xml"
+  }
 }
 ```
 
-This lets one HTTP request enumerate every CV a site is willing to expose. FreeCV serves this at [`https://freecv.org/.well-known/cv.json`](https://freecv.org/.well-known/cv.json).
+The manifest tells a machine how CVs on the domain are addressed and where the index of live endpoints lives (a sitemap or an inline `endpoints` array — either is conformant). One HTTP request, and an agent knows how to enumerate every CV the site is willing to expose. FreeCV serves this at [`https://freecv.org/.well-known/cv.json`](https://freecv.org/.well-known/cv.json), with the quality-gated index at [`livelink.cv/sitemap-portfolios.xml`](https://livelink.cv/sitemap-portfolios.xml).
 
 ---
 
@@ -206,15 +210,14 @@ If you publish or consume cv.json, add yourself here via PR.
 
 | Platform | Endpoint pattern | Notes |
 |---|---|---|
-| [FreeCV](https://freecv.org) | `https://freecv.org/p/{slug}/cv.json` | Free tier, schema v1.2 |
-| [LiveLink.cv](https://livelink.cv) | `https://livelink.cv/{slug}/cv.json` | Custom-domain tier |
+| [FreeCV](https://freecv.org) | `https://livelink.cv/{slug}/cv.json` | The FreeCV builder publishes every portfolio here. Free, production, schema v1.2.1 |
 | _your tool here_ | | |
 
 ### Consumers
 
 | Tool | What it does |
 |---|---|
-| [freecv.org/validate](https://freecv.org/validate) | Web validator against the published schema |
+| [cvjson.com/validator](https://cvjson.com/validator) | Web validator against the published schema |
 | _your tool here_ | |
 
 PRs welcome. Be honest about implementation status (production, beta, prototype).
@@ -286,12 +289,12 @@ LICENSE                    MIT
 If you publish a cv.json, drop this badge in your README or portfolio so it's visible:
 
 ```markdown
-[![cv.json](https://freecv.org/badge/cv-json.svg)](https://freecv.org/cv-json)
+[![cv.json](https://cvjson.com/badge.svg)](https://cvjson.com)
 ```
 
-Renders as: [![cv.json](https://freecv.org/badge/cv-json.svg)](https://freecv.org/cv-json)
+Renders as: [![cv.json](https://cvjson.com/badge.svg)](https://cvjson.com)
 
-The badge links to the spec. The badge SVG is served from `freecv.org/badge/cv-json.svg` and is free to embed.
+The badge links to the standard's home. The badge SVG is served from `cvjson.com/badge.svg` and is free to embed.
 
 ---
 
@@ -304,9 +307,10 @@ The badge links to the spec. The badge SVG is served from `freecv.org/badge/cv-j
 
 ## Links
 
-- Spec page — https://freecv.org/cv-json
-- JSON Schema (v1) — https://freecv.org/schema/cv/v1.json
-- Validator — https://freecv.org/validate
+- Standard home — https://cvjson.com
+- JSON Schema (v1) — https://cvjson.com/schema/v1.json
+- Validator — https://cvjson.com/validator
+- Live demo endpoint — https://livelink.cv/ashley/cv.json (fictional profile, real format)
 - Discovery manifest — https://freecv.org/.well-known/cv.json
 - Builder (reference implementation) — https://freecv.org/builder
 - Issues / proposals — https://github.com/freecvorg/cv-json/issues

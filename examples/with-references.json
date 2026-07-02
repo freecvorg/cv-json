@@ -1,5 +1,5 @@
 {
-  "$schema": "https://freecv.org/schema/cv/v1.json",
+  "$schema": "https://cvjson.com/schema/v1.json",
 
   "basics": {
     "name": "Priya Kumar",

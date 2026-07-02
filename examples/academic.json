@@ -1,5 +1,5 @@
 {
-  "$schema": "https://freecv.org/schema/cv/v1.3-preview.json",
+  "$schema": "https://cvjson.com/schema/v1.3-preview.json",
   "basics": {
     "name": "Dr. Eleanor Vance",
     "label": "Postdoctoral Researcher, Machine Learning Systems",

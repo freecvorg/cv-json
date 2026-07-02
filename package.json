@@ -25,7 +25,7 @@
     "type": "git",
     "url": "https://github.com/freecvorg/cv-json"
   },
-  "homepage": "https://freecv.org/cv-json",
+  "homepage": "https://cvjson.com",
   "dependencies": {
     "ajv": "^8.20.0",
     "ajv-formats": "^3.0.1"

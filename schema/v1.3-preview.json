@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://freecv.org/schema/cv/v1.3-preview.json",
+  "$id": "https://cvjson.com/schema/v1.3-preview.json",
   "title": "cv.json — Open CV Standard v1.3 (PREVIEW)",
   "description": "PREVIEW of the v1.3 Open CV Standard. This is a forward-looking draft and SHOULD NOT be relied on for production — fields may change before v1.3 is stamped stable. All v1.2 documents remain valid under v1.3 (v1.3 is a superset). See https://freecv.org/schema for the stable schema.",
   "type": "object",

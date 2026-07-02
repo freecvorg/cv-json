@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://freecv.org/schema/cv/v1.json",
+  "$id": "https://cvjson.com/schema/v1.json",
   "title": "cv.json — Open CV Standard v1.2.1",
   "description": "An open, machine-readable standard for career data. Created by FreeCV.org for the AI era. v1.2.1 is a backward-compatible patch: it formally documents the x-customSections vendor extension already emitted in production and confirms x- vendor extensions are standards-valid (additionalProperties is true at the root).",
   "type": "object",

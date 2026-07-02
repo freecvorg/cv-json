@@ -2,6 +2,12 @@
 
 All notable changes to the cv.json schema are documented here.
 
+> **Provenance note.** cv.json was extracted from FreeCV's production CV format in
+> mid-2026. The v1.0–v1.2 entries below were reconstructed retroactively when the
+> schema was published as a standalone standard: their dates mark production
+> milestones inside FreeCV, not standalone releases of this repository. From
+> v1.2.1 onward, every release is cut from this repo and tagged in git.
+
 This project follows [Semantic Versioning](https://semver.org/):
 - **MAJOR** — breaking changes (none yet; reserved for v2.0)
 - **MINOR** — additive, backward-compatible field/section additions
@@ -75,10 +81,11 @@ Standard-named custom sections (Awards / Volunteering / Publications / Interests
 
 ### Added
 
-- **`availability`** — current status (open / casually-looking / not-looking), earliest start date, notice period in weeks, hours-per-week preference.
-- **`ats`** — ATS-friendly hints: canonical job titles, normalized skill list, years-of-experience hints. Separate from human-facing content.
-- **`verification`** — array of section-level verification claims. Each entry links a section path (e.g. `work[0]`) to a verification method (`linkedin`, `email-domain`, `pgp`, `dns-txt`, `oauth`) and a verifier identity.
-- **`meta` extended** — added `meta.canonical` (canonical URL), `meta.locale`, `meta.generator` (tool name + version), `meta.profileImage`.
+- **`availability`** — machine-readable "Open to Work": `status` (actively-looking / open / not-looking), preferred `roles`, `locations`, `workType`, `employmentType`, earliest `startDate`, and `sponsorship`.
+- **`ats`** — ATS-friendly hints: auto-generated keywords, years of experience, seniority. Hints, not authoritative — separate from human-facing content.
+- **`verification`** — simple trust signals: `email` (boolean, verified by the publishing platform) and `platform` (which platform generated the document). A richer per-claim verification design is a v2 proposal — see [`docs/verification.md`](./docs/verification.md).
+- **`references` + `referencesMode`** — professional references (name, title, company, relationship, email, phone) and the `"show" | "on-request" | "hide"` rendering mode (default `"hide"`).
+- **`meta` extended** — added `meta.canonical` (the document's canonical URL) and `meta.generator` (the producing tool).
 
 ### Changed
 
@@ -92,7 +99,7 @@ Standard-named custom sections (Awards / Volunteering / Publications / Interests
 
 ### Added
 
-- **`publications`** — array of papers, articles, books. Fields: name, publisher, releaseDate, url, summary, authors.
+- **`publications`** — array of papers, articles, books. Fields: name, publisher, releaseDate, url, summary.
 - **`awards`** — array of awards, honors, recognition. Fields: title, date, awarder, summary.
 - **`interests`** — array of interests with optional keywords. Useful for cultural-fit signals and conversation starters.
 - **`volunteer`** — array of volunteer positions, structured like `work` (organization, position, startDate, endDate, summary, highlights, url).
@@ -109,14 +116,13 @@ Initial public release.
 
 ### Included sections
 
-- `basics` — name, label, email, phone, url, summary, location, profiles
+- `basics` — name, label, email, phone, image, url, summary, location, profiles
 - `work` — array of employment entries
 - `education` — array of degrees and courses
-- `skills` — array of skill groups with level and keywords
+- `skills` — flat array of skill name strings
 - `languages` — array of spoken languages with fluency
 - `projects` — array of projects (personal, open-source, side)
-- `references` — array of professional references
-- `meta` — version, lastModified, canonical URL
+- `meta` — version, lastModified
 
 ### Notes
 
@@ -130,4 +136,4 @@ v1.0 was scoped narrowly on purpose: a structured CV that a human or machine can
 - **Minor releases** ship roughly quarterly when there are enough additive changes to warrant a bump.
 - **Major releases** (v2.0+) will go through a public RFC process — see GOVERNANCE.md.
 
-All releases are tagged in git and announced at `https://freecv.org/cv-json/changelog`.
+All releases are tagged in git; this file is the changelog of record.

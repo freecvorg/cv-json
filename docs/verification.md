@@ -1,6 +1,13 @@
-# Verifying a cv.json
+# Verification — v2 design proposal
 
-This document explains how the `verification` section works, what each verification method means, and how a consumer should evaluate verification claims.
+> **STATUS: DESIGN PROPOSAL — not part of v1.x.**
+> In the stable v1 schema, `verification` is a simple object:
+> `{ "email": boolean, "platform": string }` — the publishing platform attests
+> that the account's email is verified, nothing more. Everything below is a
+> richer per-claim design being explored for **v2** (see GOVERNANCE.md for the
+> RFC process). Do not implement this against v1 documents.
+
+This document explains how a per-claim `verification` section COULD work, what each verification method would mean, and how a consumer would evaluate verification claims.
 
 ## Why verification exists
 
