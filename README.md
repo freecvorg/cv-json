@@ -267,7 +267,7 @@ If you're publishing a CV by hand, fill in Tier 1 fields where they apply, skip 
 
 ```
 schema/
-  v1.json                  JSON Schema (Draft 2020-12) for stable v1.x (v1.0–v1.2.2)
+  v1.json                  JSON Schema (draft-07) for stable v1.x (v1.0–v1.2.2)
   v1.3-preview.json        JSON Schema for the v1.3 preview, additive over v1.json
 examples/
   minimal.json             Smallest valid document — basics + meta only
