@@ -60,6 +60,21 @@ No migration required. Implementers consuming v1.2 will read v1.3 documents with
 
 ---
 
+## [1.2.2] — 2026-07-04
+
+**Breaking changes:** None. Additive + documentation — no field renamed or removed; every v1.2.1 document is a valid v1.2.2 document and vice versa.
+
+### Added
+
+- **`work[].url`** and **`education[].url`** — an optional per-entry link (case study, company page, or portfolio piece for a role; transcript, thesis, or course page for a degree). Documented now in the stable v1 schema so it survives to the machine-readable file.
+- **`x-personal`** — a vendor extension (the `x-` prefix means consumers ignore what they don't understand) for OPT-IN regional personal fields the producer captures: `dateOfBirth`, `gender`, `nationality`, `placeOfBirth`, `maritalStatus`. Expected on CVs in much of Europe, MENA, and Asia; discouraged in the US/UK/CA/AU under anti-discrimination norms. Sensitive PII: a serving platform SHOULD gate these on public endpoints behind the user's consent. Namespaced under `x-personal` rather than `basics` to keep the core standard clean.
+
+### Notes
+
+Both additions were already captured by FreeCV's builder but were previously dropped on export — v1.2.2 makes the published schema match what a complete producer emits. FreeCV serves this as `X-CV-Version: 1.2.2`, and gates `x-personal` on the public endpoint behind a per-user "show personal details" setting (default hidden).
+
+---
+
 ## [1.2.1] — 2026-06-29
 
 **Breaking changes:** None. A documentation/clarification patch — no field renamed or removed; every v1.2 document is a valid v1.2.1 document and vice versa.

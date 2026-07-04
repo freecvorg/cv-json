@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://cvjson.com/schema/v1.json",
-  "title": "cv.json — Open CV Standard v1.2.1",
-  "description": "An open, machine-readable standard for career data. Created by FreeCV.org for the AI era. v1.2.1 is a backward-compatible patch: it formally documents the x-customSections vendor extension already emitted in production and confirms x- vendor extensions are standards-valid (additionalProperties is true at the root).",
+  "title": "cv.json — Open CV Standard v1.2.2",
+  "description": "An open, machine-readable standard for career data. Created by FreeCV.org for the AI era. v1.2.2 is a backward-compatible patch: it documents per-entry links (work[].url and education[].url) and the x-personal vendor extension for opt-in regional personal fields, alongside the x-customSections extension already emitted in production. x- vendor extensions are standards-valid (additionalProperties is true at the root).",
   "type": "object",
   "additionalProperties": true,
   "required": ["basics", "meta"],
@@ -65,7 +65,8 @@
             "type": "array",
             "description": "Key accomplishments and achievements",
             "items": { "type": "string" }
-          }
+          },
+          "url": { "type": "string", "format": "uri", "description": "Link for this role (case study, company page, portfolio piece)" }
         }
       }
     },
@@ -94,7 +95,8 @@
             "type": "array",
             "description": "Notable coursework, achievements, or honors",
             "items": { "type": "string" }
-          }
+          },
+          "url": { "type": "string", "format": "uri", "description": "Link for this entry (transcript, thesis, course page)" }
         }
       }
     },
@@ -345,6 +347,17 @@
         }
       }
     },
+    "x-personal": {
+      "type": "object",
+      "description": "Vendor extension (x- prefix) for OPT-IN regional personal fields the producer captures (date of birth, gender, nationality, place of birth, marital status). Expected on CVs in much of Europe, MENA, and Asia; discouraged in the US/UK/CA/AU under anti-discrimination norms. Sensitive PII: a serving platform SHOULD gate these on public endpoints behind the user's consent. Namespaced under x-personal rather than basics to keep the core standard clean; the x- prefix means a consumer that does not understand it MUST ignore it and never reject the document. Emitted in production by FreeCV; documented in v1.2.2.",
+      "properties": {
+        "dateOfBirth": { "type": "string", "description": "Date of birth (free-form or ISO 8601, e.g. '1994-05-01')" },
+        "gender": { "type": "string", "description": "Self-described gender" },
+        "nationality": { "type": "string", "description": "Nationality or citizenship" },
+        "placeOfBirth": { "type": "string", "description": "Place of birth" },
+        "maritalStatus": { "type": "string", "description": "Marital status" }
+      }
+    },
     "i18n": {
       "type": "object",
       "description": "Internationalization metadata",
@@ -370,7 +383,7 @@
       "required": ["version", "canonical", "lastModified"],
       "description": "Schema version, canonical URL, and tooling metadata",
       "properties": {
-        "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+(\\.[0-9]+)?$", "description": "Schema version this document conforms to, e.g. '1.2.1'" },
+        "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+(\\.[0-9]+)?$", "description": "Schema version this document conforms to, e.g. '1.2.2'" },
         "canonical": { "type": "string", "format": "uri", "description": "Canonical URL for this cv.json — always returns the latest version" },
         "lastModified": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}", "description": "ISO 8601 date or datetime of last CV update, e.g. '2026-04-12' or '2026-04-12T09:00:00Z'" },
         "generator": { "type": "string", "description": "Tool or platform that generated this file" }

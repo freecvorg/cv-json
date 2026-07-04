@@ -30,7 +30,7 @@ The response advertises its schema in headers:
 ```http
 HTTP/1.1 200 OK
 Content-Type: application/json; charset=utf-8
-X-CV-Version: 1.2.1
+X-CV-Version: 1.2.2
 Link: <https://cvjson.com/schema/v1.json>; rel="describedby"
 Access-Control-Allow-Origin: *
 Cache-Control: public, max-age=300
@@ -54,8 +54,8 @@ Only `basics` and `meta` are required. Everything else is optional and consumers
 | Section | Type | Purpose |
 |---|---|---|
 | `basics` | object | Name, label, image, summary, location, contact, social profiles |
-| `work` | array | Roles: company, position, dates, summary, highlights |
-| `education` | array | Institution, degree, area, dates, score, summary, highlights |
+| `work` | array | Roles: company, position, dates, summary, highlights, per-role `url` |
+| `education` | array | Institution, degree, area, dates, score, summary, highlights, `url` |
 | `projects` | array | Name, role, description, URL, keywords, highlights |
 | `skills` | array of strings | Flat list of skill names |
 | `languages` | array | Language + fluency level |
@@ -72,6 +72,7 @@ Only `basics` and `meta` are required. Everything else is optional and consumers
 | `i18n` | object | Primary language + map of translated cv.json URLs |
 | `meta` | object | `version`, `canonical`, `lastModified`, `generator` |
 | `x-customSections` | array | **Vendor extension (v1.2.1).** User-defined sections with no standard home — e.g. "Speaking", "Patents". Shaped `[{ name, items: [{ name, summary?, highlights?, date?, endDate?, url? }] }]`. Standard-named sections fold into their canonical arrays instead; consumers ignore unknown `x-` fields. |
+| `x-personal` | object | **Vendor extension (v1.2.2).** Opt-in regional personal fields: `dateOfBirth`, `gender`, `nationality`, `placeOfBirth`, `maritalStatus`. Expected in much of Europe / MENA / Asia, discouraged in the US/UK/CA/AU. Sensitive PII — publishers SHOULD gate these on public endpoints behind the user's consent; consumers ignore unknown `x-` fields. |
 
 Date fields accept `YYYY`, `YYYY-MM`, or `YYYY-MM-DD`. The full schema is at [`schema/v1.json`](./schema/v1.json).
 
@@ -122,7 +123,7 @@ Or paste it into [freecv.org/validate](https://freecv.org/validate).
 
 ```
 Content-Type: application/json; charset=utf-8
-X-CV-Version: 1.2.1
+X-CV-Version: 1.2.2
 Link: <https://cvjson.com/schema/v1.json>; rel="describedby"
 Access-Control-Allow-Origin: *
 Cache-Control: public, max-age=300
@@ -157,7 +158,7 @@ Cache-Control: public, max-age=300
     "endDate": "2022"
   }],
   "meta": {
-    "version": "1.2.1",
+    "version": "1.2.2",
     "canonical": "https://example.com/cv.json",
     "lastModified": "2026-06-01",
     "generator": "hand-written"
@@ -187,7 +188,7 @@ This is the same pattern RSS used. Crawlers and agents can find a person's CV fr
 ```json
 {
   "standard": "cv.json",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "schema": "https://cvjson.com/schema/v1.json",
   "endpointPattern": "https://example.com/{slug}/cv.json",
   "discovery": {
@@ -210,7 +211,7 @@ If you publish or consume cv.json, add yourself here via PR.
 
 | Platform | Endpoint pattern | Notes |
 |---|---|---|
-| [FreeCV](https://freecv.org) | `https://livelink.cv/{slug}/cv.json` | The FreeCV builder publishes every portfolio here. Free, production, schema v1.2.1 |
+| [FreeCV](https://freecv.org) | `https://livelink.cv/{slug}/cv.json` | The FreeCV builder publishes every portfolio here. Free, production, schema v1.2.2 |
 | _your tool here_ | | |
 
 ### Consumers
@@ -232,7 +233,7 @@ cv.json follows **semver at the schema level**.
 |---|---|---|
 | `v1.0` | Stable (frozen) | Original release. Documents remain valid forever. |
 | `v1.1` | Stable | Date validation, `publications`, `awards`, `interests`, `projects.role/highlights`, `education.summary`, `volunteer.summary`, employment types, `ats` clarified. |
-| `v1.2` | **Current stable** (latest patch `v1.2.1`) | `references`, `referencesMode`. **v1.2.1:** documents `x-customSections` + root `additionalProperties`. |
+| `v1.2` | **Current stable** (latest patch `v1.2.2`) | `references`, `referencesMode`. **v1.2.1:** documents `x-customSections` + root `additionalProperties`. **v1.2.2:** `work[].url`, `education[].url`, `x-personal`. |
 | `v1.3-preview` | Preview | Hiring-side signal block — see [stability tiers](#v13-stability-tiers) below. Schema published as [`schema/v1.3-preview.json`](./schema/v1.3-preview.json). |
 | `v2.0` | Future | Reserved for breaking changes. No timeline. |
 
@@ -266,7 +267,7 @@ If you're publishing a CV by hand, fill in Tier 1 fields where they apply, skip 
 
 ```
 schema/
-  v1.json                  JSON Schema (Draft 2020-12) for stable v1.x (v1.0–v1.2.1)
+  v1.json                  JSON Schema (Draft 2020-12) for stable v1.x (v1.0–v1.2.2)
   v1.3-preview.json        JSON Schema for the v1.3 preview, additive over v1.json
 examples/
   minimal.json             Smallest valid document — basics + meta only
